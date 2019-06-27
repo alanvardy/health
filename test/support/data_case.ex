@@ -1,3 +1,4 @@
+# credo:disable-for-this-file
 defmodule Health.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
