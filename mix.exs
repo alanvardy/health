@@ -14,7 +14,7 @@ defmodule Health.MixProject do
     ]
   end
 
-  # Configuration for the OTP application.
+  # Configuration for ther OTP application.
   #
   # Type `mix help compile.app` for more information.
   def application do
