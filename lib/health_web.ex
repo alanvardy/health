@@ -24,6 +24,7 @@ defmodule HealthWeb do
       import Plug.Conn
       import HealthWeb.Gettext
       alias HealthWeb.Router.Helpers, as: Routes
+      plug BetterParams
     end
   end
 
