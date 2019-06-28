@@ -2,29 +2,31 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Health · Phoenix Framework</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <meta name="robots" content="index, follow"/>
+
+    <title>Health - A Phoenix app for keeping us above ground a little longer</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   <body>
-    <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-          </ul>
-        </nav>
-        <a href="http://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
-        </a>
-      </section>
-    </header>
-    <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <%= render @view_module, @view_template, assigns %>
-    </main>
+    <%= render "_impersonate.html", conn: @conn %>
+    <%= render "_staging.html", conn: @conn %>
+    <%= render "_navbar.html", conn: @conn %>
+
+    <div id="content-wrap">
+      <div class="container">
+        <%= render "_alert.html", conn: @conn %>
+
+        <div id="main">
+          <%= render @view_module, @view_template, assigns %>
+        </div>
+      </div>
+    </div>
+
+    <div id="footer-wrap">
+      <%= render "_footer.html", conn: @conn %>
+    </div>
+
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
