@@ -2,6 +2,10 @@ defmodule HealthWeb.PageController do
   use HealthWeb, :controller
 
   def index(conn, _params) do
-    render(conn, "index.html")
+    conn
+    |> put_flash(:danger, "oh no my friend")
+    |> put_flash(:success, "woot my friend")
+    |> render("index.html")
+
   end
 end
