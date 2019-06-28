@@ -21,6 +21,7 @@ defmodule HealthWeb.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
       alias HealthWeb.Router.Helpers, as: Routes
+      import Health.Factory
 
       # The default endpoint for testing
       @endpoint HealthWeb.Endpoint
