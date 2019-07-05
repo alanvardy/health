@@ -44,6 +44,7 @@ defmodule Health.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:better_params, "~> 0.5.0"},
+      {:pow, "~> 1.0.11"},
       # testing
       {:ex_machina, "~> 2.3", only: :test},
       # tooling

@@ -11,7 +11,7 @@
   <body>
     <%= render "_impersonate.html", conn: @conn %>
     <%= render "_staging.html", conn: @conn %>
-    <%= render "_navbar.html", conn: @conn %>
+    <%= render "_navbar.html", conn: @conn, current_user: @current_user %>
 
     <div id="content-wrap">
       <div class="container">
