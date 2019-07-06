@@ -1,0 +1,28 @@
+<h1>Listing Log</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Weight</th>
+      <th>Date</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for log <- @log do %>
+    <tr>
+      <td><%= log.weight %></td>
+      <td><%= log.date %></td>
+
+      <td>
+        <%= link "Show", to: Routes.log_path(@conn, :show, log) %>
+        <%= link "Edit", to: Routes.log_path(@conn, :edit, log) %>
+        <%= link "Delete", to: Routes.log_path(@conn, :delete, log), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Log", to: Routes.log_path(@conn, :new) %></span>

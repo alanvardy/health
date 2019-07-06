@@ -22,18 +22,19 @@ defmodule HealthWeb.Router do
     plug :accepts, ["json"]
   end
 
+  # Unprotected routes
   scope "/" do
     pipe_through :browser
-    # Unprotected routes
 
     get "/", HealthWeb.PageController, :index
     pow_routes()
   end
 
+  # Protected routes
   scope "/", HealthWeb do
     pipe_through [:browser, :protected]
-    # Add your protected routes here
     get "/protected", PageController, :protected
+    resources "/log", LogController
   end
 
   # Other scopes may use custom stacks.

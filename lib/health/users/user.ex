@@ -4,6 +4,7 @@ defmodule Health.Users.User do
   use Pow.Ecto.Schema
 
   schema "users" do
+    has_many :logs, Health.Stats.Log
     pow_user_fields()
 
     timestamps()
