@@ -1,4 +1,5 @@
 defmodule Health.Stats.Log do
+  @moduledoc "Stats log for a user"
   use Ecto.Schema
   import Ecto.Changeset
 

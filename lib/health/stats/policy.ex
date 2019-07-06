@@ -1,8 +1,8 @@
 defmodule Health.Stats.Policy do
-  @moduledoc false
-  
-  alias Health.Users.User
+  @moduledoc "Permissions for all stats related items"
+
   alias Health.Stats.Log
+  alias Health.Users.User
   @behaviour Bodyguard.Policy
 
   def get_current_user(conn) do
