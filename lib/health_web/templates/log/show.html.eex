@@ -1,0 +1,23 @@
+<h1>Show Log</h1>
+
+<ul>
+
+  <li>
+    <strong>Weight:</strong>
+    <%= @log.weight %>
+  </li>
+
+  <li>
+    <strong>Date:</strong>
+    <%= @log.date %>
+  </li>
+
+  <li>
+    <strong>User:</strong>
+    <%= @log.user_id %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.log_path(@conn, :edit, @log) %></span>
+<span><%= link "Back", to: Routes.log_path(@conn, :index) %></span>

@@ -1,5 +1,6 @@
 %{
   "better_params": {:hex, :better_params, "0.5.0", "fc20b88a809cf34548392a2436b5974814b0f0abdd52ed4598db8ba21767d94f", [:mix], [{:plug, ">= 1.0.0", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
+  "bodyguard": {:hex, :bodyguard, "2.2.3", "489bd7557870b649cdc478b99e29ba02892b9c618ed927ef6db85ab5dc0fd4c8", [:mix], [{:plug, "~> 1.0", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
   "bunt": {:hex, :bunt, "0.2.0", "951c6e801e8b1d2cbe58ebbd3e616a869061ddadcc4863d0a2182541acae9a38", [:mix], [], "hexpm"},
   "connection": {:hex, :connection, "1.0.4", "a1cae72211f0eef17705aaededacac3eb30e6625b04a6117c1b2db6ace7d5976", [:mix], [], "hexpm"},
   "cowboy": {:hex, :cowboy, "2.6.3", "99aa50e94e685557cad82e704457336a453d4abcb77839ad22dbe71f311fcc06", [:rebar3], [{:cowlib, "~> 2.7.3", [hex: :cowlib, repo: "hexpm", optional: false]}, {:ranch, "~> 1.7.1", [hex: :ranch, repo: "hexpm", optional: false]}], "hexpm"},

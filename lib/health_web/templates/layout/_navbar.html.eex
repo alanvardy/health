@@ -10,11 +10,7 @@
   <div class="collapse navbar-collapse" id="navContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/blog">Blog</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="/about">About</a>
+        <%= link "Log", to: Routes.log_path(@conn, :index), class: "nav-link" %>
       </li>
     </ul>
 
