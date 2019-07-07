@@ -17,6 +17,12 @@ config :health, HealthWeb.Endpoint,
   render_errors: [view: HealthWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Health.PubSub, adapter: Phoenix.PubSub.PG2]
 
+# Configure POW
+config :health, :pow,
+  user: Health.Users.User,
+  repo: Health.Repo,
+  web_module: HealthWeb
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

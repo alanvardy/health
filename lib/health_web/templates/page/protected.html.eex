@@ -1,0 +1,7 @@
+<h1>Health</h1>
+
+<p>Welcome to Phoenix!</p>
+
+<p>NOT ALLOWED</p>
+
+<%= @current_user.email %>

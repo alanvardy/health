@@ -42,5 +42,7 @@ defmodule HealthWeb.Endpoint do
     key: "_health_key",
     signing_salt: "68zJQsSD"
 
+  plug Pow.Plug.Session, otp_app: :health
+
   plug HealthWeb.Router
 end
