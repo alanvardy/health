@@ -6,3 +6,4 @@ defmodule HealthWeb.FallbackController do
     |> put_status(:forbidden)
     |> render(HealthWeb.ErrorView, :"403")
   end
+end

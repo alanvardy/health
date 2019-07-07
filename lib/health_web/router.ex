@@ -7,6 +7,7 @@ defmodule HealthWeb.Router do
   pipeline :protected do
     plug Pow.Plug.RequireAuthenticated,
       error_handler: Pow.Phoenix.PlugErrorHandler
+      plug Plugs.CurrentUser
     end
 
     pipeline :browser do
@@ -15,7 +16,6 @@ defmodule HealthWeb.Router do
       plug :fetch_flash
       plug :protect_from_forgery
       plug :put_secure_browser_headers
-      plug Plugs.CurrentUser
   end
 
   pipeline :api do
