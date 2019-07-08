@@ -14,10 +14,13 @@ defmodule Health.Stats.Policy do
       when action in [:show, :edit, :update, :delete],
       do: true
 
-  # Index will only show that user's logs, and can create new ones
-  def authorize(action, %User{}, _)
-      when action in [:index, :new],
+  # Can create new logs
+  def authorize(action, %User{}, %Log{})
+      when action in [:new, :create],
       do: true
+
+  # Can see their index
+  def authorize(:index, %User{}, Log), do: true
 
   # Catch-all: deny everything else
   def authorize(_, _, _), do: false

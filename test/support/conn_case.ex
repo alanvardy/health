@@ -22,6 +22,7 @@ defmodule HealthWeb.ConnCase do
       use Phoenix.ConnTest
       alias HealthWeb.Router.Helpers, as: Routes
       import Health.Factory
+      import Health.Helpers
 
       # The default endpoint for testing
       @endpoint HealthWeb.Endpoint

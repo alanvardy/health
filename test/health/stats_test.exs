@@ -6,10 +6,6 @@ defmodule Health.StatsTest do
   describe "log" do
     alias Health.Stats.Log
 
-    @valid_attrs %{date: "2010-04-17T14:00:00Z", weight: 42, user_id: 1}
-    @update_attrs %{date: "2011-05-18T15:01:01Z", weight: 43, user_id: 2}
-    @invalid_attrs %{date: nil, weight: nil, user_id: nil}
-
   #   def log_fixture(attrs \\ %{}) do
   #     {:ok, log} =
   #       attrs

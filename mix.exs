@@ -8,6 +8,8 @@ defmodule Health.MixProject do
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -20,7 +22,7 @@ defmodule Health.MixProject do
   def application do
     [
       mod: {Health.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:timex, :logger, :runtime_tools]
     ]
   end
 
@@ -44,11 +46,13 @@ defmodule Health.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:better_params, "~> 0.5.0"},
+      {:timex, "~> 3.0"},
       # Auth
       {:pow, "~> 1.0.11"},
       {:bodyguard, "~> 2.2"},
       # Testing
       {:ex_machina, "~> 2.3", only: :test},
+      {:excoveralls, "~> 0.10", only: :test},
       # Tooling
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false}
     ]
