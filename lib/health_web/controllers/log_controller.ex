@@ -5,37 +5,40 @@ defmodule HealthWeb.LogController do
 
   action_fallback HealthWeb.FallbackController
 
-  plug Bodyguard.Plug.Authorize,
-       [
-         policy: Stats,
-         action: &__MODULE__.get_current_action/1,
-         user: &__MODULE__.get_current_user/1
-       ]
-       when action in [:index, :new, :create]
-
   def index(conn, _params) do
     user = get_current_user(conn)
     log = Stats.list_log(user)
-    render(conn, "index.html", log: log)
+
+    with :ok <- Bodyguard.permit(Stats, :index, user, Log) do
+      render(conn, "index.html", log: log)
+    end
   end
 
   def new(conn, _params) do
-    changeset = Stats.change_log(%Log{})
-    render(conn, "new.html", changeset: changeset)
+    user = get_current_user(conn)
+    log = %Log{}
+
+    with :ok <- Bodyguard.permit(Stats, :new, user, log) do
+      changeset = Stats.change_log(log)
+      render(conn, "new.html", changeset: changeset)
+    end
   end
 
   def create(conn, %{log: log_params}) do
-    current_user = conn.assigns[:current_user]
-    log_params = Map.put(log_params, :user_id, current_user.id)
+    user = get_current_user(conn)
+    log = %Log{}
+    log_params = Map.put(log_params, :user_id, user.id)
 
-    case Stats.create_log(log_params) do
-      {:ok, log} ->
-        conn
-        |> put_flash(:info, "Log created successfully.")
-        |> redirect(to: Routes.log_path(conn, :show, log))
+    with :ok <- Bodyguard.permit(Stats, :new, user, log) do
+      case Stats.create_log(log_params) do
+        {:ok, log} ->
+          conn
+          |> put_flash(:info, "Log created successfully.")
+          |> redirect(to: Routes.log_path(conn, :show, log))
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        {:error, %Ecto.Changeset{} = changeset} ->
+          render(conn, "new.html", changeset: changeset)
+      end
     end
   end
 

@@ -1,0 +1,17 @@
+{
+  "coverage_options": {
+    "minimum_coverage": 86
+  },
+  "skip_files": [
+    "error_helpers.ex",
+    "channel_case.ex",
+    "conn_case.ex",
+    "helpers.ex",
+    "endpoint.ex",
+    "application.ex",
+    "repo.ex",
+    "data_case.ex",
+    "health.ex",
+    "health_web.ex"
+  ]
+}
