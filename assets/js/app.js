@@ -3,7 +3,9 @@
 // its own CSS file.
 import css from "../css/app.scss"
 
+// $('.datepicker').hide();
 import "bootstrap";
+import 'bootstrap-datepicker';
 
 import $ from "jquery";
 window.jQuery = $;
@@ -21,3 +23,7 @@ import "phoenix_html"
 //
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
+
+
+import initializeDatepickers from "./datepicker"
+initializeDatepickers()
