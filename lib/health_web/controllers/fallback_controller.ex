@@ -4,6 +4,7 @@ defmodule HealthWeb.FallbackController do
   def call(conn, {:error, :unauthorized}) do
     conn
     |> put_status(:forbidden)
-    |> render(HealthWeb.ErrorView, :"403")
+    |> put_view(HealthWeb.ErrorView)
+    |> render(:"403")
   end
 end

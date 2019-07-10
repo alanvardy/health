@@ -7,7 +7,7 @@ defmodule HealthWeb.LogControllerTest do
   describe "index" do
     test "doesn't list logs when not logged in", %{conn: conn} do
       conn = get(conn, Routes.log_path(conn, :index))
-      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/log")
+      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/logs")
     end
 
     test "lists logs when logged in", %{conn: conn} do
@@ -26,7 +26,7 @@ defmodule HealthWeb.LogControllerTest do
   describe "new log" do
     test "doesn't render form when not logged in", %{conn: conn} do
       conn = get(conn, Routes.log_path(conn, :new))
-      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/log/new")
+      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/logs/new")
     end
 
     test "renders form when logged in", %{conn: conn} do
@@ -45,7 +45,7 @@ defmodule HealthWeb.LogControllerTest do
     test "doesn't create when not logged in", %{conn: conn} do
       conn = post(conn, Routes.log_path(conn, :create), log: params_for(:log))
 
-      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/log")
+      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/logs")
     end
 
     test "redirects to show when data is valid and logged in", %{conn: conn} do
@@ -78,7 +78,7 @@ defmodule HealthWeb.LogControllerTest do
       conn = get(conn, Routes.log_path(conn, :show, log))
 
       assert redirected_to(conn) ==
-               Routes.pow_session_path(conn, :new, request_path: "/log/#{log.id}")
+               Routes.pow_session_path(conn, :new, request_path: "/logs/#{log.id}")
     end
 
     test "can access show when log belongs to user", %{conn: conn} do
@@ -113,7 +113,7 @@ defmodule HealthWeb.LogControllerTest do
       conn = get(conn, Routes.log_path(conn, :edit, log))
 
       assert redirected_to(conn) ==
-               Routes.pow_session_path(conn, :new, request_path: "/log/#{log.id}/edit")
+               Routes.pow_session_path(conn, :new, request_path: "/logs/#{log.id}/edit")
     end
 
     test "renders form for editing chosen log when belongs to user", %{conn: conn} do
@@ -148,7 +148,7 @@ defmodule HealthWeb.LogControllerTest do
       conn = put(conn, Routes.log_path(conn, :update, log), log: params_for(:log, weight: 235))
 
       assert redirected_to(conn) ==
-               Routes.pow_session_path(conn, :new, request_path: "/log/#{log.id}")
+               Routes.pow_session_path(conn, :new, request_path: "/logs/#{log.id}")
     end
 
     test "redirects when data is valid and user is logged in", %{conn: conn} do
@@ -195,7 +195,7 @@ defmodule HealthWeb.LogControllerTest do
       conn = delete(conn, Routes.log_path(conn, :delete, log))
 
       assert redirected_to(conn) ==
-               Routes.pow_session_path(conn, :new, request_path: "/log/#{log.id}")
+               Routes.pow_session_path(conn, :new, request_path: "/logs/#{log.id}")
     end
 
     test "deletes chosen log when user is logged in", %{conn: conn} do

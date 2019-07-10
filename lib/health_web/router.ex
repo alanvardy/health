@@ -34,7 +34,7 @@ defmodule HealthWeb.Router do
   scope "/", HealthWeb do
     pipe_through [:browser, :protected]
     get "/protected", PageController, :protected
-    resources "/log", LogController
+    resources "/logs", LogController
   end
 
   # Other scopes may use custom stacks.

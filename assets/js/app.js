@@ -5,6 +5,7 @@ import css from "../css/app.scss"
 
 import "bootstrap";
 
+import 'flatpickr';
 import $ from "jquery";
 window.jQuery = $;
 window.$ = $;
