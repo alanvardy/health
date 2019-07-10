@@ -1,4 +1,4 @@
-<h1>Listing Log</h1>
+<h1>Listing Logs</h1>
 
 <table>
   <thead>
@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-<%= for log <- @log do %>
+<%= for log <- @logs do %>
     <tr>
       <td><%= log.weight %></td>
       <td><%= log.date %></td>

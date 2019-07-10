@@ -7,10 +7,10 @@ defmodule HealthWeb.LogController do
 
   def index(conn, _params) do
     user = get_current_user(conn)
-    log = Stats.list_log(user)
+    logs = Stats.list_logs(user)
 
     with :ok <- Bodyguard.permit(Stats, :index, user, Log) do
-      render(conn, "index.html", log: log)
+      render(conn, "index.html", logs: logs)
     end
   end
 

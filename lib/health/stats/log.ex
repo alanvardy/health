@@ -3,8 +3,8 @@ defmodule Health.Stats.Log do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "log" do
-    field :date, :utc_datetime
+  schema "logs" do
+    field :date, :date
     field :weight, :integer
     belongs_to :user, Health.Users.User
 

@@ -22,7 +22,7 @@ defmodule Health.Stats do
       [%Log{}, ...]
 
   """
-  def list_log(user) do
+  def list_logs(user) do
     Log
     |> where([l], l.user_id == ^user.id)
     |> Repo.all()

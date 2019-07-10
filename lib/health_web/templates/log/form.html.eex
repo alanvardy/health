@@ -7,13 +7,13 @@
 
 <div class="form-group">
   <%= label f, :weight %>
-  <%= number_input f, :weight %>
+  <%= number_input f, :weight, class: "form-control" %>
   <%= error_tag f, :weight %>
 </div>
 
 <div class="form-group">
   <%= label f, :date %>
-  <%= datetime_select f, :date %>
+  <%= date_input f, :date, class: "form-control" %>
   <%= error_tag f, :date %>
 </div>
 
