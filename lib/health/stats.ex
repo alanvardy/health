@@ -10,9 +10,6 @@ defmodule Health.Stats do
 
   defdelegate authorize(action, user, params), to: Health.Stats.Policy
 
-  def get_current_user(conn) do
-    conn.assigns.current_user
-  end
   @doc """
   Returns the list of log.
 
