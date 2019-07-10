@@ -94,8 +94,4 @@ defmodule HealthWeb.LogController do
   def get_current_user(conn) do
     conn.assigns.current_user
   end
-
-  def get_current_action(conn) do
-    conn.private.phoenix_action
-  end
 end
