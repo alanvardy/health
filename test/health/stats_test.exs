@@ -1,62 +1,61 @@
 defmodule Health.StatsTest do
+  @moduledoc false
+
   use Health.DataCase
 
   alias Health.Stats
+  alias Health.Stats.Log
+  import Health.Factory
 
   describe "log" do
-    alias Health.Stats.Log
 
-  #   def log_fixture(attrs \\ %{}) do
-  #     {:ok, log} =
-  #       attrs
-  #       |> Enum.into(@valid_attrs)
-  #       |> Stats.create_log()
+    test "list_log/0 returns all logs" do
+      user = insert(:user)
+      log = insert(:log, user: user)
+      left = remove_user(Stats.list_logs(user))
+      right = [remove_user(log)]
+      assert left == right
+    end
 
-  #     log
-  #   end
+    test "get_log!/1 returns the log with given id" do
+      log = insert(:log)
+      left = remove_user(Stats.get_log!(log.id))
+      right = remove_user(log)
+      assert left == right
+    end
 
-  #   test "list_log/0 returns all log" do
-  #     log = log_fixture()
-  #     assert Stats.list_log() == [log]
-  #   end
+      test "create_log/1 with valid data creates a log" do
+        user = insert(:user)
+        assert {:ok, %Log{} = log} = Stats.create_log(params_for(:log, user: user))
+        assert log.date == Timex.today
+        assert log.weight == 230
+      end
 
-  #   test "get_log!/1 returns the log with given id" do
-  #     log = log_fixture()
-  #     assert Stats.get_log!(log.id) == log
-  #   end
+      test "create_log/1 with invalid data returns error changeset" do
+        assert {:error, %Ecto.Changeset{}} = Stats.create_log(params_for(:log, weight: 50))
+      end
 
-  #   test "create_log/1 with valid data creates a log" do
-  #     assert {:ok, %Log{} = log} = Stats.create_log(@valid_attrs)
-  #     assert log.date == DateTime.from_naive!(~N[2010-04-17T14:00:00Z], "Etc/UTC")
-  #     assert log.weight == 42
-  #   end
+      test "update_log/2 with valid data updates the log" do
+        log = insert(:log)
+        assert {:ok, %Log{} = log} = Stats.update_log(log, params_for(:log, weight: 400))
+        assert log.date == Timex.today()
+        assert log.weight == 400
+      end
 
-  #   test "create_log/1 with invalid data returns error changeset" do
-  #     assert {:error, %Ecto.Changeset{}} = Stats.create_log(@invalid_attrs)
-  #   end
+      test "update_log/2 with invalid data returns error changeset" do
+        log = insert(:log)
+        assert {:error, %Ecto.Changeset{}} = Stats.update_log(log, params_for(:log, weight: 1000))
+        # assert log == Stats.get_log!(log.id)
+      end
 
-  #   test "update_log/2 with valid data updates the log" do
-  #     log = log_fixture()
-  #     assert {:ok, %Log{} = log} = Stats.update_log(log, @update_attrs)
-  #     assert log.date == DateTime.from_naive!(~N[2011-05-18T15:01:01Z], "Etc/UTC")
-  #     assert log.weight == 43
-  #   end
+      test "delete_log/1 deletes the log" do
+        log = insert(:log)
+        assert {:ok, %Log{}} = Stats.delete_log(log)
+        assert_raise Ecto.NoResultsError, fn -> Stats.get_log!(log.id) end
+      end
 
-  #   test "update_log/2 with invalid data returns error changeset" do
-  #     log = log_fixture()
-  #     assert {:error, %Ecto.Changeset{}} = Stats.update_log(log, @invalid_attrs)
-  #     assert log == Stats.get_log!(log.id)
-  #   end
-
-  #   test "delete_log/1 deletes the log" do
-  #     log = log_fixture()
-  #     assert {:ok, %Log{}} = Stats.delete_log(log)
-  #     assert_raise Ecto.NoResultsError, fn -> Stats.get_log!(log.id) end
-  #   end
-
-  #   test "change_log/1 returns a log changeset" do
-  #     log = log_fixture()
-  #     assert %Ecto.Changeset{} = Stats.change_log(log)
-  #   end
   end
+
+  defp remove_user([log]), do: [%Log{log | user: nil}]
+  defp remove_user(log), do: %Log{log | user: nil}
 end

@@ -11,6 +11,7 @@
     "application.ex",
     "repo.ex",
     "data_case.ex",
+    "policy.ex",
     "health.ex",
     "health_web.ex"
   ]

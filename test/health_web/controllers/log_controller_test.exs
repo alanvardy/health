@@ -2,8 +2,6 @@ defmodule HealthWeb.LogControllerTest do
   @moduledoc false
   use HealthWeb.ConnCase
 
-  # alias Pow.Ecto.Context, as: Pow
-
   describe "index" do
     test "doesn't list logs when not logged in", %{conn: conn} do
       conn = get(conn, Routes.log_path(conn, :index))

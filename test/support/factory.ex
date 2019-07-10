@@ -17,7 +17,7 @@ defmodule Health.Factory do
 
   def log_factory do
     %Log{
-      date: Timex.now,
+      date: Timex.today(),
       weight: 230,
       user: build(:user)
     }
