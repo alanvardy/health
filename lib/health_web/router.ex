@@ -1,22 +1,40 @@
 defmodule HealthWeb.Router do
   use HealthWeb, :router
+  use Pow.Phoenix.Router
 
-  pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_flash
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
+  alias HealthWeb.Plugs
+
+  pipeline :protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: Pow.Phoenix.PlugErrorHandler
+      plug Plugs.CurrentUser
+    end
+
+    pipeline :browser do
+      plug :accepts, ["html"]
+      plug :fetch_session
+      plug :fetch_flash
+      plug :protect_from_forgery
+      plug :put_secure_browser_headers
   end
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  scope "/", HealthWeb do
+  # Unprotected routes
+  scope "/" do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", HealthWeb.PageController, :index
+    pow_routes()
+  end
+
+  # Protected routes
+  scope "/", HealthWeb do
+    pipe_through [:browser, :protected]
+    get "/protected", PageController, :protected
+    resources "/logs", LogController
   end
 
   # Other scopes may use custom stacks.
