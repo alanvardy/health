@@ -18,9 +18,9 @@ defmodule HealthWeb.Router do
       plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
+  # pipeline :api do
+  #   plug :accepts, ["json"]
+  # end
 
   # Unprotected routes
   scope "/" do
@@ -33,7 +33,6 @@ defmodule HealthWeb.Router do
   # Protected routes
   scope "/", HealthWeb do
     pipe_through [:browser, :protected]
-    get "/protected", PageController, :protected
     resources "/logs", LogController
   end
 

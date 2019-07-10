@@ -16,5 +16,6 @@ defmodule Health.Stats.Log do
     log
     |> cast(attrs, [:weight, :date, :user_id])
     |> validate_required([:weight, :date, :user_id])
+    |> validate_inclusion(:weight, 100..500)
   end
 end
