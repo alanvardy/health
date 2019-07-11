@@ -1,4 +1,5 @@
 defmodule HealthWeb.Pow.Messages do
+  @moduledoc "Flash messages for POW actions"
   use Pow.Phoenix.Messages
   use Pow.Extension.Phoenix.Messages,
     extensions: [PowResetPassword]

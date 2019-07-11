@@ -1,7 +1,7 @@
 defmodule Health.StatsTest do
   @moduledoc false
 
-  use Health.DataCase
+  use Health.DataCase, async: true
 
   alias Health.Stats
   alias Health.Stats.Log
