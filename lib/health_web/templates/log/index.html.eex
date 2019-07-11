@@ -1,28 +1,37 @@
-<h1>Listing Logs</h1>
+<div class="row">
+  <div class="col-lg-6">
+    <% dates = Enum.map(@logs, fn x -> x.date end)%>
+    <% weights = Enum.map(@logs, fn x -> x.weight end)%>
+    <% trend_dates = Enum.map(@trends, fn x -> x.date end)%>
+    <% trend_weights = Enum.map(@trends, fn x -> x.weight end)%>
 
-<table>
-  <thead>
-    <tr>
-      <th>Weight</th>
-      <th>Date</th>
+    <%= PlotlyEx.plot([%{type: "scatter", name: "Actual", x: dates, y: weights}, %{type: "scatter", name: "Trend", x: trend_dates, y: trend_weights}]) |> raw() %>
+  </div>
+  <div class="col-lg-6 table-responsive">
+  <h1>Weight Log</h1>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Weight</th>
+          <th scope="col">Date</th>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for log <- @logs do %>
-    <tr>
-      <td><%= log.weight %></td>
-      <td><%= log.date %></td>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for log <- @logs do %>
+        <tr>
+          <td scope="row"><%= log.weight %> lb</td>
+          <td><%= log.date %></td>
 
-      <td>
-        <%= link "Show", to: Routes.log_path(@conn, :show, log) %>
-        <%= link "Edit", to: Routes.log_path(@conn, :edit, log) %>
-        <%= link "Delete", to: Routes.log_path(@conn, :delete, log), method: :delete, data: [confirm: "Are you sure?"] %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+          <td>
+            <%= link "Show", to: Routes.log_path(@conn, :show, log), class: "sm-secondary-button" %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <span><%= link "New Log", to: Routes.log_path(@conn, :new), class: "primary-button" %></span>
+  </div>
 
-<span><%= link "New Log", to: Routes.log_path(@conn, :new) %></span>
+</div>

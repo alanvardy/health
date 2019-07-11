@@ -26,9 +26,9 @@
 </div>
 
   <div>
-    <%= submit "Register" %>
+    <%= submit "Register", class: "primary-button" %>
   </div>
 <% end %>
 
 
-<span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></span>
+<span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "sm-secondary-button" %></span>
