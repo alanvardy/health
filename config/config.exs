@@ -19,6 +19,7 @@ config :health, HealthWeb.Endpoint,
 
 # Configure POW
 config :health, :pow,
+  messages_backend: HealthWeb.Pow.Messages,
   user: Health.Users.User,
   repo: Health.Repo,
   web_module: HealthWeb,
