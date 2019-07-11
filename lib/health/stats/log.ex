@@ -5,7 +5,7 @@ defmodule Health.Stats.Log do
 
   schema "logs" do
     field :date, :date
-    field :weight, :integer
+    field :weight, :float
     belongs_to :user, Health.Users.User
 
     timestamps()
@@ -16,6 +16,6 @@ defmodule Health.Stats.Log do
     log
     |> cast(attrs, [:weight, :date, :user_id])
     |> validate_required([:weight, :date, :user_id])
-    |> validate_inclusion(:weight, 100..500)
+    |> validate_number(:weight, greater_than: 1, less_than: 500)
   end
 end
