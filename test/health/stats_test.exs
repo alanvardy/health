@@ -1,7 +1,7 @@
 defmodule Health.StatsTest do
   @moduledoc false
 
-  use Health.DataCase
+  use Health.DataCase, async: true
 
   alias Health.Stats
   alias Health.Stats.Log
@@ -20,7 +20,6 @@ defmodule Health.StatsTest do
 
       assert log_dates == trend_dates
     end
-
     test "returns empty list when passed an empty list" do
       assert Stats.build_trends([]) == []
     end

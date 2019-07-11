@@ -1,7 +1,9 @@
 /* This file is for your main application css. */
 
-@import "bootstrap";
+@import 'variables';
+@import 'bootstrap';
 @import '../node_modules/bootstrap/scss/bootstrap';
 
 @import 'components/footer';
 @import 'components/navbar';
+@import 'components/buttons';

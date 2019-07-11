@@ -8,9 +8,10 @@ defmodule HealthWeb.LogController do
   def index(conn, _params) do
     user = get_current_user(conn)
     logs = Stats.list_logs(user)
+    trends = Stats.build_trends(logs)
 
     with :ok <- Bodyguard.permit(Stats, :index, user, Log) do
-      render(conn, "index.html", logs: logs)
+      render(conn, "index.html", logs: logs, trends: trends)
     end
   end
 
@@ -93,9 +94,5 @@ defmodule HealthWeb.LogController do
 
   def get_current_user(conn) do
     conn.assigns.current_user
-  end
-
-  def get_current_action(conn) do
-    conn.private.phoenix_action
   end
 end

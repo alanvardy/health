@@ -19,5 +19,6 @@
 
 </ul>
 
-<span><%= link "Edit", to: Routes.log_path(@conn, :edit, @log) %></span>
-<span><%= link "Back", to: Routes.log_path(@conn, :index) %></span>
+<%= link "Edit", to: Routes.log_path(@conn, :edit, @log), class: "sm-secondary-button" %>
+<%= link "Delete", to: Routes.log_path(@conn, :delete, @log), class: "sm-secondary-button", method: :delete, data: [confirm: "Are you sure?"] %>
+<%= link "Back", to: Routes.log_path(@conn, :index), class: "sm-secondary-button" %>
