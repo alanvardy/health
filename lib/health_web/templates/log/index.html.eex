@@ -1,26 +1,28 @@
-<h1>Listing Logs</h1>
+<h1>Weight Log</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Weight</th>
-      <th>Date</th>
+<div class="table-responsive">
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Weight</th>
+        <th scope="col">Date</th>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for log <- @logs do %>
-    <tr>
-      <td><%= log.weight %></td>
-      <td><%= log.date %></td>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for log <- @logs do %>
+      <tr>
+        <td scope="row"><%= log.weight %></td>
+        <td><%= log.date %></td>
 
-      <td>
+        <td>
           <%= link "Show", to: Routes.log_path(@conn, :show, log), class: "sm-secondary-button" %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-<span><%= link "New Log", to: Routes.log_path(@conn, :new) %></span>
+<span><%= link "New Log", to: Routes.log_path(@conn, :new), class: "primary-button" %></span>

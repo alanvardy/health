@@ -3,36 +3,40 @@
     <img alt="Logo" src="<%= Routes.static_path(@conn, "/images/logo.png") %>">
   </a>
 
-  <button class="navbar-toggler" data-aria-controls="navContent" data-aria-label="Toggle navigation" data-target="#navContent" data-toggle="collapse" type="button">
+  <button class="navbar-toggler" data-aria-controls="navContent" data-aria-label="Toggle navigation"
+    data-target="#navContent" data-toggle="collapse" type="button">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navContent">
     <ul class="navbar-nav mr-auto">
+      <%= if assigns[:current_user] do %>
       <li class="nav-item">
         <%= link "Logs", to: Routes.log_path(@conn, :index), class: "nav-link" %>
       </li>
+      <% end %>
     </ul>
 
     <ul class="navbar-nav">
       <%= if assigns[:current_user] do %>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="user-email"><%= @current_user.email %></span>
-          </a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <span class="user-email"><%= @current_user.email %></span>
+        </a>
 
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown">
-            <a class="dropdown-item" href="/settings">Settings</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/admin">Site Admin</a>
-            <div class="dropdown-divider"></div>
-            <%= link "Sign Out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "dropdown-item" %>
-          </div>
-        </li>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown">
+          <%= link "Settings", to: Routes.pow_registration_path(@conn, :edit), class: "dropdown-item" %>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Site Admin</a>
+          <div class="dropdown-divider"></div>
+          <%= link "Sign Out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "dropdown-item" %>
+        </div>
+      </li>
       <% else %>
-        <li class="nav-item">
-          <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "nav-link" %>
-        </li>
+      <li class="nav-item">
+        <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "nav-link" %>
+      </li>
       <% end %>
     </ul>
   </div>
