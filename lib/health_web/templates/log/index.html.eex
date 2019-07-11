@@ -16,9 +16,7 @@
       <td><%= log.date %></td>
 
       <td>
-        <%= link "Show", to: Routes.log_path(@conn, :show, log) %>
-        <%= link "Edit", to: Routes.log_path(@conn, :edit, log) %>
-        <%= link "Delete", to: Routes.log_path(@conn, :delete, log), method: :delete, data: [confirm: "Are you sure?"] %>
+          <%= link "Show", to: Routes.log_path(@conn, :show, log), class: "sm-secondary-button" %>
       </td>
     </tr>
 <% end %>
