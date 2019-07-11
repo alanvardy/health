@@ -32,7 +32,7 @@
 </div>
 
   <div>
-    <%= submit "Update" %>
+    <%= submit "Update", class: "primary-button" %>
   </div>
 <% end %>
 

@@ -1,6 +1,6 @@
 defmodule HealthWeb.LogControllerTest do
   @moduledoc false
-  use HealthWeb.ConnCase
+  use HealthWeb.ConnCase, async: true
 
   describe "index" do
     test "doesn't list logs when not logged in", %{conn: conn} do
@@ -17,7 +17,7 @@ defmodule HealthWeb.LogControllerTest do
 
       conn = get(conn, Routes.log_path(conn, :index))
 
-      assert html_response(conn, 200) =~ "Listing Log"
+      assert html_response(conn, 200) =~ "Weight Log"
     end
   end
 
