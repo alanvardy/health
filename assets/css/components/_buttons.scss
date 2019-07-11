@@ -1,0 +1,14 @@
+.primary-button {
+  @extend %button;
+  @extend .btn-outline-primary;
+}
+.sm-secondary-button {
+  @extend %button;
+  @extend .btn-sm;
+  @extend .btn-outline-secondary;
+}
+
+%button {
+  @extend .btn;
+  @extend .m-1;
+}

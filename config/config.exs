@@ -22,7 +22,8 @@ config :health, :pow,
   messages_backend: HealthWeb.Pow.Messages,
   user: Health.Users.User,
   repo: Health.Repo,
-  web_module: HealthWeb
+  web_module: HealthWeb,
+  messages_backend: HealthWeb.Pow.Messages
 
 # Configures Elixir's Logger
 config :logger, :console,
