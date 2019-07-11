@@ -1,21 +1,4 @@
-<%= if get_flash(@conn) do %>
-  <div class="row">
-    <div class="col">
-
-      <%= Enum.map(get_flash(@conn), fn {key, message} -> %>
-        <div class="alert alert-dismissible alert-<%= key %> fade show" role="alert">
-          <%= message %>
-          <button class="close" type="button" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true"> &times;</span>
-          </button>
-        </div>
-      <% end) %>
-
-    </div>
-  </div>
-<% end %>
-
-<%= if get_flash(@conn) do %>
+<%= if bootstrap_flash(@conn) do %>
   <div class="row">
     <div class="col">
 
