@@ -4,6 +4,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
     <meta name="robots" content="index, follow"/>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     <title>Health - A Phoenix app for keeping us above ground a little longer</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
