@@ -21,24 +21,6 @@ defmodule HealthWeb.LogControllerTest do
     end
   end
 
-  describe "new log" do
-    test "doesn't render form when not logged in", %{conn: conn} do
-      conn = get(conn, Routes.log_path(conn, :new))
-      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/logs/new")
-    end
-
-    test "renders form when logged in", %{conn: conn} do
-      user = insert(:user)
-
-      conn =
-        conn
-        |> log_in(user)
-        |> get(Routes.log_path(conn, :new))
-
-      assert html_response(conn, 200) =~ "New Log"
-    end
-  end
-
   describe "create log" do
     test "doesn't create when not logged in", %{conn: conn} do
       conn = post(conn, Routes.log_path(conn, :create), log: params_for(:log))
@@ -46,7 +28,7 @@ defmodule HealthWeb.LogControllerTest do
       assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/logs")
     end
 
-    test "redirects to show when data is valid and logged in", %{conn: conn} do
+    test "redirects to index when data is valid and logged in", %{conn: conn} do
       user = insert(:user)
 
       conn =
@@ -55,7 +37,7 @@ defmodule HealthWeb.LogControllerTest do
         |> post(Routes.log_path(conn, :create), log: params_for(:log, user_id: user.id))
 
       assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.log_path(conn, :show, id)
+      assert redirected_to(conn) == Routes.log_path(conn, :index)
     end
 
     test "renders errors when data is invalid and logged in", %{conn: conn} do
@@ -66,42 +48,7 @@ defmodule HealthWeb.LogControllerTest do
         |> log_in(user)
         |> post(Routes.log_path(conn, :create), log: params_for(:log, weight: nil))
 
-      assert html_response(conn, 200) =~ "New Log"
-    end
-  end
-
-  describe "show log" do
-    test "cannot access show when not logged in", %{conn: conn} do
-      log = insert(:log)
-      conn = get(conn, Routes.log_path(conn, :show, log))
-
-      assert redirected_to(conn) ==
-               Routes.pow_session_path(conn, :new, request_path: "/logs/#{log.id}")
-    end
-
-    test "can access show when log belongs to user", %{conn: conn} do
-      user = insert(:user)
-      log = insert(:log, user: user)
-
-      conn =
-        conn
-        |> log_in(user)
-        |> get(Routes.log_path(conn, :show, log))
-
-      assert html_response(conn, 200) =~ "Show Log"
-    end
-
-    test "cannot access show when log belongs to other user", %{conn: conn} do
-      user = insert(:user)
-      user2 = insert(:user, email: "user2@example.com")
-      log = insert(:log, user: user)
-
-      conn =
-        conn
-        |> log_in(user2)
-        |> get(Routes.log_path(conn, :show, log))
-
-      assert response(conn, 403) =~ "Forbidden"
+      assert html_response(conn, 403)
     end
   end
 
@@ -158,7 +105,7 @@ defmodule HealthWeb.LogControllerTest do
         |> log_in(user)
         |> put(Routes.log_path(conn, :update, log), log: params_for(:log, weight: 200))
 
-      assert redirected_to(conn) == Routes.log_path(conn, :show, log)
+      assert redirected_to(conn) == Routes.log_path(conn, :index)
     end
 
     test "rejects when data is valid and a different user is logged in", %{conn: conn} do
