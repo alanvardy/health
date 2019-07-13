@@ -8,7 +8,7 @@ defmodule Health.Stats.Graph do
     EEx.eval_string(template(), data: json_data, layout: json_layout, id: unique_id)
   end
 
-  @spec template :: <<_::1280>>
+  @spec template :: String.t()
   def template do
     """
     <div class="plotly-ex">

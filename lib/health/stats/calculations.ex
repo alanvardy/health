@@ -2,6 +2,7 @@ defmodule Health.Stats.Calculations do
   @moduledoc "For interpretting statistics"
   alias Health.Stats.Log
 
+  @spec weight_trend([Log.t()], float() | nil, list(map())) :: list(map())
   def weight_trend(logs, previous_weight \\ nil, agg \\ [])
   def weight_trend([], _previous_weight, agg), do: Enum.reverse(agg)
 

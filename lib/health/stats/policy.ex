@@ -6,6 +6,7 @@ defmodule Health.Stats.Policy do
   @behaviour Bodyguard.Policy
 
   # Users can access their own logs
+  @spec authorize(any, any, any) :: boolean
   def authorize(action, %User{id: user_id}, %Log{user_id: user_id})
       when action in [:edit, :update, :delete],
       do: true

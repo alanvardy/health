@@ -1,0 +1,21 @@
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Weight</th>
+      <th scope="col">Date</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for log <- @logs do %>
+    <tr>
+      <td scope="row"><%= log.weight %> lb</td>
+      <td><%= log.date %></td>
+      <td>
+        <%= link "Edit", to: Routes.log_path(@conn, :edit, log), class: "sm-primary-button" %>
+        <%= link "Delete", to: Routes.log_path(@conn, :delete, log), class: "sm-primary-button", method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

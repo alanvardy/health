@@ -1,0 +1,20 @@
+<%= form_for @changeset, @action, fn f -> %>
+<%= if @changeset.action do %>
+<div class="alert alert-danger">
+  <p>Oops, something went wrong! Please check the errors below.</p>
+</div>
+<% end %>
+<div class="form-inline">
+  <div class="input-group">
+    <%= number_input f, :weight, step: 0.1, class: "form-control", placeholder: "Weight" %>
+    <%= error_tag f, :weight %>
+  </div>
+  <div class="input-group">
+    <%= date_input f, :date, class: "form-control", placeholder: "Date" %>
+    <%= error_tag f, :date %>
+    <div class="input-group-append">
+      <%= submit "Create", class: "btn btn-outline-primary" %>
+    </div>
+  </div>
+</div>
+<% end %>
