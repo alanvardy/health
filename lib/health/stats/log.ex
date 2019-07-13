@@ -12,6 +12,7 @@ defmodule Health.Stats.Log do
   end
 
   @doc false
+  @spec changeset(struct(), map()) :: %Ecto.Changeset{}
   def changeset(log, attrs) do
     log
     |> cast(attrs, [:weight, :date, :user_id])

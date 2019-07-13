@@ -2,6 +2,7 @@ defmodule HealthWeb.LayoutView do
   use HealthWeb, :view
 
   # Change alert-error to alert-danger
+  @spec bootstrap_flash(%{private: map}) :: map()
   def bootstrap_flash(conn) do
     conn
     |> get_flash
