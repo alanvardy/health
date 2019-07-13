@@ -41,10 +41,11 @@ defmodule HealthWeb.LogController do
             user = get_current_user(conn)
             logs = Stats.list_logs(user)
             trends = Calculations.adjusted_weights(logs)
+            estimate = Calculations.estimate_trend(trends)
 
             conn
             |> put_flash(:error, "Your log could not be created")
-            |> render("index.html", changeset: changeset, logs: logs, trends: trends)
+            |> render("index.html", changeset: changeset, logs: logs, trends: trends, estimate: estimate)
           end
       end
     end

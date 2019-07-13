@@ -38,7 +38,6 @@ defmodule Health.Stats.Calculations do
     |> Enum.reduce(0, fn w, acc -> w.change + acc end)
     |> divide(adjusted_weights)
     |> Kernel.*(7)
-    |> Float.round(1)
     |> interpret_trend()
   end
 
@@ -50,7 +49,13 @@ defmodule Health.Stats.Calculations do
     end
   end
 
-  defp interpret_trend(change) when change > 0, do: %{change: abs(change), text: @gaining}
-  defp interpret_trend(change) when change < 0, do: %{change: abs(change), text: @losing}
+  defp interpret_trend(change) when change > 0, do: %{change: normalise(change), text: @gaining}
+  defp interpret_trend(change) when change < 0, do: %{change: normalise(change), text: @losing}
   defp interpret_trend(change) when change == 0, do: %{change: 0, text: @maintaining}
+
+  defp normalise(number) do
+    number
+    |> abs()
+    |> Float.round(1)
+  end
 end
