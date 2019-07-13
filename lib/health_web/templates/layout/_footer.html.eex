@@ -1,33 +1,19 @@
 <div id="footer" class="container">
   <div class="row">
-    <div class="col-3">
-      <h4>Links</h4>
+    <div class="col text-center">
       <ul>
-        <li><a href='/blog'>Blog</a></li>
-        <li><a href='/about'>About</a></li>
-        <li><a href='/contact'>Contact</a></li>
+        <li><a href='https://github.com/alanvardy/health'>GitHub</a></li>
       </ul>
     </div>
 
-    <div class="col-6">
-      <h4>About</h4>
-      <p>A Phoenix app for keeping us above ground a little longer.</p>
-    </div>
-
-    <div class="col-3">
-      <h4>Contact</h4>
-      <ul>
-        <li><a href='https://github.com/alanvardy/health'>Github</a></li>
-        <li><a href='mailto:alan@alanvardy.com'>Email</a></li>
-        <li><a href='https://yegrb.com/'>YEG RB</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="row">
     <div class="col text-center">
       <p>Copyright &copy; <%= DateTime.utc_now.year %></p>
     </div>
+
+    <div class="col text-center">
+      <ul>
+        <li><a href='mailto:alan@alanvardy.com'>Contact</a></li>
+      </ul>
+    </div>
   </div>
 </div>
-

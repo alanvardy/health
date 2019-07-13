@@ -1,35 +1,14 @@
-<div class="row">
-  <div class="col-lg-6">
-    <%= if @logs == [] do %>
-    Nothing to display
-    <% else %>
-    <%= render "graph.html", logs: @logs, trends: @trends %>
-    <% end %>
+<div class="cont">
+  <h1>Weight Log</h1>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= render "graph.html", logs: @logs, trends: @trends %>
+    </div>
+    <div class="col-lg-6 table-responsive">
+      <%= render "logs.html", logs: @logs, conn: @conn %>
+    </div>
+    <div class="mx-auto">
+      <%= render "inline-form.html", Map.put(assigns, :action, Routes.log_path(@conn, :create)) %>
+    </div>
   </div>
-  <div class="col-lg-6 table-responsive">
-    <h1>Weight Log</h1>
-    <table class="table">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">Weight</th>
-          <th scope="col">Date</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= for log <- @logs do %>
-        <tr>
-          <td scope="row"><%= log.weight %> lb</td>
-          <td><%= log.date %></td>
-          <td>
-            <%= link "Edit", to: Routes.log_path(@conn, :edit, log), class: "sm-secondary-button" %>
-            <%= link "Delete", to: Routes.log_path(@conn, :delete, log), class: "sm-secondary-button", method: :delete, data: [confirm: "Are you sure?"] %>
-          </td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <%= render "form.html", Map.put(assigns, :action, Routes.log_path(@conn, :create)) %>
-  </div>
-
 </div>
