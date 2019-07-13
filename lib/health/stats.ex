@@ -6,27 +6,9 @@ defmodule Health.Stats do
   import Ecto.Query, warn: false
   alias Health.Repo
 
-  alias Health.Stats.Log
+  alias Health.Stats.{Calculations, Log, Policy}
 
-  defdelegate authorize(action, user, params), to: Health.Stats.Policy
-
-  def build_trends(logs, previous_weight \\ nil, agg \\ [])
-  def build_trends([], _previous_weight, agg), do: Enum.reverse(agg)
-
-  def build_trends([%Log{date: date, weight: weight} | tail], nil, agg) do
-    build_trends(tail, weight, [%{weight: weight, date: date} | agg])
-  end
-
-  def build_trends([%Log{date: date, weight: weight} | tail], previous_weight, agg) do
-    new_weight =
-      weight
-      |> Kernel.-(previous_weight)
-      |> Kernel.*(0.10)
-      |> Kernel.+(previous_weight)
-      |> Float.round(1)
-
-    build_trends(tail, new_weight, [%{weight: new_weight, date: date} | agg])
-  end
+  defdelegate authorize(action, user, params), to: Policy
 
   @doc """
   Returns the list of log.
@@ -40,6 +22,8 @@ defmodule Health.Stats do
   def list_logs(user) do
     Log
     |> where([l], l.user_id == ^user.id)
+    |> order_by([l], asc: l.date)
+    |> limit(14)
     |> Repo.all()
   end
 
