@@ -14,10 +14,11 @@ defmodule HealthWeb.LogController do
     logs = Stats.list_logs(user)
     log = %Log{}
     changeset = Stats.change_log(log)
-    trends = Calculations.weight_trend(logs)
+    trends = Calculations.adjusted_weights(logs)
+    estimate = Calculations.estimate_trend(trends)
 
     with :ok <- Bodyguard.permit(Stats, :index, user, Log) do
-      render(conn, "index.html", logs: logs, trends: trends, changeset: changeset)
+      render(conn, "index.html", logs: logs, trends: trends, changeset: changeset, estimate: estimate)
     end
   end
 
@@ -39,7 +40,8 @@ defmodule HealthWeb.LogController do
           with :ok <- Bodyguard.permit(Stats, :index, user, Log) do
             user = get_current_user(conn)
             logs = Stats.list_logs(user)
-            trends = Calculations.weight_trend(logs)
+            trends = Calculations.adjusted_weights(logs)
+
             conn
             |> put_flash(:error, "Your log could not be created")
             |> render("index.html", changeset: changeset, logs: logs, trends: trends)
