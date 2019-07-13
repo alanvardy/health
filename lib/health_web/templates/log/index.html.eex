@@ -13,7 +13,6 @@
         <tr>
           <th scope="col">Weight</th>
           <th scope="col">Date</th>
-
           <th></th>
         </tr>
       </thead>
@@ -22,15 +21,15 @@
         <tr>
           <td scope="row"><%= log.weight %> lb</td>
           <td><%= log.date %></td>
-
           <td>
-            <%= link "Show", to: Routes.log_path(@conn, :show, log), class: "sm-secondary-button" %>
+            <%= link "Edit", to: Routes.log_path(@conn, :edit, log), class: "sm-secondary-button" %>
+            <%= link "Delete", to: Routes.log_path(@conn, :delete, log), class: "sm-secondary-button", method: :delete, data: [confirm: "Are you sure?"] %>
           </td>
         </tr>
         <% end %>
       </tbody>
     </table>
-    <span><%= link "New Log", to: Routes.log_path(@conn, :new), class: "primary-button" %></span>
+    <%= render "form.html", Map.put(assigns, :action, Routes.log_path(@conn, :create)) %>
   </div>
 
 </div>

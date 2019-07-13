@@ -3,11 +3,15 @@ defmodule HealthWeb.LayoutView do
 
   # Change alert-error to alert-danger
   def bootstrap_flash(conn) do
-    Enum.map(get_flash(conn), fn {key, message} ->
-      case key do
-        "error" -> {"danger", message}
-        _ -> {key, message}
-      end
-    end)
+    conn
+    |> get_flash
+    |> Enum.map(&bootstrap_flash_convert/1)
+  end
+
+  defp bootstrap_flash_convert(thing) do
+    case thing do
+      {"error", message} -> {"danger", message}
+      _ -> thing
+    end
   end
 end

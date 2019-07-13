@@ -1,23 +1,28 @@
 <%= form_for @changeset, @action, fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+<%= if @changeset.action do %>
+<div class="alert alert-danger">
+  <p>Oops, something went wrong! Please check the errors below.</p>
+</div>
+<% end %>
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <%= label f, :weight %>
+      <%= number_input f, :weight, step: 0.1, class: "form-control" %>
+      <%= error_tag f, :weight %>
     </div>
-  <% end %>
-
-<div class="form-group">
-  <%= label f, :weight %>
-  <%= number_input f, :weight, step: 0.1, class: "form-control" %>
-  <%= error_tag f, :weight %>
-</div>
-
-<div class="form-group">
-  <%= label f, :date %>
-  <%= date_input f, :date, class: "form-control" %>
-  <%= error_tag f, :date %>
-</div>
-
-  <div>
-    <%= submit "Save" %>
   </div>
+  <div class="col">
+    <div class="form-group">
+      <%= label f, :date %>
+      <%= date_input f, :date, class: "form-control" %>
+      <%= error_tag f, :date %>
+    </div>
+  </div>
+</div>
+
+
+<div>
+  <%= submit "Create", class: "primary-button" %>
+</div>
 <% end %>

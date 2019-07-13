@@ -11,11 +11,12 @@ defmodule Health.Users.User do
   end
 
   # Any pow password works in development mode
+  # coveralls-ignore-start
   def verify_password(user, password) do
-    if Mix.env() == :dev do
-      true
-    else
-      pow_verify_password(user, password)
+    case Mix.env() do
+      :dev -> true
+      _ -> pow_verify_password(user, password)
     end
   end
+  # coveralls-ignore-stop
 end

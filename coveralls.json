@@ -14,6 +14,6 @@
     "policy.ex",
     "health.ex",
     "health_web.ex",
-    "lib/health_web/templates/pow/messages.ex"
+    "lib/health_web/pow/messages.ex"
   ]
 }
