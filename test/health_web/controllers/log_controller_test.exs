@@ -10,6 +10,7 @@ defmodule HealthWeb.LogControllerTest do
 
     test "lists logs when logged in", %{conn: conn} do
       user = insert(:user)
+      insert(:log, user: user)
 
       conn =
         conn
@@ -36,7 +37,6 @@ defmodule HealthWeb.LogControllerTest do
         |> log_in(user)
         |> post(Routes.log_path(conn, :create), log: params_for(:log, user_id: user.id))
 
-      assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.log_path(conn, :index)
     end
 
@@ -48,7 +48,7 @@ defmodule HealthWeb.LogControllerTest do
         |> log_in(user)
         |> post(Routes.log_path(conn, :create), log: params_for(:log, weight: nil))
 
-      assert html_response(conn, 403)
+      assert html_response(conn, 200)
     end
   end
 
