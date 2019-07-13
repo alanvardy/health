@@ -1,2 +1,7 @@
-$theme-colors: ("primary": hsl(173, 87%, 9%),
-  "secondary": hsl(356, 18%, 16%));
+$theme-colors: ("primary": hsl(0, 3%, 31%),
+"dark": hsl(356, 18%, 16%),
+  "secondary": hsla(356, 21%, 39%, 0.589));
+
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+$font-family-base: 'Raleway',
+  sans-serif;

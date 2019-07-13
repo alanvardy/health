@@ -1,13 +1,19 @@
-<h1>Health</h1>
-<%= if assigns[:current_user] do %>
-<p class="test-center">
-  Welcome back <%= @current_user.email %>
-</p>
-<% else %>
-<div class="d-flex justify-content-center my-3">
-  <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "primary-button" %>
+<div class="cont">
+  <h1>Health</h1>
+  <p>
+    A little Phoenix app for keeping us above ground a little longer,
+    currently featuring weight tracking and trends!
+  </p>
+  <%= if assigns[:current_user] do %>
+  <p class="test-center">
+    Welcome back <%= @current_user.email %>
+  </p>
+  <% else %>
+  <div class="d-flex justify-content-center my-3">
+    <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "primary-button" %>
+  </div>
+  <div class="d-flex justify-content-center my-3">
+    <%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "primary-button" %>
+  </div>
+  <% end %>
 </div>
-<div class="d-flex justify-content-center my-3">
-  <%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "primary-button" %>
-</div>
-<% end %>

@@ -36,6 +36,7 @@
       <% else %>
       <li class="nav-item">
         <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "nav-link" %>
+        <%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "nav-link" %>
       </li>
       <% end %>
     </ul>
