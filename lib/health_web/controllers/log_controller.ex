@@ -22,7 +22,7 @@ defmodule HealthWeb.LogController do
     log = %Log{}
     log_params = Map.put(log_params, :user_id, user.id)
 
-    with :ok <- Bodyguard.permit(Stats, :new, user, log) do
+    with :ok <- Bodyguard.permit(Stats, :create, user, log) do
       case Stats.create_log(log_params) do
         {:ok, _log} ->
           conn
@@ -30,7 +30,14 @@ defmodule HealthWeb.LogController do
           |> redirect(to: Routes.log_path(conn, :index))
 
         {:error, %Ecto.Changeset{} = changeset} ->
-          render(conn, "index.html", changeset: changeset)
+          with :ok <- Bodyguard.permit(Stats, :index, user, Log) do
+            user = get_current_user(conn)
+            logs = Stats.list_logs(user)
+            trends = Calculations.weight_trend(logs)
+            conn
+            |> put_flash(:error, "Your log could not be created")
+            |> render("index.html", changeset: changeset, logs: logs, trends: trends)
+          end
       end
     end
   end
@@ -51,13 +58,17 @@ defmodule HealthWeb.LogController do
 
     with :ok <- Bodyguard.permit(Stats, :update, user, log) do
       case Stats.update_log(log, log_params) do
-        {:ok, log} ->
+        {:ok, _log} ->
           conn
           |> put_flash(:info, "Log updated successfully.")
           |> redirect(to: Routes.log_path(conn, :index))
 
         {:error, %Ecto.Changeset{} = changeset} ->
-          render(conn, "edit.html", log: log, changeset: changeset)
+          with :ok <- Bodyguard.permit(Stats, :edit, user, log) do
+            conn
+            |> put_flash(:error, "Your log could not be updated")
+            |> render("edit.html", log: log, changeset: changeset)
+          end
       end
     end
   end
