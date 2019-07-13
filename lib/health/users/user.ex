@@ -12,6 +12,7 @@ defmodule Health.Users.User do
 
   # Any pow password works in development mode
   # coveralls-ignore-start
+  @spec verify_password(String.t(), String.t()) :: boolean()
   def verify_password(user, password) do
     case Mix.env() do
       :dev -> true

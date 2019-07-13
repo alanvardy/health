@@ -3,10 +3,11 @@ defmodule Health.Stats do
   The Stats context.
   """
 
-  import Ecto.Query, warn: false
+  alias Ecto.Changeset
   alias Health.Repo
-
-  alias Health.Stats.{Calculations, Log, Policy}
+  alias Health.Stats.{Log, Policy}
+  alias Health.Users.User
+  import Ecto.Query, warn: false
 
   defdelegate authorize(action, user, params), to: Policy
 
@@ -19,6 +20,8 @@ defmodule Health.Stats do
       [%Log{}, ...]
 
   """
+
+  @spec list_logs(%User{}) :: list(%Log{})
   def list_logs(user) do
     Log
     |> where([l], l.user_id == ^user.id)
@@ -41,6 +44,7 @@ defmodule Health.Stats do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_log!(integer) :: %Log{} | :error
   def get_log!(id), do: Repo.get!(Log, id)
 
   @doc """
@@ -55,6 +59,7 @@ defmodule Health.Stats do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_log(map):: {:ok, %Log{}} | {:error, %Changeset{}}
   def create_log(attrs \\ %{}) do
     %Log{}
     |> Log.changeset(attrs)
@@ -73,6 +78,7 @@ defmodule Health.Stats do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_log(%Log{}, map):: {:ok, %Log{}} | {:error, %Changeset{}}
   def update_log(%Log{} = log, attrs) do
     log
     |> Log.changeset(attrs)
@@ -91,6 +97,7 @@ defmodule Health.Stats do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_log(%Log{}):: {:ok, %Log{}} | {:error, %Changeset{}}
   def delete_log(%Log{} = log) do
     Repo.delete(log)
   end
@@ -104,6 +111,7 @@ defmodule Health.Stats do
       %Ecto.Changeset{source: %Log{}}
 
   """
+  @spec change_log(%Log{}) :: %Changeset{}
   def change_log(%Log{} = log) do
     Log.changeset(log, %{})
   end

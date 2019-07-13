@@ -2,9 +2,13 @@ defmodule HealthWeb.LogController do
   use HealthWeb, :controller
   alias Health.Stats
   alias Health.Stats.{Calculations, Log}
+  alias Health.Users.User
+  alias Plug.Conn
 
   action_fallback HealthWeb.FallbackController
 
+  @spec index(%Conn{assigns: %{current_user: %User{}}}, any) ::
+          {:error, any} | %Conn{}
   def index(conn, _params) do
     user = get_current_user(conn)
     logs = Stats.list_logs(user)
@@ -17,6 +21,8 @@ defmodule HealthWeb.LogController do
     end
   end
 
+  @spec create(%Conn{assigns: %{current_user: %User{}}}, %{log: map}) ::
+          {:error, any} | %Conn{}
   def create(conn, %{log: log_params}) do
     user = get_current_user(conn)
     log = %Log{}
@@ -42,6 +48,7 @@ defmodule HealthWeb.LogController do
     end
   end
 
+  @spec edit(%Conn{assigns: %{current_user: %User{}}}, map) :: {:error, any} | %Conn{}
   def edit(conn, %{"id" => id}) do
     user = get_current_user(conn)
     log = Stats.get_log!(id)
@@ -52,6 +59,8 @@ defmodule HealthWeb.LogController do
     end
   end
 
+  @spec update(%Conn{assigns: %{current_user: %User{}}}, map) ::
+          {:error, any} | %Conn{}
   def update(conn, %{"id" => id, "log" => log_params}) do
     user = get_current_user(conn)
     log = Stats.get_log!(id)
@@ -73,6 +82,8 @@ defmodule HealthWeb.LogController do
     end
   end
 
+  @spec delete(%Conn{assigns: %{current_user: %User{}}}, map) ::
+          {:error, any} | %Conn{}
   def delete(conn, %{"id" => id}) do
     user = get_current_user(conn)
     log = Stats.get_log!(id)
@@ -86,6 +97,7 @@ defmodule HealthWeb.LogController do
     end
   end
 
+  @spec get_current_user(%Conn{assigns: %{current_user: %User{}}}) :: %User{}
   def get_current_user(conn) do
     conn.assigns.current_user
   end
