@@ -29,8 +29,6 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown">
           <%= link "Settings", to: Routes.pow_registration_path(@conn, :edit), class: "dropdown-item" %>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Site Admin</a>
-          <div class="dropdown-divider"></div>
           <%= link "Sign Out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "dropdown-item" %>
         </div>
       </li>
