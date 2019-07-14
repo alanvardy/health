@@ -43,6 +43,7 @@ defmodule HealthWeb.Endpoint do
     signing_salt: "68zJQsSD"
 
   plug Pow.Plug.Session, otp_app: :health
+  plug PowPersistentSession.Plug.Cookie
 
   plug HealthWeb.Router
 end
