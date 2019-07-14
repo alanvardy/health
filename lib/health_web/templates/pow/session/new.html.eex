@@ -20,11 +20,17 @@
     <%= error_tag f, :password %>
   </div>
 
+  <div class="form-check">
+    <%= checkbox f, :persistent_session, class: "form-check-input", id: "FormCheck" %>
+    <%= label f, :persistent_session, "Remember me", class: "form-check-label", for: "FormCheck" %>
+  </div>
+
   <div>
     <%= submit "Sign in", class: "primary-button" %>
   </div>
   <% end %>
 
-
-  <span><%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "sm-primary-button" %></span>
+  <p class="mt-3">
+    <%= link "Register", to: Routes.pow_registration_path(@conn, :new) %>
+  </p>
 </div>

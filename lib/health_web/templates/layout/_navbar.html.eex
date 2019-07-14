@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="/">
-    <img alt="Logo" src="<%= Routes.static_path(@conn, "/images/logo.png") %>">
+    <img alt="Logo" src="<%= Routes.static_path(@conn, "/images/logo.png") %>" class="mb-2">
+    HEALTH
   </a>
 
   <button class="navbar-toggler" data-aria-controls="navContent" data-aria-label="Toggle navigation"
@@ -35,8 +36,10 @@
       </li>
       <% else %>
       <li class="nav-item">
-        <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "nav-link" %>
         <%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "nav-link" %>
       </li>
       <% end %>
     </ul>
