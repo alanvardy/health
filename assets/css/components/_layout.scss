@@ -1,6 +1,11 @@
+h1 {
+  @extend .mb-3
+}
+
 body {
   background: theme-color("dark");
 }
+
 .cont {
   @extend .container;
   @extend .bg-white;
