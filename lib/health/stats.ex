@@ -21,12 +21,15 @@ defmodule Health.Stats do
 
   """
 
-  @spec list_logs(%User{}) :: list(%Log{})
-  def list_logs(user) do
+  @spec list_logs(%User{}, Keyword.t()) :: [%Log{}]
+  def list_logs(user, opts \\ [])
+  def list_logs(user, opts) do
+    limit = Keyword.get(opts, :limit, 100)
+
     Log
     |> where([l], l.user_id == ^user.id)
     |> order_by([l], asc: l.date)
-    |> limit(14)
+    |> limit(^limit)
     |> Repo.all()
   end
 

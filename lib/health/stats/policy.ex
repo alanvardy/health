@@ -17,6 +17,8 @@ defmodule Health.Stats.Policy do
   # Can see their index
   def authorize(:index, %User{}, Log), do: true
 
+  def authorize(:long_term, %User{}, Log), do: true
+
   # Catch-all: deny everything else
   def authorize(_, _, _), do: false
 end

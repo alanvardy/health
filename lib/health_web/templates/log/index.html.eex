@@ -2,14 +2,15 @@
   <h1>Weight Log</h1>
   <div class="row">
     <div class="col-lg-6">
-    <%= render "estimate.html", estimate: @estimate %>
-      <%= render "graph.html", logs: @logs, trends: @trends %>
+    <%= render "partials/estimate.html", estimate: @estimate %>
+      <%= render "partials/graph.html", logs: @logs, trends: @trends %>
+      <%= link "View Long Term Trend", to: Routes.log_path(@conn, :long_term) %>
     </div>
     <div class="col-lg-6 table-responsive">
-      <%= render "logs.html", logs: @logs, conn: @conn %>
+      <%= render "partials/logs.html", logs: @logs, conn: @conn %>
     </div>
     <div class="mx-auto">
-      <%= render "inline-form.html", Map.put(assigns, :action, Routes.log_path(@conn, :create)) %>
+      <%= render "partials/inline-form.html", Map.put(assigns, :action, Routes.log_path(@conn, :create)) %>
     </div>
   </div>
 </div>
