@@ -11,7 +11,7 @@ defmodule HealthWeb.LogController do
           {:error, any} | %Conn{}
   def index(conn, _params) do
     user = get_current_user(conn)
-    logs = Stats.list_logs(user)
+    logs = Stats.list_logs(user, limit: 14)
     log = %Log{}
     changeset = Stats.change_log(log)
     trends = Calculations.adjusted_weights(logs)
@@ -97,6 +97,19 @@ defmodule HealthWeb.LogController do
       conn
       |> put_flash(:info, "Log deleted successfully.")
       |> redirect(to: Routes.log_path(conn, :index))
+    end
+  end
+
+  @spec long_term(%Conn{assigns: %{current_user: %User{}}}, any) ::
+          {:error, any} | %Conn{}
+  def long_term(conn, _params) do
+    user = get_current_user(conn)
+    logs = Stats.list_logs(user)
+    trends = Calculations.adjusted_weights(logs)
+    estimate = Calculations.estimate_trend(trends)
+
+    with :ok <- Bodyguard.permit(Stats, :long_term, user, Log) do
+      render(conn, "long_term.html", logs: logs, trends: trends, estimate: estimate)
     end
   end
 

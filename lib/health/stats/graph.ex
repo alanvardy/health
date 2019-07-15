@@ -1,5 +1,5 @@
 defmodule Health.Stats.Graph do
-  @moduledoc "For rendering graphs"
+  @moduledoc "For rendering graphs with Plotly, requires Jason"
   @spec render(List.t(), any) :: any
   def render(data, layout \\ %{}) do
     json_data = Jason.encode!(data)

@@ -1,0 +1,5 @@
+<div class="cont">
+  <h1>Long Term Trend</h1>
+  <%= render "partials/graph.html", logs: @logs, trends: @trends, estimate: @estimate %>
+  <%= link "back", to: Routes.log_path(@conn, :index) %>
+</div>
