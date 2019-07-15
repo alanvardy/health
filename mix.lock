@@ -1,6 +1,6 @@
 %{
   "better_params": {:hex, :better_params, "0.5.0", "fc20b88a809cf34548392a2436b5974814b0f0abdd52ed4598db8ba21767d94f", [:mix], [{:plug, ">= 1.0.0", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
-  "bodyguard": {:hex, :bodyguard, "2.2.3", "489bd7557870b649cdc478b99e29ba02892b9c618ed927ef6db85ab5dc0fd4c8", [:mix], [{:plug, "~> 1.0", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
+  "bodyguard": {:hex, :bodyguard, "2.2.4", "a8661101daaea230428bdfc17178fc0325bd78cd6461cf43a93c33ba865dcd95", [:mix], [{:plug, "~> 1.0", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
   "bunt": {:hex, :bunt, "0.2.0", "951c6e801e8b1d2cbe58ebbd3e616a869061ddadcc4863d0a2182541acae9a38", [:mix], [], "hexpm"},
   "certifi": {:hex, :certifi, "2.5.1", "867ce347f7c7d78563450a18a6a28a8090331e77fa02380b4a21962a65d36ee5", [:rebar3], [{:parse_trans, "~>3.3", [hex: :parse_trans, repo: "hexpm", optional: false]}], "hexpm"},
   "combine": {:hex, :combine, "0.10.0", "eff8224eeb56498a2af13011d142c5e7997a80c8f5b97c499f84c841032e429f", [:mix], [], "hexpm"},
