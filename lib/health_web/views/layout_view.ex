@@ -29,8 +29,8 @@ defmodule HealthWeb.LayoutView do
 
     # Apply nav-item to the a tag
     opts = case Keyword.get(opts, :class) do
-      nil -> Keyword.put(opts, :class, "nav-item")
-      other -> Keyword.put(opts, :class, "nav-item #{other}")
+      nil -> Keyword.put(opts, :class, "nav-link")
+      other -> Keyword.put(opts, :class, "nav-link #{other}")
     end
 
     content_tag(:li, link(text, opts), class: nav_class)
