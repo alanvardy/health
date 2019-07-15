@@ -1,4 +1,4 @@
-defmodule Health.Stats.Graph do
+defmodule Health.Weight.Graph do
   @moduledoc "For rendering graphs with Plotly, requires Jason"
   @spec render(List.t(), any) :: any
   def render(data, layout \\ %{}) do

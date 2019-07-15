@@ -1,6 +1,6 @@
-defmodule Health.Stats.Calculations do
+defmodule Health.Weight.Calculations do
   @moduledoc "For interpretting statistics"
-  alias Health.Stats.{Log, Statistics}
+  alias Health.Weight.{Log, Statistics}
 
   @gaining "Estimated weight gain per week"
   @losing "Estimated weight loss per week"
@@ -8,7 +8,7 @@ defmodule Health.Stats.Calculations do
   @insufficient "Insufficient information"
 
   @doc "Takes daily weigh ins and returns adjusted weights with 10% smoothing"
-  @spec build_adjusted_weights(Health.Stats.Statistics.t()) :: Health.Stats.Statistics.t()
+  @spec build_adjusted_weights(Health.Weight.Statistics.t()) :: Health.Weight.Statistics.t()
   def build_adjusted_weights(%Statistics{logs: logs} = stats) do
     %Statistics{stats | adjusted_weights: adjusted_weights(logs)}
   end
@@ -33,7 +33,7 @@ defmodule Health.Stats.Calculations do
     adjusted_weights(tail, new_weight, [%{weight: new_weight, date: date, change: change} | agg])
   end
 
-  @spec build_trend(Health.Stats.Statistics.t()) :: Health.Stats.Statistics.t()
+  @spec build_trend(Health.Weight.Statistics.t()) :: Health.Weight.Statistics.t()
   def build_trend(%Statistics{adjusted_weights: adjusted_weights} = stats) do
     %Statistics{stats | trend: estimate_trend(adjusted_weights)}
   end
