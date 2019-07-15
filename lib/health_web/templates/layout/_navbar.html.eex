@@ -12,9 +12,7 @@
   <div class="collapse navbar-collapse" id="navContent">
     <ul class="navbar-nav mr-auto">
       <%= if assigns[:current_user] do %>
-      <li class="nav-item">
-        <%= link "Logs", to: Routes.log_path(@conn, :index), class: "nav-link" %>
-      </li>
+        <%= nav_link(@conn, "Logs", to: Routes.log_path(@conn, :index)) %>
       <% end %>
     </ul>
 
@@ -36,10 +34,10 @@
       </li>
       <% else %>
       <li class="nav-item">
-        <%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "nav-link" %>
+        <%= link "Register", to: Routes.pow_registration_path(@conn, :new) %>
       </li>
       <li class="nav-item">
-        <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "nav-link" %>
+        <%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %>
       </li>
       <% end %>
     </ul>

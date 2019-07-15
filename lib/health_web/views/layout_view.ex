@@ -15,4 +15,25 @@ defmodule HealthWeb.LayoutView do
       _ -> thing
     end
   end
+
+  # Bootstrap4 - Nav Link
+  # Automatically puts in the 'active' class when on conn.request_path
+  # <%= nav_link(@conn, "Home", to: "/") %>
+  @spec nav_link(Plug.Conn.t(), String.t(), Keyword.t()) :: String.t()
+  def nav_link(%{request_path: request_path}, text, opts) do
+    # Apply nav-item and active to the li tag
+    nav_class = case request_path == opts[:to] do
+      true -> ['nav-item', 'active']
+      false -> ['nav-item']
+    end |> Enum.join(" ")
+
+    # Apply nav-item to the a tag
+    opts = case (link_class = Keyword.get(opts, :class)) do
+      nil -> Keyword.put(opts, :class, "nav-item")
+      _ -> Keyword.put(opts, :class, "nav-item #{link_class}")
+    end
+
+    content_tag(:li, link(text, opts), class: nav_class)
+  end
+
 end
