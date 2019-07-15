@@ -1,15 +1,26 @@
-defmodule Health.Stats do
+defmodule Health.Weight do
   @moduledoc """
-  The Stats context.
+  The Weight context.
   """
 
   alias Ecto.Changeset
+  alias Health.Account.User
   alias Health.Repo
-  alias Health.Stats.{Log, Policy}
-  alias Health.Users.User
+  alias Health.Weight.{Calculations, Graph, Log, Policy, Statistics}
   import Ecto.Query, warn: false
 
   defdelegate authorize(action, user, params), to: Policy
+
+  @spec render_graph(List.t(), map) :: any
+  def render_graph(data, layout \\ %{}), do: Graph.render(data, layout)
+
+  @spec build_statistics([%Log{}]) :: Health.Weight.Statistics.t()
+  def build_statistics(logs) do
+    %Statistics{}
+    |> Map.put(:logs, logs)
+    |> Calculations.build_adjusted_weights()
+    |> Calculations.build_trend()
+  end
 
   @doc """
   Returns the list of log.
@@ -23,6 +34,7 @@ defmodule Health.Stats do
 
   @spec list_logs(%User{}, Keyword.t()) :: [%Log{}]
   def list_logs(user, opts \\ [])
+
   def list_logs(user, opts) do
     limit = Keyword.get(opts, :limit, 100)
 
@@ -62,7 +74,7 @@ defmodule Health.Stats do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_log(map):: {:ok, %Log{}} | {:error, %Changeset{}}
+  @spec create_log(map) :: {:ok, %Log{}} | {:error, %Changeset{}}
   def create_log(attrs \\ %{}) do
     %Log{}
     |> Log.changeset(attrs)
@@ -81,7 +93,7 @@ defmodule Health.Stats do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec update_log(%Log{}, map):: {:ok, %Log{}} | {:error, %Changeset{}}
+  @spec update_log(%Log{}, map) :: {:ok, %Log{}} | {:error, %Changeset{}}
   def update_log(%Log{} = log, attrs) do
     log
     |> Log.changeset(attrs)
@@ -100,7 +112,7 @@ defmodule Health.Stats do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec delete_log(%Log{}):: {:ok, %Log{}} | {:error, %Changeset{}}
+  @spec delete_log(%Log{}) :: {:ok, %Log{}} | {:error, %Changeset{}}
   def delete_log(%Log{} = log) do
     Repo.delete(log)
   end

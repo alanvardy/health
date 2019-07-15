@@ -12,10 +12,11 @@
   <div class="collapse navbar-collapse" id="navContent">
     <ul class="navbar-nav mr-auto">
       <%= if assigns[:current_user] do %>
-        <%= nav_link(@conn, "Logs", to: Routes.log_path(@conn, :index)) %>
+      <li class="nav-item">
+        <%= link "Weight", to: Routes.weight_path(@conn, :index), class: "nav-link" %>
+      </li>
       <% end %>
     </ul>
-
     <ul class="navbar-nav">
       <%= if assigns[:current_user] do %>
       <li class="nav-item dropdown">

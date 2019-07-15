@@ -1,8 +1,8 @@
 <div class="jumbotron text-center">
   <h1>
-    <%= @estimate.change %> lb
+    <%= @statistics.trend.change %> lb
   </h1>
   <p class="text-muted">
-    <%= @estimate.text %>
+    <%= @statistics.trend.text %>
   </p>
 </div>

@@ -1,8 +1,8 @@
-defmodule Health.Stats.Policy do
+defmodule Health.Weight.Policy do
   @moduledoc "Permissions for all stats related items"
 
-  alias Health.Stats.Log
-  alias Health.Users.User
+  alias Health.Account.User
+  alias Health.Weight.Log
   @behaviour Bodyguard.Policy
 
   # Users can access their own logs

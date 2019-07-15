@@ -1,12 +1,12 @@
-defmodule Health.Stats.Log do
-  @moduledoc "Stats log for a user"
+defmodule Health.Weight.Log do
+  @moduledoc "Weight log for a user"
   use Ecto.Schema
   import Ecto.Changeset
 
   schema "logs" do
     field :date, :date
     field :weight, :float
-    belongs_to :user, Health.Users.User
+    belongs_to :user, Health.Account.User
 
     timestamps()
   end
