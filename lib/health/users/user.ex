@@ -1,10 +1,10 @@
-defmodule Health.Users.User do
+defmodule Health.Account.User do
   @moduledoc false
   use Ecto.Schema
   use Pow.Ecto.Schema
 
   schema "users" do
-    has_many :logs, Health.Stats.Log
+    has_many :logs, Health.Weight.Log
     pow_user_fields()
 
     timestamps()
@@ -19,5 +19,6 @@ defmodule Health.Users.User do
       _ -> pow_verify_password(user, password)
     end
   end
+
   # coveralls-ignore-stop
 end

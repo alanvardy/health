@@ -4,8 +4,8 @@ defmodule Health.Factory do
   http://hexdocs.pm/ex_machina/ExMachina.html
   """
   use ExMachina.Ecto, repo: Health.Repo
-  alias Health.Stats.Log
-  alias Health.Users.User
+  alias Health.Account.User
+  alias Health.Weight.Log
 
   def user_factory do
     %User{
