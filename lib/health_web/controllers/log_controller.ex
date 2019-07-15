@@ -14,11 +14,10 @@ defmodule HealthWeb.LogController do
     logs = Stats.list_logs(user, limit: 14)
     log = %Log{}
     changeset = Stats.change_log(log)
-    trends = Calculations.adjusted_weights(logs)
-    estimate = Calculations.estimate_trend(trends)
+    statistics = Stats.build_statistics(logs)
 
     with :ok <- Bodyguard.permit(Stats, :index, user, Log) do
-      render(conn, "index.html", logs: logs, trends: trends, changeset: changeset, estimate: estimate)
+      render(conn, "index.html", logs: logs, statistics: statistics, changeset: changeset)
     end
   end
 
@@ -40,12 +39,11 @@ defmodule HealthWeb.LogController do
           with :ok <- Bodyguard.permit(Stats, :index, user, Log) do
             user = get_current_user(conn)
             logs = Stats.list_logs(user)
-            trends = Calculations.adjusted_weights(logs)
-            estimate = Calculations.estimate_trend(trends)
+            statistics = Stats.build_statistics(logs)
 
             conn
             |> put_flash(:error, "Your log could not be created")
-            |> render("index.html", changeset: changeset, logs: logs, trends: trends, estimate: estimate)
+            |> render("index.html", changeset: changeset, logs: logs, statistics: statistics)
           end
       end
     end
@@ -105,11 +103,10 @@ defmodule HealthWeb.LogController do
   def long_term(conn, _params) do
     user = get_current_user(conn)
     logs = Stats.list_logs(user)
-    trends = Calculations.adjusted_weights(logs)
-    estimate = Calculations.estimate_trend(trends)
+    statistics = Stats.build_statistics(logs)
 
     with :ok <- Bodyguard.permit(Stats, :long_term, user, Log) do
-      render(conn, "long_term.html", logs: logs, trends: trends, estimate: estimate)
+      render(conn, "long_term.html", statistics: statistics)
     end
   end
 

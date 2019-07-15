@@ -5,11 +5,22 @@ defmodule Health.Stats do
 
   alias Ecto.Changeset
   alias Health.Repo
-  alias Health.Stats.{Log, Policy}
+  alias Health.Stats.{Calculations, Graph, Log, Policy, Statistics}
   alias Health.Users.User
   import Ecto.Query, warn: false
 
   defdelegate authorize(action, user, params), to: Policy
+
+  @spec render_graph(List.t(), map) :: any
+  def render_graph(data, layout \\ %{}), do: Graph.render(data, layout)
+
+  @spec build_statistics([%Log{}]) :: Health.Stats.Statistics.t()
+  def build_statistics(logs) do
+    %Statistics{}
+    |> Map.put(:logs, logs)
+    |> Calculations.build_adjusted_weights()
+    |> Calculations.build_trend()
+  end
 
   @doc """
   Returns the list of log.

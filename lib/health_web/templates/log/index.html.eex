@@ -2,8 +2,8 @@
   <h1>Weight Log</h1>
   <div class="row">
     <div class="col-lg-6">
-    <%= render "partials/estimate.html", estimate: @estimate %>
-      <%= render "partials/graph.html", logs: @logs, trends: @trends %>
+    <%= render "partials/estimate.html", statistics: @statistics %>
+      <%= render "partials/graph.html", logs: @logs, statistics: @statistics %>
       <%= link "View Long Term Trend", to: Routes.log_path(@conn, :long_term) %>
     </div>
     <div class="col-lg-6 table-responsive">
