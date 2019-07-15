@@ -32,6 +32,7 @@ defmodule HealthWeb do
     quote do
       use Phoenix.View,
         root: "lib/health_web/templates",
+        pattern: "**/*",
         namespace: HealthWeb
 
       # Import convenience functions from controllers
