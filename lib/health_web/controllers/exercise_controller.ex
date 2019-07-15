@@ -1,0 +1,60 @@
+defmodule HealthWeb.ExerciseController do
+  use HealthWeb, :controller
+  alias Health.Users.User
+  alias Health.Exercise
+  alias Plug.Conn
+
+  action_fallback HealthWeb.FallbackController
+
+  @spec index(%Conn{assigns: %{current_user: %User{}}}, any) :: {:error, any} | %Conn{}
+  def index(conn, _params) do
+    user = get_current_user(conn)
+
+    exercises = Exercise.all()
+
+    with :ok <- Bodyguard.permit(Health.Policies.Exercise, :index, user, Exercise) do
+      render(conn, "index.html", exercises: exercises)
+    end
+  end
+
+  @spec new(%Conn{assigns: %{current_user: %User{}}}, any) :: {:error, any} | %Conn{}
+  def new(conn, _params) do
+    user = get_current_user(conn)
+
+    exercise = %Exercise{}
+    changeset = Exercise.changeset(exercise, %{})
+
+    with :ok <- Bodyguard.permit(Health.Policies.Exercise, :new, user, exercise) do
+      render(conn, "new.html", exercise: exercise, changeset: changeset)
+    end
+  end
+
+  @spec create(%Conn{assigns: %{current_user: %User{}}}, %{exercise: map}) :: {:error, any} | %Conn{}
+  def create(conn, %{exercise: params}) do
+    user = get_current_user(conn)
+
+    exercise = %Exercise{}
+
+    with :ok <- Bodyguard.permit(Health.Policies.Exercise, :create, user, exercise) do
+      exercise
+      |> Exercise.changeset(params)
+      |> Health.Repo.insert()
+      |> case do
+        {:ok, _exercise} ->
+          conn
+          |> put_flash(:success, "Exercise created successfully.")
+          |> redirect(to: Routes.exercise_path(conn, :index))
+        {:error, %Ecto.Changeset{} = changeset} ->
+          conn
+          |> put_flash(:danger, "Unable to save exercise. Fix any errors below and try again.")
+          |> render("new.html", changeset: changeset)
+      end
+    end
+  end
+
+  @spec get_current_user(%Conn{assigns: %{current_user: %User{}}}) :: %User{}
+  def get_current_user(conn) do
+    conn.assigns.current_user
+  end
+
+end

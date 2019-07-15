@@ -1,0 +1,6 @@
+<h1>Exercises</h1>
+<%= Enum.map(@exercises, fn exercise -> render("_exercise.html", exercise: exercise) end) %>
+
+<hr>
+
+<%= link 'New Exercise', to: Routes.exercise_path(@conn, :new), class: "btn btn-outline-primary" %>

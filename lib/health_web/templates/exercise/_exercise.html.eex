@@ -1,0 +1,5 @@
+<div class="exercise">
+  <h2><%= @exercise.name %></h2>
+  <p><span class="badge badge-info">Difficulty: <%= @exercise.difficulty %></span></p>
+  <p><%= @exercise.description %></p>
+</div>
