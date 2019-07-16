@@ -26,4 +26,13 @@ defmodule Health.Factory do
     }
   end
 
+  @spec exercise_factory :: Health.Exercise.t()
+  def exercise_factory do
+    %Health.Exercise{
+      name: "Barbell Press",
+      difficulty: 3,
+      description: "This is the barbell press"
+    }
+  end
+
 end

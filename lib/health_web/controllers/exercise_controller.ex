@@ -60,7 +60,7 @@ defmodule HealthWeb.ExerciseController do
     changeset = Exercise.changeset(exercise, %{})
 
     with :ok <- Bodyguard.permit(Health.Policies.Exercise, :edit, user, exercise) do
-      render(conn, "edit.html", exercise: exercise, changeset: changeset)
+      render(conn, "edit.html", changeset: changeset, exercise: exercise)
     end
   end
 
@@ -82,7 +82,7 @@ defmodule HealthWeb.ExerciseController do
         {:error, %Ecto.Changeset{} = changeset} ->
           conn
           |> put_flash(:danger, "Unable to update exercise. Fix any errors below and try again.")
-          |> render("edit.html", changeset: changeset)
+          |> render("edit.html", changeset: changeset, exercise: exercise)
       end
     end
   end
