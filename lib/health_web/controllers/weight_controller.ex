@@ -14,7 +14,7 @@ defmodule HealthWeb.WeightController do
     logs = Weight.list_logs(user, limit: 14)
     log = %Log{}
     changeset = Weight.change_log(log)
-    statistics = Weight.build_statistics(logs)
+    statistics = Weight.build_stats(logs)
 
     with :ok <- Bodyguard.permit(Weight, :index, user, Log) do
       render(conn, "index.html", logs: logs, statistics: statistics, changeset: changeset)
@@ -39,7 +39,7 @@ defmodule HealthWeb.WeightController do
           with :ok <- Bodyguard.permit(Weight, :index, user, Log) do
             user = get_current_user(conn)
             logs = Weight.list_logs(user)
-            statistics = Weight.build_statistics(logs)
+            statistics = Weight.build_stats(logs)
 
             conn
             |> put_flash(:error, "Your log could not be created")
@@ -103,7 +103,7 @@ defmodule HealthWeb.WeightController do
   def long_term(conn, _params) do
     user = get_current_user(conn)
     logs = Weight.list_logs(user)
-    statistics = Weight.build_statistics(logs)
+    statistics = Weight.build_stats(logs)
 
     with :ok <- Bodyguard.permit(Weight, :long_term, user, Log) do
       render(conn, "long_term.html", statistics: statistics)
