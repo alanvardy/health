@@ -29,7 +29,7 @@ defmodule HealthWeb.ExerciseController do
     end
   end
 
-  @spec create(%Conn{assigns: %{current_user: %User{}}}, %{exercise: map}) :: {:error, any} | %Conn{}
+  @spec create(%Conn{assigns: %{current_user: %User{}}}, map) :: {:error, any} | %Conn{}
   def create(conn, %{exercise: params}) do
     user = get_current_user(conn)
 
@@ -81,7 +81,7 @@ defmodule HealthWeb.ExerciseController do
           |> redirect(to: Routes.exercise_path(conn, :index))
         {:error, %Ecto.Changeset{} = changeset} ->
           conn
-          |> put_flash(:danger, "Unable to save exercise. Fix any errors below and try again.")
+          |> put_flash(:danger, "Unable to update exercise. Fix any errors below and try again.")
           |> render("edit.html", changeset: changeset)
       end
     end
