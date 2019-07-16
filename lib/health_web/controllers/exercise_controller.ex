@@ -1,6 +1,6 @@
 defmodule HealthWeb.ExerciseController do
   use HealthWeb, :controller
-  alias Health.Users.User
+  alias Health.Account.User
   alias Health.Exercise
   alias Plug.Conn
 
@@ -110,7 +110,7 @@ defmodule HealthWeb.ExerciseController do
         conn
         |> put_flash(:success, "Exercise deleted successfully.")
         |> redirect(to: Routes.exercise_path(conn, :index))
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, _changeset} ->
         conn
         |> put_flash(:danger, "Unable to delete exercise.")
         |> redirect(to: Routes.exercise_path(conn, :index))

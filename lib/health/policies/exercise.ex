@@ -1,11 +1,12 @@
 defmodule Health.Policies.Exercise do
   @moduledoc "Permissions for all exercise related items"
+  alias Health.Account.User
   alias Health.Exercise
-  alias Health.Users.User
 
   @behaviour Bodyguard.Policy
 
   # Signed in users can access all exercises
+  @spec authorize(any, any, any) :: boolean
   def authorize(action, %User{}, Exercise), do: true
 
   # Signed in users can edit/create/destroy any exercise
