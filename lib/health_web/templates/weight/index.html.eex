@@ -1,0 +1,16 @@
+<div class="cont">
+  <h1>Weight Log</h1>
+  <div class="row align-items-center">
+    <div class="col-lg-3">
+      <%= render "partials/estimate.html", statistics: @statistics %>
+      <%= link "View long term graph", to: Routes.weight_path(@conn, :long_term) %>
+    </div>
+    <div class="col-lg-9">
+      <%= render "partials/graph.html", logs: @logs, statistics: @statistics %>
+    </div>
+    <%= render "partials/logs.html", logs: @logs, conn: @conn %>
+    <div class="mx-auto">
+      <%= render "partials/inline-form.html", Map.put(assigns, :action, Routes.weight_path(@conn, :create)) %>
+    </div>
+  </div>
+</div>
