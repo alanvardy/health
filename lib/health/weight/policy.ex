@@ -21,4 +21,5 @@ defmodule Health.Weight.Policy do
 
   # Catch-all: deny everything else
   def authorize(_, _, _), do: false
+
 end

@@ -1,0 +1,11 @@
+<h1>Exercises</h1>
+<%= for exercise <- @exercises do %>
+  <%= render("_exercise.html", conn: @conn, exercise: exercise) %>
+
+  <%= link "Edit", to: Routes.exercise_path(@conn, :edit, exercise) %> |
+  <%= link "Delete", to: Routes.exercise_path(@conn, :delete, exercise), method: :delete, data: [confirm: "Are you sure you want to delete #{exercise.name}?"] %>
+
+  <hr>
+<% end %>
+
+<%= link 'New Exercise', to: Routes.exercise_path(@conn, :new), class: "btn btn-outline-primary" %>
