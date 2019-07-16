@@ -1,6 +1,6 @@
 defmodule Health.Weight.Calculations do
   @moduledoc "For interpretting statistics"
-  alias Health.Weight.{Log, Statistics}
+  alias Health.Weight.{Log, Stats}
 
   @gaining "Estimated weight gain per week"
   @losing "Estimated weight loss per week"
@@ -8,9 +8,9 @@ defmodule Health.Weight.Calculations do
   @insufficient "Insufficient information"
 
   @doc "Takes daily weigh ins and returns adjusted weights with 10% smoothing"
-  @spec build_adjusted_weights(Health.Weight.Statistics.t()) :: Health.Weight.Statistics.t()
-  def build_adjusted_weights(%Statistics{logs: logs} = stats) do
-    %Statistics{stats | adjusted_weights: adjusted_weights(logs)}
+  @spec build_adjusted_weights(Health.Weight.Stats.t()) :: Health.Weight.Stats.t()
+  def build_adjusted_weights(%Stats{logs: logs} = stats) do
+    %Stats{stats | adjusted_weights: adjusted_weights(logs)}
   end
 
   defp adjusted_weights(logs, previous_weight \\ nil, agg \\ [])
@@ -33,15 +33,15 @@ defmodule Health.Weight.Calculations do
     adjusted_weights(tail, new_weight, [%{weight: new_weight, date: date, change: change} | agg])
   end
 
-  @spec build_trend(Health.Weight.Statistics.t()) :: Health.Weight.Statistics.t()
-  def build_trend(%Statistics{adjusted_weights: adjusted_weights} = stats) do
-    %Statistics{stats | trend: estimate_trend(adjusted_weights)}
+  @spec build_trend(Health.Weight.Stats.t()) :: Health.Weight.Stats.t()
+  def build_trend(%Stats{adjusted_weights: adjusted_weights} = stats) do
+    %Stats{stats | trend: trend(adjusted_weights)}
   end
 
-  @spec estimate_trend(list) :: %{change: number, text: String.t()}
-  defp estimate_trend([]), do: %{change: 0, text: @insufficient}
+  @spec trend(list) :: %{change: number, text: String.t()}
+  defp trend([]), do: %{change: 0, text: @insufficient}
 
-  defp estimate_trend(adjusted_weights) do
+  defp trend(adjusted_weights) do
     adjusted_weights
     |> Enum.take(14)
     |> Enum.reduce(0, fn w, acc -> w.change + acc end)

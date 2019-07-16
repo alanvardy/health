@@ -4,7 +4,7 @@ defmodule Health.StatsTest do
   use Health.DataCase, async: true
 
   alias Health.Weight
-  alias Health.Weight.{Log, Statistics}
+  alias Health.Weight.{Log, Stats}
   import Health.Factory
 
   describe "trends" do
@@ -23,7 +23,7 @@ defmodule Health.StatsTest do
 
     test "returns empty list when passed an empty list" do
       assert Weight.build_statistics([]) ==
-               %Statistics{
+               %Stats{
                  logs: [],
                  adjusted_weights: [],
                  trend: %{change: 0, text: "Insufficient information"}
