@@ -4,6 +4,7 @@ defmodule HealthWeb.ExerciseControllerTest do
 
   test "must be logged in to view", %{conn: conn} do
     conn = get(conn, Routes.exercise_path(conn, :index))
+
     assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/exercises")
   end
 
@@ -31,6 +32,7 @@ defmodule HealthWeb.ExerciseControllerTest do
     exercise = insert(:exercise)
 
     conn = get(conn, Routes.exercise_path(conn, :new))
+
     assert html_response(conn, 200) =~ "<form"
   end
 
