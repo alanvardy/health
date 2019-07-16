@@ -1,4 +1,4 @@
-defmodule HealthWeb.LogControllerTest do
+defmodule HealthWeb.WeightControllerTest do
   @moduledoc false
   use HealthWeb.ConnCase, async: true
 

@@ -14,8 +14,8 @@ defmodule Health.Weight do
   @spec render_graph(List.t(), map) :: any
   def render_graph(data, layout \\ %{}), do: Graph.render(data, layout)
 
-  @spec build_statistics([%Log{}]) :: Health.Weight.Stats.t()
-  def build_statistics(logs) do
+  @spec build_stats([%Log{}]) :: Health.Weight.Stats.t()
+  def build_stats(logs) do
     %Stats{}
     |> Map.put(:logs, logs)
     |> Calculations.build_adjusted_weights()
