@@ -6,7 +6,7 @@ defmodule HealthWeb.ExerciseController do
 
   action_fallback HealthWeb.FallbackController
 
-  @spec index(%Conn{assigns: %{current_user: %User{}}}, any) :: {:error, any} | %Conn{}
+  @spec index(%Conn{assigns: %{current_user: %User{}}}, map) :: {:error, any} | %Conn{}
   def index(conn, _params) do
     user = get_current_user(conn)
 
@@ -17,7 +17,7 @@ defmodule HealthWeb.ExerciseController do
     end
   end
 
-  @spec new(%Conn{assigns: %{current_user: %User{}}}, any) :: {:error, any} | %Conn{}
+  @spec new(%Conn{assigns: %{current_user: %User{}}}, map) :: {:error, any} | %Conn{}
   def new(conn, _params) do
     user = get_current_user(conn)
 
@@ -48,6 +48,72 @@ defmodule HealthWeb.ExerciseController do
           conn
           |> put_flash(:danger, "Unable to save exercise. Fix any errors below and try again.")
           |> render("new.html", changeset: changeset)
+      end
+    end
+  end
+
+  @spec edit(%Conn{assigns: %{current_user: %User{}}}, map) :: {:error, any} | %Conn{}
+  def edit(conn, %{id: id}) do
+    user = get_current_user(conn)
+
+    exercise = Exercise.find(id)
+    changeset = Exercise.changeset(exercise, %{})
+
+    with :ok <- Bodyguard.permit(Health.Policies.Exercise, :edit, user, exercise) do
+      render(conn, "edit.html", exercise: exercise, changeset: changeset)
+    end
+  end
+
+  @spec update(%Conn{assigns: %{current_user: %User{}}}, map) :: {:error, any} | %Conn{}
+  def update(conn, %{id: id, exercise: params}) do
+    user = get_current_user(conn)
+
+    exercise = Exercise.find(id)
+
+    with :ok <- Bodyguard.permit(Health.Policies.Exercise, :update, user, exercise) do
+      exercise
+      |> Exercise.changeset(params)
+      |> Health.Repo.insert()
+      |> case do
+        {:ok, _exercise} ->
+          conn
+          |> put_flash(:success, "Exercise updated successfully.")
+          |> redirect(to: Routes.exercise_path(conn, :index))
+        {:error, %Ecto.Changeset{} = changeset} ->
+          conn
+          |> put_flash(:danger, "Unable to save exercise. Fix any errors below and try again.")
+          |> render("edit.html", changeset: changeset)
+      end
+    end
+  end
+
+  @spec show(%Conn{assigns: %{current_user: %User{}}}, map) :: {:error, any} | %Conn{}
+  def show(conn, %{id: id}) do
+    user = get_current_user(conn)
+
+    exercise = Exercise.find(id)
+
+    with :ok <- Bodyguard.permit(Health.Policies.Exercise, :show, user, exercise) do
+      render(conn, "show.html", exercise: exercise)
+    end
+  end
+
+  @spec delete(%Conn{assigns: %{current_user: %User{}}}, map) :: {:error, any} | %Conn{}
+  def delete(conn, %{id: id}) do
+    user = get_current_user(conn)
+
+    exercise = Exercise.find(id)
+
+    with :ok <- Bodyguard.permit(Health.Policies.Exercise, :delete, user, exercise) do
+      case Exercise.destroy(exercise) do
+      {:ok, _exercise} ->
+        conn
+        |> put_flash(:success, "Exercise deleted successfully.")
+        |> redirect(to: Routes.exercise_path(conn, :index))
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_flash(:danger, "Unable to delete exercise.")
+        |> redirect(to: Routes.exercise_path(conn, :index))
       end
     end
   end

@@ -1,0 +1,2 @@
+<h1>Edit Exercise</h1>
+<%= render("_form.html", conn: @conn, changeset: @changeset, action: :edit) %>
