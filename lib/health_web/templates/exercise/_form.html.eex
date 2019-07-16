@@ -1,4 +1,4 @@
-<%= form_for @changeset, Routes.exercise_path(@conn, :create), fn f -> %>
+<%= form_for @changeset, @action, fn f -> %>
   <div class="form-group">
     <%= label f, :name, class: "control-label" %>
     <%= text_input f, :name, class: "form-control" %>

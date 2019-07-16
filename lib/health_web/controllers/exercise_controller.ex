@@ -73,7 +73,7 @@ defmodule HealthWeb.ExerciseController do
     with :ok <- Bodyguard.permit(Health.Policies.Exercise, :update, user, exercise) do
       exercise
       |> Exercise.changeset(params)
-      |> Health.Repo.insert()
+      |> Health.Repo.update()
       |> case do
         {:ok, _exercise} ->
           conn
