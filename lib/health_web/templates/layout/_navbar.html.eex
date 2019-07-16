@@ -15,6 +15,9 @@
       <li class="nav-item">
         <%= link "Weight", to: Routes.weight_path(@conn, :index), class: "nav-link" %>
       </li>
+      <li class="nav-item">
+        <%= link "Exercises", to: Routes.exercise_path(@conn, :index), class: "nav-link" %>
+      </li>
       <% end %>
     </ul>
     <ul class="navbar-nav">

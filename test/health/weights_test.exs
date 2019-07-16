@@ -1,29 +1,29 @@
-defmodule Health.StatsTest do
+defmodule Health.WeightsTest do
   @moduledoc false
 
   use Health.DataCase, async: true
 
   alias Health.Weight
-  alias Health.Weight.{Log, Statistics}
+  alias Health.Weight.{Log, Stats}
   import Health.Factory
 
   describe "trends" do
-    test "build_statistics/1 takes a list of logs and returns a struct" do
+    test "build_stats/1 takes a list of logs and returns a struct" do
       log1 = build(:log, weight: 150)
       log2 = build(:log, weight: 200)
       log3 = build(:log, weight: 250)
 
       logs = [log1, log2, log3]
       log_dates = Enum.map(logs, fn x -> x.date end)
-      statistics = Weight.build_statistics(logs)
+      statistics = Weight.build_stats(logs)
       statistics_dates = Enum.map(statistics.adjusted_weights, fn x -> x.date end)
 
       assert log_dates == statistics_dates
     end
 
     test "returns empty list when passed an empty list" do
-      assert Weight.build_statistics([]) ==
-               %Statistics{
+      assert Weight.build_stats([]) ==
+               %Stats{
                  logs: [],
                  adjusted_weights: [],
                  trend: %{change: 0, text: "Insufficient information"}

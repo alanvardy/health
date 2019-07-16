@@ -1,0 +1,2 @@
+<h1>Exercise</h1>
+<%= render("_exercise.html", conn: @conn, exercise: @exercise) %>

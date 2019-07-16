@@ -9,10 +9,10 @@ defmodule HealthWeb.LayoutView do
     |> Enum.map(&bootstrap_flash_convert/1)
   end
 
-  defp bootstrap_flash_convert(thing) do
-    case thing do
+  defp bootstrap_flash_convert(classes) do
+    case classes do
       {"error", message} -> {"danger", message}
-      _ -> thing
+      _ -> classes
     end
   end
 
