@@ -1,5 +1,5 @@
-defmodule Health.Stats.Graph do
-  @moduledoc "For rendering graphs"
+defmodule Health.Weight.Graph do
+  @moduledoc "For rendering graphs with Plotly, requires Jason"
   @spec render(List.t(), any) :: any
   def render(data, layout \\ %{}) do
     json_data = Jason.encode!(data)
@@ -8,8 +8,7 @@ defmodule Health.Stats.Graph do
     EEx.eval_string(template(), data: json_data, layout: json_layout, id: unique_id)
   end
 
-  @spec template :: String.t()
-  def template do
+  defp template do
     """
     <div class="plotly-ex">
     <div id="plotly-ex-body-<%= id %>"></div>

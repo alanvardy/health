@@ -1,11 +1,11 @@
-defmodule HealthWeb.LogControllerTest do
+defmodule HealthWeb.WeightControllerTest do
   @moduledoc false
   use HealthWeb.ConnCase, async: true
 
   describe "index" do
     test "doesn't list logs when not logged in", %{conn: conn} do
-      conn = get(conn, Routes.log_path(conn, :index))
-      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/logs")
+      conn = get(conn, Routes.weight_path(conn, :index))
+      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/weights")
     end
 
     test "lists logs when logged in", %{conn: conn} do
@@ -16,17 +16,63 @@ defmodule HealthWeb.LogControllerTest do
         conn
         |> log_in(user)
 
-      conn = get(conn, Routes.log_path(conn, :index))
+      conn = get(conn, Routes.weight_path(conn, :index))
+
+      assert html_response(conn, 200) =~ "Weight Log"
+    end
+
+    test "accesses page when no logs", %{conn: conn} do
+      user = insert(:user)
+
+      conn =
+        conn
+        |> log_in(user)
+
+      conn = get(conn, Routes.weight_path(conn, :index))
 
       assert html_response(conn, 200) =~ "Weight Log"
     end
   end
 
+  describe "long_term" do
+    test "doesn't list logs when not logged in", %{conn: conn} do
+      conn = get(conn, Routes.weight_path(conn, :long_term))
+
+      assert redirected_to(conn) ==
+               Routes.pow_session_path(conn, :new, request_path: "/weights/long_term")
+    end
+
+    test "lists logs when logged in", %{conn: conn} do
+      user = insert(:user)
+      insert(:log, user: user)
+
+      conn =
+        conn
+        |> log_in(user)
+
+      conn = get(conn, Routes.weight_path(conn, :long_term))
+
+      assert html_response(conn, 200) =~ "Long Term Trend"
+    end
+
+    test "accesses page when no logs", %{conn: conn} do
+      user = insert(:user)
+
+      conn =
+        conn
+        |> log_in(user)
+
+      conn = get(conn, Routes.weight_path(conn, :long_term))
+
+      assert html_response(conn, 200) =~ "Long Term Trend"
+    end
+  end
+
   describe "create log" do
     test "doesn't create when not logged in", %{conn: conn} do
-      conn = post(conn, Routes.log_path(conn, :create), log: params_for(:log))
+      conn = post(conn, Routes.weight_path(conn, :create), log: params_for(:log))
 
-      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/logs")
+      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/weights")
     end
 
     test "redirects to index when data is valid and logged in", %{conn: conn} do
@@ -35,9 +81,9 @@ defmodule HealthWeb.LogControllerTest do
       conn =
         conn
         |> log_in(user)
-        |> post(Routes.log_path(conn, :create), log: params_for(:log, user_id: user.id))
+        |> post(Routes.weight_path(conn, :create), log: params_for(:log, user_id: user.id))
 
-      assert redirected_to(conn) == Routes.log_path(conn, :index)
+      assert redirected_to(conn) == Routes.weight_path(conn, :index)
     end
 
     test "renders errors when data is invalid and logged in", %{conn: conn} do
@@ -46,7 +92,7 @@ defmodule HealthWeb.LogControllerTest do
       conn =
         conn
         |> log_in(user)
-        |> post(Routes.log_path(conn, :create), log: params_for(:log, weight: nil))
+        |> post(Routes.weight_path(conn, :create), log: params_for(:log, weight: nil))
 
       assert html_response(conn, 200)
     end
@@ -55,10 +101,10 @@ defmodule HealthWeb.LogControllerTest do
   describe "edit log" do
     test "doesn't render form when not logged in", %{conn: conn} do
       log = insert(:log)
-      conn = get(conn, Routes.log_path(conn, :edit, log))
+      conn = get(conn, Routes.weight_path(conn, :edit, log))
 
       assert redirected_to(conn) ==
-               Routes.pow_session_path(conn, :new, request_path: "/logs/#{log.id}/edit")
+               Routes.pow_session_path(conn, :new, request_path: "/weights/#{log.id}/edit")
     end
 
     test "renders form for editing chosen log when belongs to user", %{conn: conn} do
@@ -68,7 +114,7 @@ defmodule HealthWeb.LogControllerTest do
       conn =
         conn
         |> log_in(user)
-        |> get(Routes.log_path(conn, :edit, log))
+        |> get(Routes.weight_path(conn, :edit, log))
 
       assert html_response(conn, 200) =~ "Edit Log"
     end
@@ -81,7 +127,7 @@ defmodule HealthWeb.LogControllerTest do
       conn =
         conn
         |> log_in(user2)
-        |> get(Routes.log_path(conn, :edit, log))
+        |> get(Routes.weight_path(conn, :edit, log))
 
       assert response(conn, 403) =~ "Forbidden"
     end
@@ -90,10 +136,10 @@ defmodule HealthWeb.LogControllerTest do
   describe "update log" do
     test "redirects to log in when not logged in", %{conn: conn} do
       log = insert(:log)
-      conn = put(conn, Routes.log_path(conn, :update, log), log: params_for(:log, weight: 235))
+      conn = put(conn, Routes.weight_path(conn, :update, log), log: params_for(:log, weight: 235))
 
       assert redirected_to(conn) ==
-               Routes.pow_session_path(conn, :new, request_path: "/logs/#{log.id}")
+               Routes.pow_session_path(conn, :new, request_path: "/weights/#{log.id}")
     end
 
     test "redirects when data is valid and user is logged in", %{conn: conn} do
@@ -103,9 +149,9 @@ defmodule HealthWeb.LogControllerTest do
       conn =
         conn
         |> log_in(user)
-        |> put(Routes.log_path(conn, :update, log), log: params_for(:log, weight: 200))
+        |> put(Routes.weight_path(conn, :update, log), log: params_for(:log, weight: 200))
 
-      assert redirected_to(conn) == Routes.log_path(conn, :index)
+      assert redirected_to(conn) == Routes.weight_path(conn, :index)
     end
 
     test "rejects when data is valid and a different user is logged in", %{conn: conn} do
@@ -116,7 +162,7 @@ defmodule HealthWeb.LogControllerTest do
       conn =
         conn
         |> log_in(user2)
-        |> put(Routes.log_path(conn, :update, log), log: params_for(:log, weight: 200))
+        |> put(Routes.weight_path(conn, :update, log), log: params_for(:log, weight: 200))
 
       assert response(conn, 403) =~ "Forbidden"
     end
@@ -128,7 +174,7 @@ defmodule HealthWeb.LogControllerTest do
       conn =
         conn
         |> log_in(user)
-        |> put(Routes.log_path(conn, :update, log), log: params_for(:log, weight: ""))
+        |> put(Routes.weight_path(conn, :update, log), log: params_for(:log, weight: ""))
 
       assert html_response(conn, 200) =~ "Edit Log"
     end
@@ -137,10 +183,10 @@ defmodule HealthWeb.LogControllerTest do
   describe "delete log" do
     test "redirects to log in when not logged in", %{conn: conn} do
       log = insert(:log)
-      conn = delete(conn, Routes.log_path(conn, :delete, log))
+      conn = delete(conn, Routes.weight_path(conn, :delete, log))
 
       assert redirected_to(conn) ==
-               Routes.pow_session_path(conn, :new, request_path: "/logs/#{log.id}")
+               Routes.pow_session_path(conn, :new, request_path: "/weights/#{log.id}")
     end
 
     test "deletes chosen log when user is logged in", %{conn: conn} do
@@ -150,9 +196,9 @@ defmodule HealthWeb.LogControllerTest do
       conn =
         conn
         |> log_in(user)
-        |> delete(Routes.log_path(conn, :delete, log))
+        |> delete(Routes.weight_path(conn, :delete, log))
 
-      assert redirected_to(conn) == Routes.log_path(conn, :index)
+      assert redirected_to(conn) == Routes.weight_path(conn, :index)
     end
 
     test "Cannot delete log when different user", %{conn: conn} do
@@ -163,7 +209,7 @@ defmodule HealthWeb.LogControllerTest do
       conn =
         conn
         |> log_in(user2)
-        |> delete(Routes.log_path(conn, :delete, log))
+        |> delete(Routes.weight_path(conn, :delete, log))
 
       assert response(conn, 403) =~ "Forbidden"
     end

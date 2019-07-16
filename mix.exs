@@ -47,7 +47,6 @@ defmodule Health.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:better_params, "~> 0.5.0"},
       {:timex, "~> 3.0"},
-      {:plotly_ex, git: "https://github.com/s417-lama/plotly_ex.git"},
       # Auth
       {:pow, "~> 1.0.11"},
       {:bodyguard, "~> 2.2"},

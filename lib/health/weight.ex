@@ -1,15 +1,26 @@
-defmodule Health.Stats do
+defmodule Health.Weight do
   @moduledoc """
-  The Stats context.
+  The Weight context.
   """
 
   alias Ecto.Changeset
+  alias Health.Account.User
   alias Health.Repo
-  alias Health.Stats.{Log, Policy}
-  alias Health.Users.User
+  alias Health.Weight.{Calculations, Graph, Log, Policy, Stats}
   import Ecto.Query, warn: false
 
   defdelegate authorize(action, user, params), to: Policy
+
+  @spec render_graph(List.t(), map) :: any
+  def render_graph(data, layout \\ %{}), do: Graph.render(data, layout)
+
+  @spec build_stats([%Log{}]) :: Health.Weight.Stats.t()
+  def build_stats(logs) do
+    %Stats{}
+    |> Map.put(:logs, logs)
+    |> Calculations.build_adjusted_weights()
+    |> Calculations.build_trend()
+  end
 
   @doc """
   Returns the list of log.
@@ -21,12 +32,16 @@ defmodule Health.Stats do
 
   """
 
-  @spec list_logs(%User{}) :: list(%Log{})
-  def list_logs(user) do
+  @spec list_logs(%User{}, Keyword.t()) :: [%Log{}]
+  def list_logs(user, opts \\ [])
+
+  def list_logs(user, opts) do
+    limit = Keyword.get(opts, :limit, 100)
+
     Log
     |> where([l], l.user_id == ^user.id)
     |> order_by([l], asc: l.date)
-    |> limit(14)
+    |> limit(^limit)
     |> Repo.all()
   end
 
@@ -59,7 +74,7 @@ defmodule Health.Stats do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_log(map):: {:ok, %Log{}} | {:error, %Changeset{}}
+  @spec create_log(map) :: {:ok, %Log{}} | {:error, %Changeset{}}
   def create_log(attrs \\ %{}) do
     %Log{}
     |> Log.changeset(attrs)
@@ -78,7 +93,7 @@ defmodule Health.Stats do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec update_log(%Log{}, map):: {:ok, %Log{}} | {:error, %Changeset{}}
+  @spec update_log(%Log{}, map) :: {:ok, %Log{}} | {:error, %Changeset{}}
   def update_log(%Log{} = log, attrs) do
     log
     |> Log.changeset(attrs)
@@ -97,7 +112,7 @@ defmodule Health.Stats do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec delete_log(%Log{}):: {:ok, %Log{}} | {:error, %Changeset{}}
+  @spec delete_log(%Log{}) :: {:ok, %Log{}} | {:error, %Changeset{}}
   def delete_log(%Log{} = log) do
     Repo.delete(log)
   end

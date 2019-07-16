@@ -33,7 +33,8 @@ defmodule HealthWeb.Router do
   # Protected routes
   scope "/", HealthWeb do
     pipe_through [:browser, :protected]
-    resources "/logs", LogController, except: [:new, :show]
+    resources "/weights", WeightController, except: [:new, :show]
+    get "/weights/long_term", WeightController, :long_term
   end
 
   # Other scopes may use custom stacks.
