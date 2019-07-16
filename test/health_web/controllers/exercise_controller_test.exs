@@ -37,7 +37,8 @@ defmodule HealthWeb.ExerciseControllerTest do
   test "create valid", %{conn: conn} do
     conn = conn |> log_in(insert(:user))
 
-    conn = post(conn, Routes.exercise_path(conn, :create), exercise: params_for(:exercise))
+    exercise_params = params_for(:exercise)
+    conn = post(conn, Routes.exercise_path(conn, :create), exercise: exercise_params)
 
     assert redirected_to(conn) == Routes.exercise_path(conn, :index)
     assert Map.has_key?(get_flash(conn), "success")
@@ -46,7 +47,8 @@ defmodule HealthWeb.ExerciseControllerTest do
   test "create invalid", %{conn: conn} do
     conn = conn |> log_in(insert(:user))
 
-    conn = post(conn, Routes.exercise_path(conn, :create), exercise: %{})
+    invalid_params = %{}
+    conn = post(conn, Routes.exercise_path(conn, :create), exercise: invalid_params)
 
     assert html_response(conn, 200) =~ "<form"
     assert html_response(conn, 200) =~ "can&#39;t be blank"
@@ -67,8 +69,7 @@ defmodule HealthWeb.ExerciseControllerTest do
     conn = conn |> log_in(insert(:user))
     exercise = insert(:exercise)
 
-    exercise_params = params_for(:exercise) |> Map.put(:name, "Test Exercise")
-
+    exercise_params = %{name: "Test Exercise"}
     conn = patch(conn, Routes.exercise_path(conn, :update, exercise), exercise: exercise_params)
 
     assert redirected_to(conn) == Routes.exercise_path(conn, :index)
@@ -79,9 +80,8 @@ defmodule HealthWeb.ExerciseControllerTest do
     conn = conn |> log_in(insert(:user))
     exercise = insert(:exercise)
 
-    exercise_params = params_for(:exercise) |> Map.put(:name, "")
-
-    conn = patch(conn, Routes.exercise_path(conn, :update, exercise), exercise: exercise_params)
+    invalid_params = %{name: ""}
+    conn = patch(conn, Routes.exercise_path(conn, :update, exercise), exercise: invalid_params)
 
     assert html_response(conn, 200) =~ "<form"
     assert html_response(conn, 200) =~ "can&#39;t be blank"
@@ -97,6 +97,4 @@ defmodule HealthWeb.ExerciseControllerTest do
     assert redirected_to(conn) == Routes.exercise_path(conn, :index)
     assert Map.has_key?(get_flash(conn), "success")
   end
-
 end
-
