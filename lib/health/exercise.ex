@@ -2,7 +2,7 @@ defmodule Health.Exercise do
   @moduledoc """
   An Exercise
   """
-  alias Health.{Exercise, Repo}
+  alias Health.{Exercise, ExercisePolicy, Repo}
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -13,6 +13,8 @@ defmodule Health.Exercise do
 
     timestamps()
   end
+
+  defdelegate authorize(action, user, params), to: ExercisePolicy
 
   @doc false
   @spec changeset(struct(), map()) :: %Ecto.Changeset{}
