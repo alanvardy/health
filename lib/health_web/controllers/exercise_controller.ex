@@ -12,7 +12,7 @@ defmodule HealthWeb.ExerciseController do
 
     exercises = Exercise.all()
 
-    with :ok <- Bodyguard.permit(Health.Policies.Exercise, :index, user, Exercise) do
+    with :ok <- Bodyguard.permit(Exercise, :index, user, Exercise) do
       render(conn, "index.html", exercises: exercises)
     end
   end
@@ -24,7 +24,7 @@ defmodule HealthWeb.ExerciseController do
     exercise = %Exercise{}
     changeset = Exercise.changeset(exercise, %{})
 
-    with :ok <- Bodyguard.permit(Health.Policies.Exercise, :new, user, exercise) do
+    with :ok <- Bodyguard.permit(Exercise, :new, user, exercise) do
       render(conn, "new.html", exercise: exercise, changeset: changeset)
     end
   end
@@ -35,7 +35,7 @@ defmodule HealthWeb.ExerciseController do
 
     exercise = %Exercise{}
 
-    with :ok <- Bodyguard.permit(Health.Policies.Exercise, :create, user, exercise) do
+    with :ok <- Bodyguard.permit(Exercise, :create, user, exercise) do
       exercise
       |> Exercise.changeset(params)
       |> Health.Repo.insert()
@@ -59,7 +59,7 @@ defmodule HealthWeb.ExerciseController do
     exercise = Exercise.find(id)
     changeset = Exercise.changeset(exercise, %{})
 
-    with :ok <- Bodyguard.permit(Health.Policies.Exercise, :edit, user, exercise) do
+    with :ok <- Bodyguard.permit(Exercise, :edit, user, exercise) do
       render(conn, "edit.html", changeset: changeset, exercise: exercise)
     end
   end
@@ -70,7 +70,7 @@ defmodule HealthWeb.ExerciseController do
 
     exercise = Exercise.find(id)
 
-    with :ok <- Bodyguard.permit(Health.Policies.Exercise, :update, user, exercise) do
+    with :ok <- Bodyguard.permit(Exercise, :update, user, exercise) do
       exercise
       |> Exercise.changeset(params)
       |> Health.Repo.update()
@@ -93,7 +93,7 @@ defmodule HealthWeb.ExerciseController do
 
     exercise = Exercise.find(id)
 
-    with :ok <- Bodyguard.permit(Health.Policies.Exercise, :show, user, exercise) do
+    with :ok <- Bodyguard.permit(Exercise, :show, user, exercise) do
       render(conn, "show.html", exercise: exercise)
     end
   end
@@ -104,7 +104,7 @@ defmodule HealthWeb.ExerciseController do
 
     exercise = Exercise.find(id)
 
-    with :ok <- Bodyguard.permit(Health.Policies.Exercise, :delete, user, exercise) do
+    with :ok <- Bodyguard.permit(Exercise, :delete, user, exercise) do
       case Exercise.destroy(exercise) do
       {:ok, _exercise} ->
         conn

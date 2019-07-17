@@ -29,7 +29,6 @@ defmodule HealthWeb.ExerciseControllerTest do
 
   test "new", %{conn: conn} do
     conn = conn |> log_in(insert(:user))
-    exercise = insert(:exercise)
 
     conn = get(conn, Routes.exercise_path(conn, :new))
 
