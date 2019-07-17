@@ -27,6 +27,4 @@ defmodule HealthWeb.LayoutViewTest do
 
     assert html == "<li class=\"nav-item active\"><a class=\"nav-link test\" href=\"/\" target=\"_blank\">Test</a></li>"
   end
-
-
 end
