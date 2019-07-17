@@ -16,7 +16,6 @@
         <%= nav_link(@conn, "Exercises", to: Routes.exercise_path(@conn, :index)) %>
       <% end %>
     </ul>
-
     <ul class="navbar-nav">
       <%= if assigns[:current_user] do %>
       <li class="nav-item dropdown">
@@ -33,10 +32,10 @@
       </li>
       <% else %>
       <li class="nav-item">
-        <%= link "Register", to: Routes.pow_registration_path(@conn, :new) %>
+        <%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "nav-link" %>
       </li>
       <li class="nav-item">
-        <%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %>
+        <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "nav-link" %>
       </li>
       <% end %>
     </ul>
