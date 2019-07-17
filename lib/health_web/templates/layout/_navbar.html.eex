@@ -36,10 +36,10 @@
       </li>
       <% else %>
       <li class="nav-item">
-        <%= link "Register", to: Routes.pow_registration_path(@conn, :new) %>
+        <%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "nav-link" %>
       </li>
       <li class="nav-item">
-        <%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %>
+        <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "nav-link" %>
       </li>
       <% end %>
     </ul>
