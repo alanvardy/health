@@ -49,9 +49,10 @@ defmodule Health.WeightsTest do
 
     test "create_log/1 with valid data creates a log" do
       user = insert(:user)
-      assert {:ok, %Log{} = log} = Weight.create_log(params_for(:log, user: user))
-      assert log.date == Timex.today()
-      assert log.weight == 230
+      log_params = params_for(:log, user: user)
+
+      assert {:ok, %Log{} = log} = Weight.create_log(log_params)
+      assert log.weight == log_params.weight
     end
 
     test "create_log/1 with invalid data returns error changeset" do

@@ -10,18 +10,28 @@ defmodule Health.Factory do
   @spec user_factory :: Health.Account.User.t()
   def user_factory do
     %User{
-      email: "user@example.com",
+      email: Faker.Internet.email(),
       password: "password",
-      confirm_password: "password"
+      confirm_password: "password",
+      roles: 1 # Member
     }
+  end
+
+  def admin_user_factory do
+    struct!(
+    user_factory(),
+      %{
+        roles: 3 # Member and Admin
+      }
+    )
   end
 
   @spec log_factory :: Health.Weight.Log.t()
   def log_factory do
     %Log{
       date: Timex.today(),
-      weight: 230,
-      comment: "I feel rather pretty today!",
+      weight: Faker.random_between(100, 400),
+      comment: Faker.StarWars.quote(),
       user: build(:user)
     }
   end
@@ -29,9 +39,9 @@ defmodule Health.Factory do
   @spec exercise_factory :: Health.Exercise.t()
   def exercise_factory do
     %Health.Exercise{
-      name: "Barbell Press",
-      difficulty: 3,
-      description: "This is the barbell press"
+      name: Faker.StarWars.character(),
+      difficulty: Faker.random_between(1, 10),
+      description: Faker.StarWars.quote()
     }
   end
 

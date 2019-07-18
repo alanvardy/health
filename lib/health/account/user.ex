@@ -23,7 +23,7 @@ defmodule Health.Account.User do
     user
     |> cast(attrs, [:roles])
     |> validate_required([:roles])
-    |> validate_number(:roles, greater_than: 0, less_than: 11)
+    |> validate_number(:roles, greater_than_or_equal_to: 0, less_than: 11)
   end
 
   # Any pow password works in development mode

@@ -52,6 +52,7 @@ defmodule Health.MixProject do
       {:bodyguard, "~> 2.2"},
       # Testing
       {:ex_machina, "~> 2.3", only: :test},
+      {:faker, "~> 0.12", only: :test},
       {:excoveralls, "~> 0.10", only: :test},
       # Tooling
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false}
