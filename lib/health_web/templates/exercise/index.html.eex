@@ -8,4 +8,16 @@
   <hr>
 <% end %>
 
+
+<%= HealthWeb.LayoutView.tabs fn f -> %>
+  <%= HealthWeb.LayoutView.tab(f, "One") do %>
+    <p>This is tab one</p>
+  <% end %>
+
+  <%= HealthWeb.LayoutView.tab(f, "Two") do %>
+    <p>This is tab two</p>
+  <% end %>
+<% end %>
+
+
 <%= link 'New Exercise', to: Routes.exercise_path(@conn, :new), class: "btn btn-outline-primary" %>
