@@ -3,7 +3,7 @@ defmodule Health.Repo.Migrations.AddRolesToUser do
 
   def change do
     alter table("users") do
-      add :roles, :integer, default: 0
+      add :roles, :integer, default: 1
     end
   end
 end

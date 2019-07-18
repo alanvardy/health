@@ -13,7 +13,7 @@ defmodule Health.Factory do
       email: Faker.Internet.email(),
       password: "password",
       confirm_password: "password",
-      roles: 2 # Member
+      roles: 1 # Member
     }
   end
 
@@ -21,7 +21,7 @@ defmodule Health.Factory do
     struct!(
     user_factory(),
       %{
-        roles: 3 # Member and Admin
+        roles: 2 # Admin
       }
     )
   end

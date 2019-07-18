@@ -6,29 +6,11 @@ defmodule Health.UserPolicy do
   @behaviour Bodyguard.Policy
   @admin Roles.get(:admin)
 
-  # Signed in users can access their settings
-  # @spec authorize(any, any, any) :: boolean
-  # def authorize(:edit, %User{roles: roles}, %User{})
-  #     when @admin &&& roles > 0,
-  #     do: true
+  # Admin can edit and update user settings
   @spec authorize(any, any, any) :: boolean
-  def authorize(:edit, %User{roles: roles}, %User{}) do
-    admin = Roles.get(:admin)
-
-    cond do
-      (admin &&& roles) > 0 -> true
-      true -> false
-    end
-  end
-
-  def authorize(:update, %User{roles: roles}, %User{}) do
-    admin = Roles.get(:admin)
-
-    cond do
-      (admin &&& roles) > 0 -> true
-      true -> false
-    end
-  end
+  def authorize(action, %User{roles: roles}, %User{})
+      when (@admin &&& roles) > 0 and action in [:edit, :update],
+      do: true
 
   # Catch-all: deny everything else
   def authorize(_, _, _), do: false
