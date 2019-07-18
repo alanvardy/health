@@ -10,7 +10,7 @@ defmodule Health.Account.Roles do
   @roles [:admin, :member]
 
   @doc "returns the bitwise value of a role"
-  @spec get((any -> any)) :: integer
+  @spec get(atom) :: integer
   def get(role) do
     index = Enum.find_index(@roles, fn x -> x == role end)
 

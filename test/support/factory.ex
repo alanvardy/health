@@ -13,7 +13,7 @@ defmodule Health.Factory do
       email: Faker.Internet.email(),
       password: "password",
       confirm_password: "password",
-      roles: 1 # Member
+      roles: 2 # Member
     }
   end
 
@@ -31,7 +31,7 @@ defmodule Health.Factory do
     %Log{
       date: Timex.today(),
       weight: Faker.random_between(100, 400),
-      comment: Faker.StarWars.quote(),
+      comment: Faker.StarWars.character(),
       user: build(:user)
     }
   end
@@ -41,7 +41,7 @@ defmodule Health.Factory do
     %Health.Exercise{
       name: Faker.StarWars.character(),
       difficulty: Faker.random_between(1, 10),
-      description: Faker.StarWars.quote()
+      description: Faker.StarWars.character()
     }
   end
 
