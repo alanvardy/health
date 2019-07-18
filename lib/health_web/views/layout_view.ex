@@ -52,13 +52,27 @@ defmodule HealthWeb.LayoutView do
   def tab(f, label, opts \\ [], [do: _] = block) do
     id = label |> String.downcase |> String.replace(" ", "-")
 
-    nav_opts = [href: "#", class: "nav-link", id: "#{id}-tab", role: "tab", "data-toggle": "tab", "aria-controls": id, "aria-selected": false]
-    div_opts = [class: "tab-pane", id: id, role: "tabpanel", "aria-labelledby": "#{id}-tab"]
+    nav_class = if true do
+      "nav-link"
+    else
+      "nav-link active"
+    end
 
-    case f.tabmode do
+    div_class = if true do
+      "tab-pane fade"
+    else
+      "tab-pane fade show active"
+    end
+
+    nav_opts = [class: nav_class, id: "#{id}-tab", role: "tab", href: "##{id}", "data-toggle": "tab", "aria-controls": id, "aria-selected": false]
+    div_opts = [class: div_class, id: id, role: "tabpanel", "aria-labelledby": "#{id}-tab"]
+
+    content = case f.tabmode do
       :nav -> content_tag(:li, content_tag(:a, label, nav_opts), class: "nav-item")
       :div -> content_tag(:div, div_opts, block)
     end
+
+    content
   end
 
   # def tab(%{tabmode: :div}, label, opts \\ [], [do: _] = block) do
