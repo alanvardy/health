@@ -7,7 +7,6 @@
   <%= if assigns[:current_user] do %>
   <p class="test-center">
     Welcome back <%= @current_user.email %>
-    Your roles: <%= Health.Account.Roles.user_roles(@current_user) %>
   </p>
   <% else %>
   <div class="d-flex justify-content-center my-3">
