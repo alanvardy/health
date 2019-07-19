@@ -1,4 +1,4 @@
-defmodule Health.WeightsTest do
+defmodule Health.WeightTest do
   @moduledoc false
 
   use Health.DataCase, async: true
@@ -29,6 +29,24 @@ defmodule Health.WeightsTest do
                  trend: %{change: 0, text: "Insufficient information"}
                }
     end
+
+    # test "only trends the last 14 log entries" do
+    #   first =
+    #     17..15
+    #     |> Enum.map(fn d ->
+    #       build(:log, weight: 100, date: Timex.shift(Timex.today(), days: d))
+    #     end)
+
+    #   second =
+    #     14..1
+    #     |> Enum.map(fn d ->
+    #       build(:log, weight: 200, date: Timex.shift(Timex.today(), days: d))
+    #     end)
+    #   logs = first ++ second
+    #   stats = Weight.build_stats(logs)
+    #   assert Enum.count(stats.adjusted_weights) == Enum.count(logs)
+    #   assert stats.trend.change == 0
+    # end
   end
 
   describe "log" do
@@ -49,9 +67,10 @@ defmodule Health.WeightsTest do
 
     test "create_log/1 with valid data creates a log" do
       user = insert(:user)
-      assert {:ok, %Log{} = log} = Weight.create_log(params_for(:log, user: user))
-      assert log.date == Timex.today()
-      assert log.weight == 230
+      log_params = params_for(:log, user: user)
+
+      assert {:ok, %Log{} = log} = Weight.create_log(log_params)
+      assert log.weight == log_params.weight
     end
 
     test "create_log/1 with invalid data returns error changeset" do
