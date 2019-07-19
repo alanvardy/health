@@ -2,6 +2,7 @@ defmodule Health.Account do
   @moduledoc "Accounts context for dealing with Users and their settings"
 
   alias Ecto.Changeset
+  alias Health.Repo
   alias Health.Account.User
 
   use Pow.Ecto.Context,
@@ -19,5 +20,10 @@ defmodule Health.Account do
         ) :: any
   def update_settings(%User{} = user, attrs) do
     pow_update(user, attrs)
+  end
+
+  @spec get_users :: [User.t]
+  def get_users do
+    User |> Repo.all
   end
 end
