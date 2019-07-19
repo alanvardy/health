@@ -1,5 +1,6 @@
 defmodule HealthWeb.LayoutView do
   use HealthWeb, :view
+  import Health.Account.Roles
 
   # Change alert-error to alert-danger
   @spec bootstrap_flash(%{private: map}) :: map()
