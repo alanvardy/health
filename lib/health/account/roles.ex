@@ -1,4 +1,4 @@
-defmodule Health.Account.Roles do
+defmodule Health.Account.Role do
   @moduledoc """
   Handles user roles for authentication
 
@@ -22,7 +22,7 @@ defmodule Health.Account.Roles do
   Using Bodyguard
 
   ```elixir
-  @admin MyApp.Roles.get(:admin)
+  @admin MyApp.Role.get(:admin)
 
 
   def authorize(action, %MyApp.User{roles: roles}, %MyApp.User{})
@@ -53,9 +53,9 @@ defmodule Health.Account.Roles do
   ## Example
 
   ```html
-  Roles:
+  Role:
   <ul>
-    <%= for role <- MyApp.Roles.user_roles(@user) do %>
+    <%= for role <- MyApp.Role.user_roles(@user) do %>
       <li><%= role %></li>
     <% end %>
   </ul>
@@ -63,7 +63,7 @@ defmodule Health.Account.Roles do
 
   """
   @spec user_roles(Health.Account.User.t()) :: [String.t()]
-  def user_roles(%User{roles: 0}),  do: ["none"]
+  def user_roles(%User{roles: 0}), do: ["none"]
 
   def user_roles(%User{roles: roles}) do
     @roles

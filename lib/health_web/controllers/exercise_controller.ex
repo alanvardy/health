@@ -1,7 +1,8 @@
 defmodule HealthWeb.ExerciseController do
   use HealthWeb, :controller
   alias Health.Account.User
-  alias Health.Exercise
+  alias Health.Routine
+  alias Health.Routine.Exercise
   alias Plug.Conn
 
   action_fallback HealthWeb.FallbackController
@@ -10,7 +11,7 @@ defmodule HealthWeb.ExerciseController do
   def index(conn, _params) do
     user = get_current_user(conn)
 
-    exercises = Exercise.all()
+    exercises = Routine.list_exercises()
 
     with :ok <- Bodyguard.permit(Exercise, :index, user, Exercise) do
       render(conn, "index.html", exercises: exercises)
@@ -22,7 +23,7 @@ defmodule HealthWeb.ExerciseController do
     user = get_current_user(conn)
 
     exercise = %Exercise{}
-    changeset = Exercise.changeset(exercise, %{})
+    changeset = Routine.change_exercise(exercise)
 
     with :ok <- Bodyguard.permit(Exercise, :new, user, exercise) do
       render(conn, "new.html", exercise: exercise, changeset: changeset)
@@ -30,20 +31,18 @@ defmodule HealthWeb.ExerciseController do
   end
 
   @spec create(%Conn{assigns: %{current_user: %User{}}}, map) :: {:error, any} | %Conn{}
-  def create(conn, %{exercise: params}) do
+  def create(conn, %{exercise: exercise_params}) do
     user = get_current_user(conn)
 
     exercise = %Exercise{}
 
     with :ok <- Bodyguard.permit(Exercise, :create, user, exercise) do
-      exercise
-      |> Exercise.changeset(params)
-      |> Health.Repo.insert()
-      |> case do
+      case Routine.create_exercise(exercise_params) do
         {:ok, _exercise} ->
           conn
           |> put_flash(:success, "Exercise created successfully.")
           |> redirect(to: Routes.exercise_path(conn, :index))
+
         {:error, %Ecto.Changeset{} = changeset} ->
           conn
           |> put_flash(:danger, "Unable to save exercise. Fix any errors below and try again.")
@@ -56,7 +55,7 @@ defmodule HealthWeb.ExerciseController do
   def edit(conn, %{id: id}) do
     user = get_current_user(conn)
 
-    exercise = Exercise.find(id)
+    exercise = Routine.find_exercise(id)
     changeset = Exercise.changeset(exercise, %{})
 
     with :ok <- Bodyguard.permit(Exercise, :edit, user, exercise) do
@@ -65,20 +64,18 @@ defmodule HealthWeb.ExerciseController do
   end
 
   @spec update(%Conn{assigns: %{current_user: %User{}}}, map) :: {:error, any} | %Conn{}
-  def update(conn, %{id: id, exercise: params}) do
+  def update(conn, %{id: id, exercise: exercise_params}) do
     user = get_current_user(conn)
 
-    exercise = Exercise.find(id)
+    exercise = Routine.find_exercise(id)
 
     with :ok <- Bodyguard.permit(Exercise, :update, user, exercise) do
-      exercise
-      |> Exercise.changeset(params)
-      |> Health.Repo.update()
-      |> case do
+      case Routine.update_exercise(exercise, exercise_params) do
         {:ok, _exercise} ->
           conn
           |> put_flash(:success, "Exercise updated successfully.")
           |> redirect(to: Routes.exercise_path(conn, :index))
+
         {:error, %Ecto.Changeset{} = changeset} ->
           conn
           |> put_flash(:danger, "Unable to update exercise. Fix any errors below and try again.")
@@ -91,7 +88,7 @@ defmodule HealthWeb.ExerciseController do
   def show(conn, %{id: id}) do
     user = get_current_user(conn)
 
-    exercise = Exercise.find(id)
+    exercise = Routine.find_exercise(id)
 
     with :ok <- Bodyguard.permit(Exercise, :show, user, exercise) do
       render(conn, "show.html", exercise: exercise)
@@ -102,18 +99,19 @@ defmodule HealthWeb.ExerciseController do
   def delete(conn, %{id: id}) do
     user = get_current_user(conn)
 
-    exercise = Exercise.find(id)
+    exercise = Routine.find_exercise(id)
 
     with :ok <- Bodyguard.permit(Exercise, :delete, user, exercise) do
-      case Exercise.destroy(exercise) do
-      {:ok, _exercise} ->
-        conn
-        |> put_flash(:success, "Exercise deleted successfully.")
-        |> redirect(to: Routes.exercise_path(conn, :index))
-      {:error, _changeset} ->
-        conn
-        |> put_flash(:danger, "Unable to delete exercise.")
-        |> redirect(to: Routes.exercise_path(conn, :index))
+      case Routine.destroy_exercise(exercise) do
+        {:ok, _exercise} ->
+          conn
+          |> put_flash(:success, "Exercise deleted successfully.")
+          |> redirect(to: Routes.exercise_path(conn, :index))
+
+        {:error, _changeset} ->
+          conn
+          |> put_flash(:danger, "Unable to delete exercise.")
+          |> redirect(to: Routes.exercise_path(conn, :index))
       end
     end
   end
@@ -122,5 +120,4 @@ defmodule HealthWeb.ExerciseController do
   def get_current_user(conn) do
     conn.assigns.current_user
   end
-
 end

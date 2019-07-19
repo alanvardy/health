@@ -5,9 +5,10 @@ defmodule Health.Factory do
   """
   use ExMachina.Ecto, repo: Health.Repo
   alias Health.Account.User
+  alias Health.Routine.Exercise
   alias Health.Weight.Log
 
-  @spec user_factory :: Health.Account.User.t()
+  @spec user_factory :: User.t()
   def user_factory do
     %User{
       email: Faker.Internet.email(),
@@ -26,7 +27,7 @@ defmodule Health.Factory do
     )
   end
 
-  @spec log_factory :: Health.Weight.Log.t()
+  @spec log_factory :: Log.t()
   def log_factory do
     %Log{
       date: Timex.today(),
@@ -36,9 +37,9 @@ defmodule Health.Factory do
     }
   end
 
-  @spec exercise_factory :: Health.Exercise.t()
+  @spec exercise_factory :: Exercise.t()
   def exercise_factory do
-    %Health.Exercise{
+    %Exercise{
       name: Faker.StarWars.character(),
       difficulty: Faker.random_between(1, 10),
       description: Faker.StarWars.character()

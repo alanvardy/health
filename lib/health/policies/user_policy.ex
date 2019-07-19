@@ -1,10 +1,10 @@
 defmodule Health.UserPolicy do
   @moduledoc "Permissions for all exercise related items"
-  alias Health.Account.{Roles, User}
+  alias Health.Account.{Role, User}
   import Bitwise
 
   @behaviour Bodyguard.Policy
-  @admin Roles.get(:admin)
+  @admin Role.get(:admin)
 
   # Admin can edit and update user settings
   @spec authorize(any, any, any) :: boolean
