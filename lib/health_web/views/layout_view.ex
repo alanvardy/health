@@ -36,14 +36,24 @@ defmodule HealthWeb.LayoutView do
     content_tag(:li, link(text, opts), class: nav_class)
   end
 
-  def tabs(opts \\ [], fun) when is_function(fun, 1) do
-    nav_opts = [class: "nav nav-tabs", role: "tablist"] ++ opts
+  def tabs(opts \\ [activate: :first, class: ""], fun) when is_function(fun, 1) do
+    activate = Keyword.get(opts, :activate, :first)
+
+    navclass =
+      ["nav", "nav-tabs", Keyword.get(opts, :class, "")]
+      |> Enum.filter(fn f -> String.length(f) > 0 end)
+      |> Enum.uniq
+      |> Enum.join(" ")
+
+    opts = Keyword.drop(opts, [:class, :activate])
+
+    nav_opts = [class: navclass, role: "tablist"] ++ opts
     div_opts = [class: "tab-content"]
 
-    {:ok, pid} = Agent.start_link(fn -> %{tabmode: :nav, activate: :first} end)
+    {:ok, pid} = Agent.start_link(fn -> %{tabmode: :nav, activate: activate} end)
     nav_tag = content_tag(:ul, fun.(pid), nav_opts)
 
-    :ok = Agent.update(pid, fn map -> map |> Map.put(:tabmode, :div) |> Map.put(:activate, :first) end)
+    :ok = Agent.update(pid, fn map -> map |> Map.put(:tabmode, :div) |> Map.put(:activate, activate) end)
     div_tag = content_tag(:div, fun.(pid), div_opts)
 
     [nav_tag, div_tag]

@@ -9,7 +9,7 @@
 <% end %>
 
 
-<%= HealthWeb.LayoutView.tabs fn f -> %>
+<%= HealthWeb.LayoutView.tabs [activate: "One", class: "coolman"], fn f -> %>
   <%= HealthWeb.LayoutView.tab(f, "One") do %>
     <p>This is tab one</p>
   <% end %>
