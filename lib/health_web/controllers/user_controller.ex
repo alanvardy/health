@@ -1,7 +1,7 @@
 defmodule HealthWeb.UserController do
   use HealthWeb, :controller
   alias Health.Account
-  alias Health.Account.{Admin, User}
+  alias Health.Account.{EditableUser, User}
   alias Plug.Conn
 
   action_fallback HealthWeb.FallbackController
@@ -12,7 +12,7 @@ defmodule HealthWeb.UserController do
     user = get_current_user(conn)
     users = Account.list_admin_users()
 
-    with :ok <- Bodyguard.permit(Admin, :index, user, %Admin{}) do
+    with :ok <- Bodyguard.permit(EditableUser, :index, user, %EditableUser{}) do
       render(conn, "index.html", users: users)
     end
   end
@@ -25,7 +25,7 @@ defmodule HealthWeb.UserController do
     changeset = User.changeset(user, %{})
     action = Routes.user_path(conn, :update, user)
 
-    with :ok <- Bodyguard.permit(Admin, :edit, current_user, user) do
+    with :ok <- Bodyguard.permit(EditableUser, :edit, current_user, user) do
       render(conn, "edit.html", user: user, changeset: changeset, action: action)
     end
   end
@@ -35,7 +35,7 @@ defmodule HealthWeb.UserController do
     current_user = get_current_user(conn)
     user = Account.get_admin(id)
 
-    with :ok <- Bodyguard.permit(Admin, :update, current_user, user) do
+    with :ok <- Bodyguard.permit(EditableUser, :update, current_user, user) do
       case Account.update_admin(user, user_params) do
         {:ok, _user} ->
           conn
@@ -43,7 +43,7 @@ defmodule HealthWeb.UserController do
           |> redirect(to: Routes.user_path(conn, :edit, user))
 
         {:error, %Ecto.Changeset{} = changeset} ->
-          with :ok <- Bodyguard.permit(Admin, :edit, current_user, user) do
+          with :ok <- Bodyguard.permit(EditableUser, :edit, current_user, user) do
             action = Routes.user_path(conn, :update, user)
 
             conn

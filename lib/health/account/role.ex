@@ -9,7 +9,7 @@ defmodule Health.Account.Role do
   i.e.
   @roles [:member, :disabled, :admin, :village_idiot]
   """
-  alias Health.Account.{Admin, User}
+  alias Health.Account.{EditableUser, User}
   use Bitwise
 
   @roles [:member, :admin]
@@ -62,7 +62,7 @@ defmodule Health.Account.Role do
   ```
 
   """
-  @spec user_roles(User.t() | Admin.t()) :: [String.t()]
+  @spec user_roles(User.t() | EditableUser.t()) :: [String.t()]
   def user_roles(%{roles: 0}), do: ["none"]
 
   def user_roles(%{roles: roles}) do

@@ -1,4 +1,4 @@
-defmodule Health.Account.Admin do
+defmodule Health.Account.EditableUser do
   @moduledoc "Schema and changeset to allow admin to edit users without pow getting in the way"
   alias Health.AdminPolicy
   use Ecto.Schema
