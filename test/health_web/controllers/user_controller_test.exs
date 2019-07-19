@@ -2,6 +2,36 @@ defmodule HealthWeb.UserControllerTest do
   @moduledoc false
   use HealthWeb.ConnCase, async: true
 
+describe "index users" do
+  test "doesn't render index when not logged in", %{conn: conn} do
+    conn = get(conn, Routes.user_path(conn, :index))
+
+    assert redirected_to(conn) ==
+             Routes.pow_session_path(conn, :new, request_path: "/users")
+  end
+
+    test "doesn't show index for member", %{conn: conn} do
+      user = insert(:user)
+
+      conn =
+        conn
+        |> log_in(user)
+        |> get(Routes.user_path(conn, :index))
+
+      assert response(conn, 403) =~ "Forbidden"
+    end
+
+  test "renders index when admin", %{conn: conn} do
+    admin = insert(:admin_user)
+
+    conn =
+      conn
+      |> log_in(admin)
+      |> get(Routes.user_path(conn, :index))
+
+    assert html_response(conn, 200) =~ "Users"
+  end
+end
 describe "edit user" do
   test "doesn't render form when not logged in", %{conn: conn} do
     user = insert(:user)

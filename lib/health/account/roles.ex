@@ -80,7 +80,7 @@ defmodule Health.Account.Roles do
   @spec all_roles() :: [String.t()]
   def all_roles do
     @roles
-    |> Enum.map(fn {k, _v} -> %{name: nice_string(k), value: get(k)} end)
+    |> Enum.map(fn k -> %{name: nice_string(k), value: get(k)} end)
   end
 
   defp nice_string(atom) do

@@ -38,7 +38,7 @@ defmodule HealthWeb.Router do
     resources "/weights", WeightController, except: [:new, :show]
     get "/weights/long_term", WeightController, :long_term
 
-    resources "/users", UserController, only: [:edit, :update]
+    resources "/users", UserController, only: [:index, :edit, :update]
   end
 
   # Other scopes may use custom stacks.

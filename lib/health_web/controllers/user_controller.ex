@@ -6,6 +6,17 @@ defmodule HealthWeb.UserController do
 
   action_fallback HealthWeb.FallbackController
 
+  @spec index(%Conn{assigns: %{current_user: %User{}}}, any) ::
+          {:error, any} | %Conn{}
+  def index(conn, _params) do
+    user = get_current_user(conn)
+    users = Account.get_users()
+
+    with :ok <- Bodyguard.permit(User, :index, user, user) do
+      render(conn, "index.html", users: users)
+    end
+  end
+
   @spec edit(%Conn{assigns: %{current_user: %User{}}}, any) ::
           {:error, any} | %Conn{}
   def edit(conn, %{id: id}) do
