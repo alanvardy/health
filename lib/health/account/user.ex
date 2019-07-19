@@ -15,17 +15,6 @@ defmodule Health.Account.User do
 
   defdelegate authorize(action, user, params), to: UserPolicy
 
-  @spec changeset(
-          {map, map} | %{:__struct__ => atom | %{__changeset__: map}, optional(atom) => any},
-          :invalid | %{optional(:__struct__) => none, optional(atom | binary) => any}
-        ) :: Ecto.Changeset.t()
-  def changeset(user, attrs) do
-    user
-    |> cast(attrs, [:roles])
-    |> validate_required([:roles])
-    |> validate_number(:roles, greater_than_or_equal_to: 0, less_than: 11)
-  end
-
   # Any pow password works in development mode
   # coveralls-ignore-start
   @spec verify_password(String.t(), String.t()) :: boolean()
