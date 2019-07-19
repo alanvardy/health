@@ -1,18 +1,12 @@
 defmodule Health.Account do
   @moduledoc "Accounts context for dealing with Users and their settings"
 
-  alias Ecto.Changeset
   alias Health.Account.User
   alias Health.Repo
 
   use Pow.Ecto.Context,
     repo: Health.Repo,
     user: Health.Account.User
-
-  @spec change_settings(%User{}) :: %Changeset{}
-  def change_settings(%User{} = user) do
-    User.changeset(user, %{})
-  end
 
   @spec update_settings(
           Health.Account.User.t(),
