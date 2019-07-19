@@ -2,22 +2,21 @@ defmodule Health.Account.Admin do
   @moduledoc "Schema and changeset to allow admin to edit users without pow getting in the way"
   alias Health.AdminPolicy
   use Ecto.Schema
+  use Pow.Ecto.Schema
   import Ecto.Changeset
 
   schema "users" do
     has_many :logs, Health.Weight.Log, foreign_key: :user_id
     field :roles, :integer
     field :email, :string
+    pow_user_fields()
 
     timestamps()
   end
 
   defdelegate authorize(action, user, params), to: AdminPolicy
 
-  @spec changeset(
-          {map, map} | %{:__struct__ => atom | %{__changeset__: map}, optional(atom) => any},
-          :invalid | %{optional(:__struct__) => none, optional(atom | binary) => any}
-        ) :: Ecto.Changeset.t()
+  @spec changeset(any, map) :: Ecto.Changeset.t()
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:roles])
