@@ -37,23 +37,16 @@ defmodule HealthWeb.LayoutView do
   end
 
   def tabs(opts \\ [activate: :first, class: ""], fun) when is_function(fun, 1) do
-    activate = Keyword.get(opts, :activate, :first)
+    activate = Keyword.get(opts, :activate, :first) # Either :first, or a String matching the tab label
+    navclass = String.trim("nav nav-tabs #{Keyword.get(opts, :class, "")}")
 
-    navclass =
-      ["nav", "nav-tabs", Keyword.get(opts, :class, "")]
-      |> Enum.filter(fn f -> String.length(f) > 0 end)
-      |> Enum.uniq
-      |> Enum.join(" ")
-
-    opts = Keyword.drop(opts, [:class, :activate])
-
-    nav_opts = [class: navclass, role: "tablist"] ++ opts
+    nav_opts = [class: navclass, role: "tablist"] ++ Keyword.drop(opts, [:class, :activate])
     div_opts = [class: "tab-content"]
 
-    {:ok, pid} = Agent.start_link(fn -> %{tabmode: :nav, activate: activate} end)
+    {:ok, pid} = Agent.start_link(fn -> %{tabmode: :nav, activate: activate, controls: :erlang.unique_integer([:positive])} end)
     nav_tag = content_tag(:ul, fun.(pid), nav_opts)
 
-    :ok = Agent.update(pid, fn map -> map |> Map.put(:tabmode, :div) |> Map.put(:activate, activate) end)
+    :ok = Agent.update(pid, fn map -> Map.merge(map, %{tabmode: :div, activate: activate}) end)
     div_tag = content_tag(:div, fun.(pid), div_opts)
 
     [nav_tag, div_tag]
@@ -64,6 +57,7 @@ defmodule HealthWeb.LayoutView do
 
     tabmode = Agent.get(pid, fn map -> Map.get(map, :tabmode) end)
     activate = Agent.get(pid, fn map -> Map.get(map, :activate) end)
+    controls = Agent.get(pid, fn map -> Map.get(map, :controls) end)
 
     active = (activate == :first || activate == label)
 
@@ -71,18 +65,16 @@ defmodule HealthWeb.LayoutView do
       Agent.update(pid, fn map -> Map.put(map, :activate, label) end)
     end
 
-    nav_class = (if !active, do: "nav-link", else: "nav-link active")
-    div_class = (if !active, do: "tab-pane fade", else: "tab-pane fade show active")
+    nav_class = (unless active, do: "nav-link", else: "nav-link active")
+    div_class = (unless active, do: "tab-pane fade", else: "tab-pane fade show active")
 
-    nav_opts = [class: nav_class, id: "#{id}-tab", role: "tab", href: "##{id}", "data-toggle": "tab", "aria-controls": id, "aria-selected": false]
-    div_opts = [class: div_class, id: id, role: "tabpanel", "aria-labelledby": "#{id}-tab"]
+    nav_opts = [class: nav_class, id: "tab-#{id}-#{controls}", role: "tab", href: "##{id}-#{controls}", "data-toggle": "tab", "aria-controls": "#{id}-#{controls}", "aria-selected": false]
+    div_opts = [class: div_class, id: "#{id}-#{controls}", role: "tabpanel", "aria-labelledby": "tab-#{id}-#{controls}"]
 
-    content = case tabmode do
+    case tabmode do
       :nav -> content_tag(:li, content_tag(:a, label, nav_opts), class: "nav-item")
       :div -> content_tag(:div, div_opts, block)
     end
-
-    content
   end
 
 end
