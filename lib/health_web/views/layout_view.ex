@@ -49,6 +49,8 @@ defmodule HealthWeb.LayoutView do
     :ok = Agent.update(pid, fn map -> Map.merge(map, %{tabmode: :div, activate: activate}) end)
     div_tag = content_tag(:div, fun.(pid), div_opts)
 
+    Agent.stop(pid)
+
     [nav_tag, div_tag]
   end
 
