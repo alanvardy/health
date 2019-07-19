@@ -3,7 +3,7 @@
 
   Roles:
   <ul>
-    <%= for role <- Health.Account.Roles.user_roles(@current_user) do %>
+    <%= for role <- Health.Account.Role.user_roles(@current_user) do %>
       <li><%= role %></li>
     <% end %>
   </ul>

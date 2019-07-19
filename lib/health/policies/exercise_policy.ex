@@ -1,7 +1,7 @@
 defmodule Health.ExercisePolicy do
   @moduledoc "Permissions for all exercise related items"
   alias Health.Account.User
-  alias Health.Exercise
+  alias Health.Routine.Exercise
 
   @behaviour Bodyguard.Policy
 
@@ -14,5 +14,4 @@ defmodule Health.ExercisePolicy do
 
   # Catch-all: deny everything else
   def authorize(_, _, _), do: false
-
 end

@@ -1,5 +1,6 @@
 defmodule Health.Weight.Log do
   @moduledoc "Weight log for a user"
+  alias Health.LogPolicy
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -11,6 +12,8 @@ defmodule Health.Weight.Log do
 
     timestamps()
   end
+
+  defdelegate authorize(action, user, params), to: LogPolicy
 
   @doc false
   @spec changeset(struct(), map()) :: %Ecto.Changeset{}

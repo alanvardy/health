@@ -1,4 +1,4 @@
-defmodule Health.WeightPolicy do
+defmodule Health.LogPolicy do
   @moduledoc "Permissions for all stats related items"
 
   alias Health.Account.User
