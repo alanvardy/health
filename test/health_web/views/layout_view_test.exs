@@ -1,7 +1,7 @@
 defmodule HealthWeb.LayoutViewTest do
+  @moduledoc false
   use HealthWeb.ConnCase, async: true
 
-  alias HealthWeb.LayoutView
   import Phoenix.HTML, only: [safe_to_string: 1]
 
   test "when inactive (request path does not match to)" do
@@ -22,9 +22,14 @@ defmodule HealthWeb.LayoutViewTest do
 
   test "additional options are included on the link tag" do
     html =
-      HealthWeb.LayoutView.nav_link(%{request_path: "/"}, "Test", to: "/", class: "test", target: "_blank")
+      HealthWeb.LayoutView.nav_link(%{request_path: "/"}, "Test",
+        to: "/",
+        class: "test",
+        target: "_blank"
+      )
       |> safe_to_string()
 
-    assert html == "<li class=\"nav-item active\"><a class=\"nav-link test\" href=\"/\" target=\"_blank\">Test</a></li>"
+    assert html ==
+             "<li class=\"nav-item active\"><a class=\"nav-link test\" href=\"/\" target=\"_blank\">Test</a></li>"
   end
 end

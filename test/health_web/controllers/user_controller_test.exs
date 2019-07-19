@@ -7,7 +7,7 @@ describe "index users" do
     conn = get(conn, Routes.user_path(conn, :index))
 
     assert redirected_to(conn) ==
-             Routes.pow_session_path(conn, :new, request_path: "/users/")
+             Routes.pow_session_path(conn, :new, request_path: "/users")
   end
 
     test "doesn't show index for member", %{conn: conn} do
