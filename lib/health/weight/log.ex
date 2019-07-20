@@ -9,6 +9,7 @@ defmodule Health.Weight.Log do
     field :weight, :float
     field :comment, :string
     belongs_to :user, Health.Account.User
+    # belongs_to :admin, Health.Account.EditableUser
 
     timestamps()
   end
