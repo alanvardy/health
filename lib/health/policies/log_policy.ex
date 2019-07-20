@@ -1,4 +1,4 @@
-defmodule Health.Weight.Policy do
+defmodule Health.LogPolicy do
   @moduledoc "Permissions for all stats related items"
 
   alias Health.Account.User
@@ -21,4 +21,5 @@ defmodule Health.Weight.Policy do
 
   # Catch-all: deny everything else
   def authorize(_, _, _), do: false
+
 end

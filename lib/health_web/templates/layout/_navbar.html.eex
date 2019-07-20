@@ -12,12 +12,13 @@
   <div class="collapse navbar-collapse" id="navContent">
     <ul class="navbar-nav mr-auto">
       <%= if assigns[:current_user] do %>
-      <li class="nav-item">
-        <%= link "Weight", to: Routes.weight_path(@conn, :index), class: "nav-link" %>
-      </li>
+      <%= nav_link(@conn, "Weight", to: Routes.weight_path(@conn, :index)) %>
+      <%= nav_link(@conn, "Exercises", to: Routes.exercise_path(@conn, :index)) %>
+      <%= if is?(@current_user, :admin) do %>
+      <%= nav_link(@conn, "Users", to: Routes.user_path(@conn, :index)) %>
+      <% end %>
       <% end %>
     </ul>
-
     <ul class="navbar-nav">
       <%= if assigns[:current_user] do %>
       <li class="nav-item dropdown">
@@ -34,10 +35,10 @@
       </li>
       <% else %>
       <li class="nav-item">
-        <%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "nav-link" %>
+        <%= nav_link(@conn, "Register", to: Routes.pow_registration_path(@conn, :new)) %>
       </li>
       <li class="nav-item">
-        <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "nav-link" %>
+        <%= nav_link(@conn, "Sign in", to: Routes.pow_session_path(@conn, :new)) %>
       </li>
       <% end %>
     </ul>

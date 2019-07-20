@@ -1,0 +1,14 @@
+<h1>Users</h1>
+<%= for user <- @users do %>
+<p>
+  <strong>
+    <%= user.email %>
+  </strong>
+  <%=
+  user
+  |> user_roles()
+  |> Enum.join(", ")
+  %>
+  <%= link "edit", to: Routes.user_path(@conn, :edit, user) %>
+</p>
+<% end %>

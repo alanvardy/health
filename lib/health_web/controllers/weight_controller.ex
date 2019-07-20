@@ -16,7 +16,7 @@ defmodule HealthWeb.WeightController do
     changeset = Weight.change_log(log)
     statistics = Weight.build_stats(logs)
 
-    with :ok <- Bodyguard.permit(Weight, :index, user, Log) do
+    with :ok <- Bodyguard.permit(Log, :index, user, Log) do
       render(conn, "index.html", logs: logs, statistics: statistics, changeset: changeset)
     end
   end
@@ -28,7 +28,7 @@ defmodule HealthWeb.WeightController do
     log = %Log{}
     log_params = Map.put(log_params, :user_id, user.id)
 
-    with :ok <- Bodyguard.permit(Weight, :create, user, log) do
+    with :ok <- Bodyguard.permit(Log, :create, user, log) do
       case Weight.create_log(log_params) do
         {:ok, _log} ->
           conn
@@ -36,7 +36,7 @@ defmodule HealthWeb.WeightController do
           |> redirect(to: Routes.weight_path(conn, :index))
 
         {:error, %Ecto.Changeset{} = changeset} ->
-          with :ok <- Bodyguard.permit(Weight, :index, user, Log) do
+          with :ok <- Bodyguard.permit(Log, :index, user, Log) do
             user = get_current_user(conn)
             logs = Weight.list_logs(user)
             statistics = Weight.build_stats(logs)
@@ -55,7 +55,7 @@ defmodule HealthWeb.WeightController do
     log = Weight.get_log!(id)
     changeset = Weight.change_log(log)
 
-    with :ok <- Bodyguard.permit(Weight, :edit, user, log) do
+    with :ok <- Bodyguard.permit(Log, :edit, user, log) do
       render(conn, "edit.html", log: log, changeset: changeset)
     end
   end
@@ -66,7 +66,7 @@ defmodule HealthWeb.WeightController do
     user = get_current_user(conn)
     log = Weight.get_log!(id)
 
-    with :ok <- Bodyguard.permit(Weight, :update, user, log) do
+    with :ok <- Bodyguard.permit(Log, :update, user, log) do
       case Weight.update_log(log, log_params) do
         {:ok, _log} ->
           conn
@@ -74,7 +74,7 @@ defmodule HealthWeb.WeightController do
           |> redirect(to: Routes.weight_path(conn, :index))
 
         {:error, %Ecto.Changeset{} = changeset} ->
-          with :ok <- Bodyguard.permit(Weight, :edit, user, log) do
+          with :ok <- Bodyguard.permit(Log, :edit, user, log) do
             conn
             |> put_flash(:error, "Your log could not be updated")
             |> render("edit.html", log: log, changeset: changeset)
@@ -89,7 +89,7 @@ defmodule HealthWeb.WeightController do
     user = get_current_user(conn)
     log = Weight.get_log!(id)
 
-    with :ok <- Bodyguard.permit(Weight, :delete, user, log) do
+    with :ok <- Bodyguard.permit(Log, :delete, user, log) do
       {:ok, _log} = Weight.delete_log(log)
 
       conn
@@ -105,7 +105,7 @@ defmodule HealthWeb.WeightController do
     logs = Weight.list_logs(user)
     statistics = Weight.build_stats(logs)
 
-    with :ok <- Bodyguard.permit(Weight, :long_term, user, Log) do
+    with :ok <- Bodyguard.permit(Log, :long_term, user, Log) do
       render(conn, "long_term.html", statistics: statistics)
     end
   end
