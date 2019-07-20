@@ -1,6 +1,10 @@
 defmodule Health.Account.EditableUser do
-  @moduledoc "Schema and changeset to allow admin to edit users without pow getting in the way"
-  alias Health.AdminPolicy
+  @moduledoc """
+  Schema and changeset to allow admin to edit users without pow getting in the way
+  For regular usage, use Health.Account.User
+  """
+
+  alias Health.EditableUserPolicy
   use Ecto.Schema
   use Pow.Ecto.Schema
   import Ecto.Changeset
@@ -14,7 +18,7 @@ defmodule Health.Account.EditableUser do
     timestamps()
   end
 
-  defdelegate authorize(action, user, params), to: AdminPolicy
+  defdelegate authorize(action, user, params), to: EditableUserPolicy
 
   @spec changeset(any, map) :: Ecto.Changeset.t()
   def changeset(user, attrs) do

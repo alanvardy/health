@@ -19,7 +19,7 @@ defmodule Health.Factory do
     }
   end
 
-  def admin_user_factory do
+  def admin_factory do
     struct!(
       user_factory(),
       %{

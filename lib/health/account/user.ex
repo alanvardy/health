@@ -1,9 +1,10 @@
 defmodule Health.Account.User do
-  @moduledoc false
+  @moduledoc """
+    Use this Account for all cases except when admin needs to edit attributes
+  """
   alias Health.UserPolicy
   use Ecto.Schema
   use Pow.Ecto.Schema
-  import Ecto.Changeset
 
   schema "users" do
     has_many :logs, Health.Weight.Log

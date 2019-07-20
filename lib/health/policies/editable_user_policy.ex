@@ -1,4 +1,4 @@
-defmodule Health.AdminPolicy do
+defmodule Health.EditableUserPolicy do
   @moduledoc "Permissions for all administrative related items"
   alias Health.Account.{EditableUser, Role, User}
   import Bitwise

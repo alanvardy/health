@@ -8,16 +8,16 @@ defmodule Health.Account do
     repo: Health.Repo,
     user: Health.Account.User
 
-  @spec list_admin_users :: [User.t()]
-  def list_admin_users do
+  @spec list_editable_users :: [User.t()]
+  def list_editable_users do
     EditableUser |> Repo.all()
   end
 
-  @spec get_admin(integer) :: %EditableUser{} | :error
-  def get_admin(id), do: Repo.get(EditableUser, id)
+  @spec get_editable_user(integer) :: %EditableUser{} | :error
+  def get_editable_user(id), do: Repo.get(EditableUser, id)
 
-  @spec update_admin(Health.Account.EditableUser.t(), map) :: {:error, map} | {:ok, map}
-  def update_admin(%EditableUser{} = user, attrs) do
+  @spec update_editable_user(Health.Account.EditableUser.t(), map) :: {:error, map} | {:ok, map}
+  def update_editable_user(%EditableUser{} = user, attrs) do
     pow_update(user, attrs)
   end
 end

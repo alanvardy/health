@@ -10,7 +10,7 @@ defmodule HealthWeb.UserController do
           {:error, any} | %Conn{}
   def index(conn, _params) do
     user = get_current_user(conn)
-    users = Account.list_admin_users()
+    users = Account.list_editable_users()
 
     with :ok <- Bodyguard.permit(EditableUser, :index, user, %EditableUser{}) do
       render(conn, "index.html", users: users)
@@ -21,7 +21,7 @@ defmodule HealthWeb.UserController do
           {:error, any} | %Conn{}
   def edit(conn, %{id: id}) do
     current_user = get_current_user(conn)
-    user = Account.get_admin(id)
+    user = Account.get_editable_user(id)
     changeset = User.changeset(user, %{})
     action = Routes.user_path(conn, :update, user)
 
@@ -33,10 +33,10 @@ defmodule HealthWeb.UserController do
   @spec update(Plug.Conn.t(), map) :: {:error, any} | Plug.Conn.t()
   def update(conn, %{"id" => id, "user" => user_params}) do
     current_user = get_current_user(conn)
-    user = Account.get_admin(id)
+    user = Account.get_editable_user(id)
 
     with :ok <- Bodyguard.permit(EditableUser, :update, current_user, user) do
-      case Account.update_admin(user, user_params) do
+      case Account.update_editable_user(user, user_params) do
         {:ok, _user} ->
           conn
           |> put_flash(:info, "User updated successfully.")
