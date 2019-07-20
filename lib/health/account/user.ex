@@ -16,6 +16,14 @@ defmodule Health.Account.User do
 
   defdelegate authorize(action, user, params), to: UserPolicy
 
+  # For additional attributes we can use this method
+  # def changeset(user_or_changeset, attrs) do
+  #   user_or_changeset
+  #   |> pow_changeset(attrs)
+  #   |> Ecto.Changeset.cast(attrs, [:custom])
+  #   |> Ecto.Changeset.validate_required([:custom])
+  # end
+
   # Any pow password works in development mode
   # coveralls-ignore-start
   @spec verify_password(String.t(), String.t()) :: boolean()
