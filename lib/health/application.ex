@@ -12,9 +12,10 @@ defmodule Health.Application do
       # Start the Ecto repository
       Health.Repo,
       # Start the endpoint when the application starts
-      HealthWeb.Endpoint
+      HealthWeb.Endpoint,
       # Starts a worker by calling: Health.Worker.start_link(arg)
       # {Health.Worker, arg},
+      {Pow.Store.Backend.MnesiaCache, nodes: [node()]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
