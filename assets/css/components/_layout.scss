@@ -5,12 +5,3 @@ h1 {
 body {
   background: theme-color("dark");
 }
-
-.cont {
-  @extend .container;
-  @extend .bg-white;
-  @extend .rounded;
-  @extend .py-4;
-  @extend .px-5;
-  @extend .my-4;
-}

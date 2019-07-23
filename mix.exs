@@ -55,7 +55,8 @@ defmodule Health.MixProject do
       {:faker, "~> 0.12", only: :test},
       {:excoveralls, "~> 0.10", only: :test},
       # Tooling
-      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
+      {:sshex, "~> 2.2.1"}
     ]
   end
 
