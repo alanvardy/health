@@ -1,4 +1,3 @@
-<div class="cont">
   <h1>Health</h1>
   <p>
     A little Phoenix app for keeping us above ground a little longer,
@@ -16,4 +15,3 @@
     <%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "primary-button" %>
   </div>
   <% end %>
-</div>
