@@ -38,9 +38,10 @@ defmodule Health.Weight do
 
     Log
     |> where([l], l.user_id == ^user.id)
-    |> order_by([l], asc: l.date)
+    |> order_by([l], desc: l.date)
     |> limit(^limit)
     |> Repo.all()
+    |> Enum.reverse()
   end
 
   @doc """
