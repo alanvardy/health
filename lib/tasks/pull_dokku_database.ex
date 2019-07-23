@@ -6,6 +6,7 @@ defmodule Mix.Tasks.PullDokkuDatabase do
   @repo Health.Repo
   @postgres_username "postgres"
 
+  @spec run(any) :: :ok
   def run(_args) do
     {:ok, _started} = Application.ensure_all_started(:sshex)
 
