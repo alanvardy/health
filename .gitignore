@@ -35,3 +35,7 @@ npm-debug.log
 
 # ignore elixir language service
 /.elixir_ls/
+Mnesia.nonode@nohost/LATEST.LOG
+Mnesia.nonode@nohost/Elixir.Pow.Store.Backend.MnesiaCache.DCD
+Mnesia.nonode@nohost/schema.DAT
+Mnesia.nonode@nohost/DECISION_TAB.LOG

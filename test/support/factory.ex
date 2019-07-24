@@ -4,29 +4,43 @@ defmodule Health.Factory do
   http://hexdocs.pm/ex_machina/ExMachina.html
   """
   use ExMachina.Ecto, repo: Health.Repo
-  alias Health.Account.User
+  alias Health.Account.{EditableUser, User}
+  alias Health.Routine.Exercise
   alias Health.Weight.Log
 
-  @spec user_factory :: Health.Account.User.t()
+  @spec user_factory :: User.t()
   def user_factory do
     %User{
       email: Faker.Internet.email(),
       password: "password",
       confirm_password: "password",
-      roles: 1 # Member
+      # Member
+      roles: 1
     }
   end
 
-  def admin_user_factory do
+  def admin_factory do
     struct!(
-    user_factory(),
+      user_factory(),
       %{
-        roles: 2 # Admin
+        # Admin
+        roles: 2
       }
     )
   end
 
-  @spec log_factory :: Health.Weight.Log.t()
+  @spec editable_user_factory :: EditableUser.t()
+  def editable_user_factory do
+    %EditableUser{
+      email: Faker.Internet.email(),
+      password: "password",
+      confirm_password: "password",
+      # Member
+      roles: 1
+    }
+  end
+
+  @spec log_factory :: Log.t()
   def log_factory do
     %Log{
       date: Timex.today(),
@@ -36,13 +50,12 @@ defmodule Health.Factory do
     }
   end
 
-  @spec exercise_factory :: Health.Exercise.t()
+  @spec exercise_factory :: Exercise.t()
   def exercise_factory do
-    %Health.Exercise{
+    %Exercise{
       name: Faker.StarWars.character(),
       difficulty: Faker.random_between(1, 10),
       description: Faker.StarWars.character()
     }
   end
-
 end

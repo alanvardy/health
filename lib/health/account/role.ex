@@ -1,4 +1,4 @@
-defmodule Health.Account.Roles do
+defmodule Health.Account.Role do
   @moduledoc """
   Handles user roles for authentication
 
@@ -9,7 +9,7 @@ defmodule Health.Account.Roles do
   i.e.
   @roles [:member, :disabled, :admin, :village_idiot]
   """
-  alias Health.Account.User
+  alias Health.Account.{EditableUser, User}
   use Bitwise
 
   @roles [:member, :admin]
@@ -22,7 +22,7 @@ defmodule Health.Account.Roles do
   Using Bodyguard
 
   ```elixir
-  @admin MyApp.Roles.get(:admin)
+  @admin MyApp.Role.get(:admin)
 
 
   def authorize(action, %MyApp.User{roles: roles}, %MyApp.User{})
@@ -53,19 +53,19 @@ defmodule Health.Account.Roles do
   ## Example
 
   ```html
-  Roles:
+  Role:
   <ul>
-    <%= for role <- MyApp.Roles.user_roles(@user) do %>
+    <%= for role <- MyApp.Role.user_roles(@user) do %>
       <li><%= role %></li>
     <% end %>
   </ul>
   ```
 
   """
-  @spec user_roles(Health.Account.User.t()) :: [String.t()]
-  def user_roles(%User{roles: 0}),  do: ["none"]
+  @spec user_roles(User.t() | EditableUser.t()) :: [String.t()]
+  def user_roles(%{roles: 0}), do: ["none"]
 
-  def user_roles(%User{roles: roles}) do
+  def user_roles(%{roles: roles}) do
     @roles
     |> Enum.map(fn r -> {r, get(r)} end)
     |> Enum.filter(fn {_k, v} -> (roles &&& v) > 0 end)
