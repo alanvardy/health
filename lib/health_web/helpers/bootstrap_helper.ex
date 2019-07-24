@@ -47,40 +47,47 @@ defmodule HealthWeb.BootstrapHelper do
     nav_opts = [class: navclass, role: "tablist"] ++ Keyword.drop(opts, [:class, :activate])
     div_opts = [class: "tab-content"]
 
-    {:ok, pid} = Agent.start_link(fn -> %{tabmode: :nav, activate: activate, controls: :erlang.unique_integer([:positive])} end)
-    nav_tag = content_tag(:ul, fun.(pid), nav_opts)
+    content = fun.(nil) |> elem(1) |> Enum.to_list |> Enum.filter(fn x -> is_list(x) end)
 
-    :ok = Agent.update(pid, fn map -> Map.merge(map, %{tabmode: :div, activate: activate}) end)
-    div_tag = content_tag(:div, fun.(pid), div_opts)
+    nav_content = content
+      |> Enum.map(fn x -> tab_content(x) end)
+      |> List.update_at(0, fn x -> tab_activate(x) end)
 
-    Agent.stop(pid)
+    div_content = content
+      |> Enum.map(fn x -> div_content(x) end)
+      |> List.update_at(0, fn x -> div_activate(x) end)
+
+    nav_tag = content_tag(:ul, raw(nav_content), nav_opts)
+    div_tag = content_tag(:div, raw(div_content), div_opts)
 
     [nav_tag, div_tag]
   end
 
-  def tab(pid, label, opts \\ [], [do: _] = block) do
+  def tab_content(tags) when is_list(tags), do: tags |> List.first
+  def tab_content(tags), do: nil
+
+  def tab_activate(tags) do
+    tags |> raw |> safe_to_string |> String.replace("nav-link", "nav-link active")
+  end
+
+  def div_activate(tags) do
+    tags |> raw |> safe_to_string |> String.replace("tab-pane", "tab-pane show active")
+  end
+
+  def div_content(tags) when is_list(tags), do: tags |> List.last
+  def div_content(tags), do: nil
+
+  def tab(label, opts \\ [], [do: _] = block) do
     id = label |> String.downcase |> String.replace(" ", "-")
+    controls = Kernel.to_charlist(id) |> Enum.sum
 
-    tabmode = Agent.get(pid, fn map -> Map.get(map, :tabmode) end)
-    activate = Agent.get(pid, fn map -> Map.get(map, :activate) end)
-    controls = Agent.get(pid, fn map -> Map.get(map, :controls) end)
+    nav_opts = [class: "nav-link", id: "tab-#{id}-#{controls}", role: "tab", href: "##{id}-#{controls}", "data-toggle": "tab", "aria-controls": "#{id}-#{controls}", "aria-selected": false]
+    div_opts = [class: "tab-pane fade", id: "#{id}-#{controls}", role: "tabpanel", "aria-labelledby": "tab-#{id}-#{controls}"]
 
-    active = (activate == :first || activate == label)
+    nav_tag = content_tag(:li, content_tag(:a, label, nav_opts), class: "nav-item")
+    div_tag = content_tag(:div, div_opts, block)
 
-    if active do
-      Agent.update(pid, fn map -> Map.put(map, :activate, label) end)
-    end
-
-    nav_class = (unless active, do: "nav-link", else: "nav-link active")
-    div_class = (unless active, do: "tab-pane fade", else: "tab-pane fade show active")
-
-    nav_opts = [class: nav_class, id: "tab-#{id}-#{controls}", role: "tab", href: "##{id}-#{controls}", "data-toggle": "tab", "aria-controls": "#{id}-#{controls}", "aria-selected": false]
-    div_opts = [class: div_class, id: "#{id}-#{controls}", role: "tabpanel", "aria-labelledby": "tab-#{id}-#{controls}"]
-
-    case tabmode do
-      :nav -> content_tag(:li, content_tag(:a, label, nav_opts), class: "nav-item")
-      :div -> content_tag(:div, div_opts, block)
-    end
+    [nav_tag, div_tag]
   end
 
 end

@@ -9,25 +9,13 @@
 <% end %>
 
 <%= tabs fn f -> %>
-  <%= tab(f, "One") do %>
+  <%= tab("One") do %>
     <p>This is tab one</p>
   <% end %>
 
-  <%= tab(f, "Two") do %>
+  <%= tab("Two") do %>
     <p>This is tab two</p>
   <% end %>
 <% end %>
-
-
-<%= tabs [activate: "Two", class: "coolman"], fn f -> %>
-  <%= tab(f, "One") do %>
-    <p>This is tab one</p>
-  <% end %>
-
-  <%= tab(f, "Two") do %>
-    <p>This is tab two</p>
-  <% end %>
-<% end %>
-
 
 <%= link 'New Exercise', to: Routes.exercise_path(@conn, :new), class: "btn btn-outline-primary" %>
