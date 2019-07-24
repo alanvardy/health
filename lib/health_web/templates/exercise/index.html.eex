@@ -8,7 +8,7 @@
   <hr>
 <% end %>
 
-<%= tabs fn f -> %>
+<%= tabs(activate: "One") do %>
   <%= tab("One") do %>
     <p>This is tab one</p>
   <% end %>
