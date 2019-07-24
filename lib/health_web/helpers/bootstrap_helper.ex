@@ -1,4 +1,8 @@
 defmodule HealthWeb.BootstrapHelper do
+  @moduledoc """
+  Boostrap 4 view helpers
+  """
+
   import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
   use Phoenix.HTML
 
@@ -21,7 +25,7 @@ defmodule HealthWeb.BootstrapHelper do
   # Bootstrap4 - Nav Link
   # Automatically puts in the 'active' class when on conn.request_path
   # <%= nav_link(@conn, "Home", to: "/") %>
-  @spec nav_link(Plug.Conn.t(), String.t(), Keyword.t()) :: String.t()
+  @spec nav_link(Plug.Conn.t(), String.t(), Keyword.t()) :: Phoenix.HTML.safe()
   def nav_link(%{request_path: request_path}, text, opts) do
     # Apply nav-item and active to the li tag
     nav_class = case request_path == opts[:to] do
@@ -51,6 +55,7 @@ defmodule HealthWeb.BootstrapHelper do
   #   <% end %>
   # <% end %>
   #
+  @spec tabs(Keyword.t(), Phoenix.HTML.safe()) :: Phoenix.HTML.safe()
   def tabs(opts \\ [active: :first, class: ""], [do: block]) do
     active = Keyword.get(opts, :active, :first) # Either :first, or a String matching the tab label
     navclass = String.trim("nav nav-tabs #{Keyword.get(opts, :class, "")}")
@@ -72,6 +77,7 @@ defmodule HealthWeb.BootstrapHelper do
 
   # Bootstrap4 - Tab
   # Works with tabs helper
+  @spec tab(String.t(), Keyword.t(), Phoenix.HTML.safe()) :: Phoenix.HTML.safe()
   def tab(label, opts \\ [], [do: _] = block) do
     id = label |> String.downcase |> String.replace(" ", "-")
     controls = Kernel.to_charlist(id) |> Enum.sum
