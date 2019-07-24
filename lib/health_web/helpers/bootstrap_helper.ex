@@ -1,10 +1,8 @@
 defmodule HealthWeb.BootstrapHelper do
-  #use HealthWeb, :view
-  #use Phoenix.HTML
-
   import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
   use Phoenix.HTML
 
+  # Bootstrap4 - Flash Alert
   # Change alert-error to alert-danger
   @spec bootstrap_flash(%{private: map}) :: map()
   def bootstrap_flash(conn) do
@@ -40,68 +38,51 @@ defmodule HealthWeb.BootstrapHelper do
     content_tag(:li, link(text, opts), class: nav_class)
   end
 
-  def tabs(opts \\ [activate: :first, class: ""], [do: block]) do
-    activate = Keyword.get(opts, :activate, :first) # Either :first, or a String matching the tab label
+  # Bootstrap4 - Tabs
+  # Helper for quickly creating Bootstrap4 tabs
+  #
+  # <%= tabs(active: "Two") do %>
+  #   <%= tab("One") do %>
+  #     <p>This is tab one</p>
+  #   <% end %>
+
+  #   <%= tab("Two") do %>
+  #     <p>This is tab two</p>
+  #   <% end %>
+  # <% end %>
+  #
+  def tabs(opts \\ [active: :first, class: ""], [do: block]) do
+    active = Keyword.get(opts, :active, :first) # Either :first, or a String matching the tab label
     navclass = String.trim("nav nav-tabs #{Keyword.get(opts, :class, "")}")
 
-    nav_opts = [class: navclass, role: "tablist"] ++ Keyword.drop(opts, [:class, :activate])
+    nav_opts = [class: navclass, role: "tablist"] ++ Keyword.drop(opts, [:class, :active])
     div_opts = [class: "tab-content"]
 
     content = block |> elem(1) |> Enum.to_list |> Enum.filter(fn x -> is_list(x) end)
+    index = tabs_find_index(content, active) || 0
 
-    navs = content |> get_tab_navs
-    divs = content |> get_tab_divs
+    navs = content |> tabs_get_navs |> tabs_activate_navs(index) |> raw
+    divs = content |> tabs_get_divs |> tabs_activate_divs(index) |> raw
 
-    index = navs |> get_active_index(activate)
-
-    nav_tag = content_tag(:ul, navs |> activate_tab_navs(index) |> raw, nav_opts)
-    div_tag = content_tag(:div, divs |> activate_tab_divs(index) |> raw, div_opts)
+    nav_tag = content_tag(:ul, navs, nav_opts)
+    div_tag = content_tag(:div, divs, div_opts)
 
     [nav_tag, div_tag]
   end
 
-  defp get_tab_navs(list), do: list |> Enum.map(fn x -> x |> List.first end)
-  defp get_tab_divs(list), do: list |> Enum.map(fn x -> x |> List.last end)
+  # Bootstrap4 - Tab
+  # Works with tabs helper
+  #
+  # <%= tabs(active: "Two") do %>
+  #   <%= tab("One") do %>
+  #     <p>This is tab one</p>
+  #   <% end %>
 
-  defp get_active_index(list, activate) when activate == :first, do: 0
-  defp get_active_index(list, activate) do
-    Enum.find_index(list, fn x -> x |> List.flatten |> Enum.member?(activate) end)
-  end
-
-  defp activate_tab_navs(list, index), do: List.update_at(list, index, fn x -> tab_activate(x) end)
-  defp activate_tab_divs(list, index), do: List.update_at(list, index, fn x -> div_activate(x) end)
-
-  defp tab_activate(tags) do
-    tags |> raw |> safe_to_string |> String.replace("nav-link", "nav-link active")
-  end
-
-  defp div_activate(tags) do
-    tags |> raw |> safe_to_string |> String.replace("tab-pane", "tab-pane show active")
-  end
-
-  # defp activate_tab_navs([head|tail], activate) when activate == :first, do: [tab_activate(head)|tail]
-  # defp activate_tab_divs([head|tail], activate) when activate == :first, do: [div_activate(head)|tail]
-
-
-  # defp activate_tab_divs(list, activate) do
-  #   # index = Enum.find_index(list, fn x -> x |> IO.inspect |> String.contains("role=\"tab\">#{activate}</a>"))
-  #   # list |> List.update_at(index, fn x -> tab_activate(tags))
-  #   list
-  # end
-
-  # def tab_content(tags) when is_list(tags), do: tags |> List.first
-
-  # def div_content(tags) when is_list(tags), do: tags |> List.last
-  # def div_content(tags), do: nil
-
-  # def tab_index(tags, label) when label == :first, do: 0
-  # def tab_index(tags, label) do
-  #   1
-  # end
-
-
-
-
+  #   <%= tab("Two") do %>
+  #     <p>This is tab two</p>
+  #   <% end %>
+  # <% end %>
+  #
   def tab(label, opts \\ [], [do: _] = block) do
     id = label |> String.downcase |> String.replace(" ", "-")
     controls = Kernel.to_charlist(id) |> Enum.sum
@@ -113,6 +94,25 @@ defmodule HealthWeb.BootstrapHelper do
     div_tag = content_tag(:div, div_opts, block)
 
     [nav_tag, div_tag]
+  end
+
+  defp tabs_get_navs(list), do: Enum.map(list, fn x -> x |> List.first end)
+  defp tabs_get_divs(list), do: Enum.map(list, fn x -> x |> List.last end)
+
+  defp tabs_find_index(list, active) when active == :first, do: 0
+  defp tabs_find_index(list, active) do
+    list |> tabs_get_navs |> Enum.find_index(fn x -> x |> List.flatten |> Enum.member?(active) end)
+  end
+
+  defp tabs_activate_navs(list, index), do: List.update_at(list, index, fn x -> tabs_activate_nav(x) end)
+  defp tabs_activate_divs(list, index), do: List.update_at(list, index, fn x -> tabs_activate_div(x) end)
+
+  defp tabs_activate_nav(tags) do
+    tags |> raw |> safe_to_string |> String.replace("nav-link", "nav-link active", global: false)
+  end
+
+  defp tabs_activate_div(tags) do
+    tags |> raw |> safe_to_string |> String.replace("tab-pane", "tab-pane show active", global: false)
   end
 
 end

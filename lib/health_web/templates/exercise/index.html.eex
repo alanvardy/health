@@ -8,13 +8,24 @@
   <hr>
 <% end %>
 
-<%= tabs(activate: "One") do %>
+<%= tabs(active: "Two") do %>
   <%= tab("One") do %>
     <p>This is tab one</p>
   <% end %>
 
   <%= tab("Two") do %>
     <p>This is tab two</p>
+
+    <%= tabs do %>
+      <%= tab("Aligator") do %>
+        <p>This is tab aligator</p>
+      <% end %>
+
+      <%= tab("Baboon") do %>
+        <p>This is tab baboon</p>
+      <% end %>
+    <% end %>
+
   <% end %>
 <% end %>
 
