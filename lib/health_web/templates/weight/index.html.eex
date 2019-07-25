@@ -5,10 +5,10 @@
     <%= link "View long term graph", to: Routes.weight_path(@conn, :long_term) %>
   </div>
   <div class="col-lg-9">
-    <%= render "partials/graph.html", logs: @logs, statistics: @statistics %>
+    <%= render "partials/graph.html", statistics: @statistics, length: 14 %>
   </div>
-  <%= render "partials/logs.html", logs: @logs, conn: @conn %>
-  <div class="mx-auto">
+  <%= render "partials/logs.html", logs: Enum.take(@logs, -14), conn: @conn %>
+  <div class="container-fluid mx-auto">
     <%= render "partials/inline-form.html", Map.put(assigns, :action, Routes.weight_path(@conn, :create)) %>
   </div>
 </div>
