@@ -4,22 +4,30 @@
   <p>Oops, something went wrong! Please check the errors below.</p>
 </div>
 <% end %>
-<div class="form-group">
-  <%= text_input f, :comment, class: "form-control", placeholder: "Comment (optional)" %>
-  <%= error_tag f, :comment %>
-</div>
-
-<div class="form-inline">
-  <div class="input-group">
-    <%= number_input f, :weight, step: 0.1, class: "form-control", placeholder: "Weight" %>
-    <%= error_tag f, :weight %>
-  </div>
-  <div class="input-group">
-    <%= date_input f, :date, class: "form-control", placeholder: "Date" %>
-    <%= error_tag f, :date %>
-    <div class="input-group-append">
-      <%= submit "Save", class: "btn btn-outline-primary" %>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= date_input f, :date, class: "form-control", placeholder: "Date" %>
+      <%= error_tag f, :date %>
     </div>
   </div>
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= number_input f, :weight, step: 0.1, class: "form-control", placeholder: "Weight" %>
+      <%= error_tag f, :weight %>
+    </div>
+  </div>
+  <div class="col-md-10">
+    <div class="form-group">
+      <%= text_input f, :comment, class: "form-control", placeholder: "Comment (optional)" %>
+      <%= error_tag f, :comment %>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <%= submit "Create", class: "btn btn-outline-primary" %>
+  </div>
 </div>
+
+
 <% end %>

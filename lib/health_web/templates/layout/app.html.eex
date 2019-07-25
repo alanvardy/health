@@ -17,10 +17,9 @@
   <%= render "_navbar.html", conn: @conn, current_user: @current_user %>
 
   <div id="content-wrap">
-    <div class="container bg-white rounded py-4 px-lg-5 my-4">
+    <div class="container bg-white rounded py-4 my-4">
       <%= render "_alert.html", conn: @conn %>
-
-      <div id="main">
+      <div id="main" class="mx-sm-2 mx-lg-5">
         <%= render @view_module, @view_template, assigns %>
       </div>
     </div>

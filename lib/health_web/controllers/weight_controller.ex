@@ -11,7 +11,7 @@ defmodule HealthWeb.WeightController do
           {:error, any} | %Conn{}
   def index(conn, _params) do
     user = get_current_user(conn)
-    logs = Weight.list_logs(user, limit: 14)
+    logs = Weight.list_logs(user)
     log = %Log{}
     changeset = Weight.change_log(log)
     statistics = Weight.build_stats(logs)
