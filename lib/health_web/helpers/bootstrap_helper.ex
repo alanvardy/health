@@ -56,23 +56,23 @@ defmodule HealthWeb.BootstrapHelper do
   # <% end %>
   #
   @spec tabs(Keyword.t(), Phoenix.HTML.safe()) :: Phoenix.HTML.safe()
-  def tabs(opts \\ [active: :first, class: ""], [do: block]) do
+  def tabs(opts \\ [active: :first, class: ""], [do: {:safe, tabs_content}]) do
     active = Keyword.get(opts, :active, :first) # Either :first, or a String matching the tab label
     navclass = String.trim("nav nav-tabs #{Keyword.get(opts, :class, "")}")
 
     nav_opts = [class: navclass, role: "tablist"] ++ Keyword.drop(opts, [:class, :active])
     div_opts = [class: "tab-content"]
 
-    content = block |> elem(1) |> Enum.to_list |> Enum.filter(fn x -> is_list(x) end)
+    content = tabs_content |> Enum.to_list |> Enum.filter(fn x -> is_list(x) end)
     index = tabs_find_index(content, active) || 0
 
     navs = content |> tabs_get_navs |> tabs_activate_navs(index) |> raw
     divs = content |> tabs_get_divs |> tabs_activate_divs(index) |> raw
 
-    nav_tag = content_tag(:ul, navs, nav_opts)
-    div_tag = content_tag(:div, divs, div_opts)
+    nav_tag = content_tag(:ul, navs, nav_opts) |> safe_to_string
+    div_tag = content_tag(:div, divs, div_opts) |> safe_to_string
 
-    [nav_tag, div_tag]
+    {:safe, nav_tag <> div_tag }
   end
 
   # Bootstrap4 - Tab
@@ -110,11 +110,11 @@ defmodule HealthWeb.BootstrapHelper do
   defp tabs_activate_divs(list, index), do: list |> List.update_at(index, &tabs_activate_div/1)
 
   defp tabs_activate_nav(tags) do
-    tags |> raw |> safe_to_string |> String.replace("nav-link", "nav-link active", global: false)
+    tags |> to_string |> String.replace("nav-link", "nav-link active", global: false)
   end
 
   defp tabs_activate_div(tags) do
-    tags |> raw |> safe_to_string |> String.replace("tab-pane", "tab-pane show active", global: false)
+    tags |> to_string |> String.replace("tab-pane", "tab-pane show active", global: false)
   end
 
 end

@@ -29,4 +29,7 @@
   <% end %>
 <% end %>
 
+<%= tabs do %>
+<% end %>
+
 <%= link 'New Exercise', to: Routes.exercise_path(@conn, :new), class: "btn btn-outline-primary" %>

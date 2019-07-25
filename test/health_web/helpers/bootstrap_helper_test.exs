@@ -34,23 +34,12 @@ defmodule HealthWeb.BootstrapHelperTest do
       "<li class=\"nav-item active\"><a class=\"nav-link test\" href=\"/\" target=\"_blank\">Test</a></li>"
   end
 
-  test "tabs render correctly" do
-    html = Phoenix.View.render_existing(__MODULE__, "tabs.html")
-    assert html == "</li>"
-  end
+  test "tabs renders correctly" do
+    html = tabs do
+      content_tag(:p, "No content")
+    end |> safe_to_string()
 
-  def render("tabs.html", _assigns) do
-    """
-      <% HealthWeb.BootstrapHelper.tabs do %>
-        <%= HealthWeb.BootstrapHelper.tab("One") do %>
-          <p>This is tab one</p>
-        <% end %>
-
-        <%= HealthWeb.BootstrapHelper.tab("Two") do %>
-          <p>This is tab two</p>
-        <% end %>
-      <% end %>
-    """ |> EEx.eval_string
+    assert html == "<ul class=\"nav nav-tabs\" role=\"tablist\"></ul><div class=\"tab-content\"></div>"
   end
 
 end
