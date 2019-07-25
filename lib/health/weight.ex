@@ -9,10 +9,10 @@ defmodule Health.Weight do
   alias Health.Weight.{Calculations, Graph, Log, Stats}
   import Ecto.Query, warn: false
 
-  @spec render_graph(List.t(), map) :: any
+  @spec render_graph([map], map) :: any
   def render_graph(data, layout \\ %{}), do: Graph.render(data, layout)
 
-  @spec build_stats([%Log{}]) :: Health.Weight.Stats.t()
+  @spec build_stats([%Log{}]) :: %Health.Weight.Stats{}
   def build_stats(logs) do
     %Stats{}
     |> Map.put(:logs, logs)

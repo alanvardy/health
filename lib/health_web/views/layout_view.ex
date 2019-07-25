@@ -3,7 +3,7 @@ defmodule HealthWeb.LayoutView do
   import Health.Account.Role
 
   # Change alert-error to alert-danger
-  @spec bootstrap_flash(%{private: map}) :: map()
+  @spec bootstrap_flash(atom | %{private: map}) :: [any]
   def bootstrap_flash(conn) do
     conn
     |> get_flash
