@@ -23,7 +23,9 @@
         #
         included: ["lib/", "src/", "test/", "web/", "apps/"],
         excluded: [
-          ~r"/_build/", ~r"/deps/", ~r"/node_modules/",
+          ~r"/_build/",
+          ~r"/deps/",
+          ~r"/node_modules/",
           "fallback_controller.ex"
         ]
       },

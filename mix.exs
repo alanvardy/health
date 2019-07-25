@@ -5,14 +5,30 @@ defmodule Health.MixProject do
     [
       app: :health,
       version: "0.1.0",
-      elixir: "~> 1.5",
+      elixir: "~> 1.8",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+
+      # Docs
+      name: "Health",
+      source_url: "https://github.com/alanvardy/health",
+      homepage_url: "https://health.vardy.codes/",
+      docs: [
+        # The main page in the docs
+        main: "Health",
+        logo: "assets/static/images/logo.png",
+        extras: ["README.md"]
+      ]
     ]
   end
 
@@ -56,7 +72,11 @@ defmodule Health.MixProject do
       {:excoveralls, "~> 0.10", only: :test},
       # Tooling
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
-      {:sshex, "~> 2.2.1"}
+      {:sshex, "~> 2.2.1"},
+      {:ex_doc, "~> 0.21", only: :dev, runtime: false},
+      {:sobelow, "~> 0.8", only: :dev},
+      {:ex_check, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:dialyxir, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 

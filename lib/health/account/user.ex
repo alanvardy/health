@@ -6,6 +6,11 @@ defmodule Health.Account.User do
   use Ecto.Schema
   use Pow.Ecto.Schema
 
+  @type t :: %__MODULE__{
+          roles: integer,
+          email: String.t()
+        }
+
   schema "users" do
     has_many :logs, Health.Weight.Log
     field :roles, :integer
@@ -33,5 +38,6 @@ defmodule Health.Account.User do
       _ -> pow_verify_password(user, password)
     end
   end
+
   # coveralls-ignore-stop
 end

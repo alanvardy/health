@@ -8,17 +8,17 @@ defmodule HealthWeb.UserControllerTest do
       conn = get(conn, Routes.user_path(conn, :index))
 
       assert redirected_to(conn) ==
-              Routes.pow_session_path(conn, :new, request_path: "/users")
+               Routes.pow_session_path(conn, :new, request_path: "/users")
     end
 
-      test "doesn't show index for member", %{conn: conn} do
-        conn =
-          conn
-          |> insert_and_log_in(:user)
-          |> get(Routes.user_path(conn, :index))
+    test "doesn't show index for member", %{conn: conn} do
+      conn =
+        conn
+        |> insert_and_log_in(:user)
+        |> get(Routes.user_path(conn, :index))
 
-        assert response(conn, 403) =~ "Forbidden"
-      end
+      assert response(conn, 403) =~ "Forbidden"
+    end
 
     test "renders index when admin", %{conn: conn} do
       conn =
@@ -29,25 +29,26 @@ defmodule HealthWeb.UserControllerTest do
       assert html_response(conn, 200) =~ "Users"
     end
   end
+
   describe "edit user" do
     test "doesn't render form when not logged in", %{conn: conn} do
       user = insert(:user)
       conn = get(conn, Routes.user_path(conn, :edit, user))
 
       assert redirected_to(conn) ==
-              Routes.pow_session_path(conn, :new, request_path: "/users/#{user.id}/edit")
+               Routes.pow_session_path(conn, :new, request_path: "/users/#{user.id}/edit")
     end
 
-      test "doesn't show form for editing user member logged in", %{conn: conn} do
-        user = insert(:user)
+    test "doesn't show form for editing user member logged in", %{conn: conn} do
+      user = insert(:user)
 
-        conn =
-          conn
-          |> log_in(user)
-          |> get(Routes.user_path(conn, :edit, user))
+      conn =
+        conn
+        |> log_in(user)
+        |> get(Routes.user_path(conn, :edit, user))
 
-        assert response(conn, 403) =~ "Forbidden"
-      end
+      assert response(conn, 403) =~ "Forbidden"
+    end
 
     test "renders form for editing chosen user when admin", %{conn: conn} do
       user = insert(:user)
@@ -67,7 +68,7 @@ defmodule HealthWeb.UserControllerTest do
       conn = put(conn, Routes.user_path(conn, :update, user), user: params_for(:user, roles: 2))
 
       assert redirected_to(conn) ==
-              Routes.pow_session_path(conn, :new, request_path: "/users/#{user.id}")
+               Routes.pow_session_path(conn, :new, request_path: "/users/#{user.id}")
     end
 
     test "redirects when data is valid and admin is logged in", %{conn: conn} do

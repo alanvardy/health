@@ -9,6 +9,11 @@ defmodule Health.Account.EditableUser do
   use Pow.Ecto.Schema
   import Ecto.Changeset
 
+  @type t :: %__MODULE__{
+          roles: integer,
+          email: String.t()
+        }
+
   schema "users" do
     has_many :logs, Health.Weight.Log, foreign_key: :user_id
     field :roles, :integer

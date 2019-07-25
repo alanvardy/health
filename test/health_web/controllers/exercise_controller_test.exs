@@ -11,9 +11,10 @@ defmodule HealthWeb.ExerciseControllerTest do
   test "index", %{conn: conn} do
     exercise = insert(:exercise)
 
-    conn = conn
-    |> insert_and_log_in(:user)
-    |> get(Routes.exercise_path(conn, :index))
+    conn =
+      conn
+      |> insert_and_log_in(:user)
+      |> get(Routes.exercise_path(conn, :index))
 
     assert html_response(conn, 200) =~ "Exercises"
     assert html_response(conn, 200) =~ exercise.name
