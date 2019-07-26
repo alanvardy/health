@@ -8,7 +8,7 @@ defmodule HealthWeb.Plugs.CurrentUser do
   def init(options), do: options
   # coveralls-ignore-stop
 
-  @spec call(Plug.Conn.t(), any) :: Plug.Conn.t()
+  @spec call(%Plug.Conn{}, any) :: %Plug.Conn{}
   def call(conn, _opts) do
     Plug.Conn.assign(conn, :current_user, Pow.Plug.current_user(conn))
   end

@@ -2,10 +2,9 @@
 Nothing to display
 <% else %>
 <%=
-dates = Enum.map(@statistics.logs, fn x -> x.date end)
-weights = Enum.map(@statistics.logs, fn x -> x.weight end)
-trend_dates = Enum.map(@statistics.adjusted_weights, fn x -> x.date end)
-trend_weights = Enum.map(@statistics.adjusted_weights, fn x -> x.weight end)
+{dates, weights} = dates_and_weights(@statistics.logs, @length)
+{trend_dates, trend_weights} = dates_and_weights(@statistics.adjusted_weights, @length)
+
 Health.Weight.render_graph(
   [%{type: "scatter", name: "Actual", x: dates, y: weights},
   %{type: "scatter", name: "Trend", x: trend_dates, y: trend_weights}]

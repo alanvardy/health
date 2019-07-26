@@ -30,7 +30,7 @@ defmodule HealthWeb.UserController do
     end
   end
 
-  @spec update(Plug.Conn.t(), map) :: {:error, any} | Plug.Conn.t()
+  @spec update(%Plug.Conn{}, map) :: {:error, any} | %Plug.Conn{}
   def update(conn, %{"id" => id, "user" => user_params}) do
     current_user = get_current_user(conn)
     user = Account.get_editable_user(id)

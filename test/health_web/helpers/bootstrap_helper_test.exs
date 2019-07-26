@@ -31,15 +31,17 @@ defmodule HealthWeb.BootstrapHelperTest do
       |> safe_to_string()
 
     assert html ==
-      "<li class=\"nav-item active\"><a class=\"nav-link test\" href=\"/\" target=\"_blank\">Test</a></li>"
+             "<li class=\"nav-item active\"><a class=\"nav-link test\" href=\"/\" target=\"_blank\">Test</a></li>"
   end
 
   test "tabs renders correctly" do
-    html = tabs do
-      content_tag(:p, "No content")
-    end |> safe_to_string()
+    html =
+      tabs do
+        content_tag(:p, "No content")
+      end
+      |> safe_to_string()
 
-    assert html == "<ul class=\"nav nav-tabs\" role=\"tablist\"></ul><div class=\"tab-content\"></div>"
+    assert html ==
+             "<ul class=\"nav nav-tabs\" role=\"tablist\"></ul><div class=\"tab-content\"></div>"
   end
-
 end

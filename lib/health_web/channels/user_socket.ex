@@ -1,3 +1,4 @@
+# credo:disable-for-this-file
 defmodule HealthWeb.UserSocket do
   use Phoenix.Socket
 
@@ -16,7 +17,6 @@ defmodule HealthWeb.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
 
-  @spec connect(any, any, any) :: :error | {:ok, any}
   def connect(_params, socket, _connect_info) do
     {:ok, socket}
   end

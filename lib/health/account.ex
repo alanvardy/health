@@ -1,14 +1,14 @@
 defmodule Health.Account do
   @moduledoc "Accounts context for dealing with Users and their settings"
 
-  alias Health.Account.EditableUser
+  alias Health.Account.{EditableUser, User}
   alias Health.Repo
 
   use Pow.Ecto.Context,
     repo: Health.Repo,
     user: Health.Account.User
 
-  @spec list_editable_users :: [User.t()]
+  @spec list_editable_users :: [%User{}]
   def list_editable_users do
     EditableUser |> Repo.all()
   end
