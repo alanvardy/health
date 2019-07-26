@@ -21,5 +21,4 @@ defmodule Health.LogPolicy do
 
   # Catch-all: deny everything else
   def authorize(_, _, _), do: false
-
 end

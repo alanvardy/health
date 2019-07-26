@@ -38,7 +38,7 @@ defmodule Health.Routine do
     Repo.delete(exercise)
   end
 
-  @spec change_exercise(Health.Routine.Exercise.t()) :: Ecto.Changeset.t()
+  @spec change_exercise(%Exercise{}) :: %Ecto.Changeset{}
   def change_exercise(%Exercise{} = exercise) do
     Exercise.changeset(exercise, %{})
   end

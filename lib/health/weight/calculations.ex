@@ -8,7 +8,7 @@ defmodule Health.Weight.Calculations do
   @insufficient "Insufficient information"
 
   @doc "Takes daily weigh ins and returns adjusted weights with 10% smoothing"
-  @spec build_adjusted_weights(Health.Weight.Stats.t()) :: Health.Weight.Stats.t()
+  @spec build_adjusted_weights(%Stats{}) :: %Stats{}
   def build_adjusted_weights(%Stats{logs: logs} = stats) do
     %Stats{stats | adjusted_weights: adjusted_weights(logs)}
   end

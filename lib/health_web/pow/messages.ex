@@ -4,8 +4,6 @@ defmodule HealthWeb.Pow.Messages do
   """
   alias Plug.Conn
   use Pow.Phoenix.Messages
-  use Pow.Extension.Phoenix.Messages, extensions: [PowResetPassword]
-
   import HealthWeb.Gettext
 
   # For a list of messages:

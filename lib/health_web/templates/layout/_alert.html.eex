@@ -1,4 +1,4 @@
-<%= if bootstrap_flash(@conn) do %>
+<%= if Enum.count(bootstrap_flash(@conn)) > 0 do %>
   <div class="row">
     <div class="col">
 
