@@ -52,9 +52,7 @@ jobs:  # basic units of work in a run
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
-      - run: mix test  # run all tests in project
-      - run: mix credo --strict  # run all tests in project
-      - run: mix coveralls  # run all tests in project
+      - run: mix check
 
       # - store_test_results:  # upload junit test results for display in Test Summary
       #     # Read more: https://circleci.com/docs/2.0/collect-test-data/
