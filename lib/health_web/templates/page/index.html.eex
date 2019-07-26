@@ -5,7 +5,7 @@
   </p>
   <%= if assigns[:current_user] do %>
   <p class="test-center">
-    Welcome back <%= @current_user.email %>
+    Welcome back <%= @current_user.name %>
   </p>
   <% else %>
   <div class="d-flex justify-content-center my-3">

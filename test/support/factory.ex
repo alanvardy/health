@@ -8,9 +8,10 @@ defmodule Health.Factory do
   alias Health.Routine.Exercise
   alias Health.Weight.Log
 
-  @spec user_factory :: %User{}
+  @spec user_factory :: Health.Account.User.t()
   def user_factory do
     %User{
+      name: Faker.StarWars.character(),
       email: Faker.Internet.email(),
       password: "password",
       confirm_password: "password",
