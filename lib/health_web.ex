@@ -41,6 +41,7 @@ defmodule HealthWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
+      import HealthWeb.BootstrapHelper
       import HealthWeb.ErrorHelpers
       import HealthWeb.Gettext
       alias HealthWeb.Router.Helpers, as: Routes
