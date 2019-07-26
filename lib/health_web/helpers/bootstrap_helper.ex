@@ -3,12 +3,12 @@ defmodule HealthWeb.BootstrapHelper do
   Boostrap 4 view helpers
   """
 
-  import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
+  import Phoenix.Controller, only: [get_flash: 1]
   use Phoenix.HTML
 
   # Bootstrap4 - Flash Alert
   # Change alert-error to alert-danger
-  @spec bootstrap_flash(%{private: map}) :: map()
+  @spec bootstrap_flash(atom | %{private: map}) :: [any]
   def bootstrap_flash(conn) do
     conn
     |> get_flash
@@ -58,7 +58,7 @@ defmodule HealthWeb.BootstrapHelper do
   #   <% end %>
   # <% end %>
   #
-  @spec tabs(Keyword.t(), Phoenix.HTML.safe()) :: Phoenix.HTML.safe()
+  @spec tabs(keyword, [{:do, {any, any}}, ...]) :: {:safe, binary}
   def tabs(opts \\ [active: :first, class: ""], do: {:safe, tabs_content}) do
     # Either :first, or a String matching the tab label
     active = Keyword.get(opts, :active, :first)
@@ -81,8 +81,8 @@ defmodule HealthWeb.BootstrapHelper do
 
   # Bootstrap4 - Tab
   # Works with tabs helper
-  @spec tab(String.t(), Keyword.t(), Phoenix.HTML.safe()) :: Phoenix.HTML.safe()
-  def tab(label, opts \\ [], [do: _] = block) do
+  @spec tab(binary, any, [{:do, any}, ...]) :: [{:safe, [...]}, ...]
+  def tab(label, _opts \\ [], [do: _] = block) do
     id = label |> String.downcase() |> String.replace(" ", "-")
     controls = Kernel.to_charlist(id) |> Enum.sum()
 
@@ -112,7 +112,7 @@ defmodule HealthWeb.BootstrapHelper do
   defp tabs_get_navs(list), do: list |> Enum.map(&List.first/1)
   defp tabs_get_divs(list), do: list |> Enum.map(&List.last/1)
 
-  defp tabs_find_index(list, active) when active == :first, do: 0
+  defp tabs_find_index(_list, active) when active == :first, do: 0
 
   defp tabs_find_index(list, active) do
     list
