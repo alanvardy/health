@@ -33,7 +33,7 @@ defmodule Health.Account.User do
   # coveralls-ignore-start
   @spec verify_password(String.t(), String.t()) :: boolean()
   def verify_password(user, password) do
-    case Mix.env() do
+    case Application.get_env(:health, :env) do
       :dev -> true
       _ -> pow_verify_password(user, password)
     end

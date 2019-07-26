@@ -1,4 +1,6 @@
 defmodule Health.MixProject do
+  @moduledoc false
+
   use Mix.Project
 
   def project do
@@ -17,6 +19,7 @@ defmodule Health.MixProject do
       ],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
+      # Extra apps for dialyxer
       deps: deps(),
 
       # Docs
