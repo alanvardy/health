@@ -13,6 +13,7 @@ defmodule Health.Account.User do
 
   schema "users" do
     has_many :logs, Health.Weight.Log
+    field :name, :string
     field :roles, :integer
     pow_user_fields()
 
@@ -21,13 +22,12 @@ defmodule Health.Account.User do
 
   defdelegate authorize(action, user, params), to: UserPolicy
 
-  # For additional attributes we can use this method
-  # def changeset(user_or_changeset, attrs) do
-  #   user_or_changeset
-  #   |> pow_changeset(attrs)
-  #   |> Ecto.Changeset.cast(attrs, [:custom])
-  #   |> Ecto.Changeset.validate_required([:custom])
-  # end
+  def changeset(user_or_changeset, attrs) do
+    user_or_changeset
+    |> pow_changeset(attrs)
+    |> Ecto.Changeset.cast(attrs, [:name])
+    |> Ecto.Changeset.validate_required([:name])
+  end
 
   # Any pow password works in development mode
   # coveralls-ignore-start

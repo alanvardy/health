@@ -20,6 +20,7 @@ defmodule Health.Account.EditableUser do
   schema "users" do
     has_many :logs, Health.Weight.Log, foreign_key: :user_id
     field :roles, :integer
+    field :name, :string
 
     # pow attributes
     field :email, :string
@@ -40,8 +41,8 @@ defmodule Health.Account.EditableUser do
   @spec changeset(%Health.Account.EditableUser{} | %Ecto.Changeset{}, map()) :: %Ecto.Changeset{}
   def changeset(user, attrs) do
     user
-    |> Ecto.Changeset.cast(attrs, [:roles])
-    |> Ecto.Changeset.validate_required([:roles])
+    |> Ecto.Changeset.cast(attrs, [:roles, :name])
+    |> Ecto.Changeset.validate_required([:roles, :name])
     |> Ecto.Changeset.validate_number(:roles, greater_than_or_equal_to: 0, less_than: 11)
   end
 end
