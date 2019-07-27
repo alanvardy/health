@@ -18,7 +18,7 @@ defmodule HealthWeb.WeightControllerTest do
 
       conn = get(conn, Routes.weight_path(conn, :index))
 
-      assert html_response(conn, 200) =~ "Weight Log"
+      assert html_response(conn, 200) =~ "All Logs"
     end
 
     test "accesses page when no logs", %{conn: conn} do
@@ -30,7 +30,7 @@ defmodule HealthWeb.WeightControllerTest do
 
       conn = get(conn, Routes.weight_path(conn, :index))
 
-      assert html_response(conn, 200) =~ "Weight Log"
+      assert html_response(conn, 200) =~ "All Logs"
     end
   end
 
