@@ -13,5 +13,4 @@ defmodule Health.Repo.Migrations.CreateExercises do
 
     create index(:exercises, [:name], unique: true)
   end
-
 end

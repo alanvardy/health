@@ -11,8 +11,8 @@ defmodule HealthWeb.WeightController do
           {:error, any} | %Conn{}
   def index(conn, _params) do
     user = get_current_user(conn)
-    logs = Weight.list_logs(user, limit: 14)
-    log = %Log{}
+    logs = Weight.list_logs(user)
+    log = %Log{date: Timex.today()}
     changeset = Weight.change_log(log)
     statistics = Weight.build_stats(logs)
 
@@ -95,18 +95,6 @@ defmodule HealthWeb.WeightController do
       conn
       |> put_flash(:info, "Log deleted successfully.")
       |> redirect(to: Routes.weight_path(conn, :index))
-    end
-  end
-
-  @spec long_term(%Conn{assigns: %{current_user: %User{}}}, any) ::
-          {:error, any} | %Conn{}
-  def long_term(conn, _params) do
-    user = get_current_user(conn)
-    logs = Weight.list_logs(user)
-    statistics = Weight.build_stats(logs)
-
-    with :ok <- Bodyguard.permit(Log, :long_term, user, Log) do
-      render(conn, "long_term.html", statistics: statistics)
     end
   end
 

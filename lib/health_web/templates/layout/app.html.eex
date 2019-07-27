@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
   <meta name="robots" content="index, follow" />
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
   <title>Health - A Phoenix app for keeping us above ground a little longer</title>
   <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" />
 </head>
@@ -15,21 +14,17 @@
   <%= render "_impersonate.html", conn: @conn %>
   <%= render "_staging.html", conn: @conn %>
   <%= render "_navbar.html", conn: @conn, current_user: @current_user %>
-
   <div id="content-wrap">
-    <div class="container bg-white rounded py-4 px-lg-5 my-4">
+    <div class="container bg-white rounded py-4 my-4">
       <%= render "_alert.html", conn: @conn %>
-
-      <div id="main">
+      <div id="main" class="mx-sm-2 mx-lg-5">
         <%= render @view_module, @view_template, assigns %>
       </div>
     </div>
   </div>
-
   <div id="footer-wrap">
     <%= render "_footer.html", conn: @conn %>
   </div>
-
   <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
 </body>
 

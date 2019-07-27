@@ -1,14 +1,24 @@
-<h1>Weight Log</h1>
+<%= tabs do %>
+<%= tab("Trend") do %>
+<h1 class="mt-4">Trend</h1>
+<%= render "partials/graph.html", statistics: @statistics, length: 100 %>
 <div class="row align-items-center">
   <div class="col-lg-3">
-    <%= render "partials/estimate.html", statistics: @statistics %>
-    <%= link "View long term graph", to: Routes.weight_path(@conn, :long_term) %>
+    <%= render "partials/estimate.html", statistics: @statistics, conn: @conn %>
   </div>
   <div class="col-lg-9">
-    <%= render "partials/graph.html", logs: @logs, statistics: @statistics %>
-  </div>
-  <%= render "partials/logs.html", logs: @logs, conn: @conn %>
-  <div class="mx-auto">
     <%= render "partials/inline-form.html", Map.put(assigns, :action, Routes.weight_path(@conn, :create)) %>
   </div>
 </div>
+<% end %>
+<%= tab("Recent Logs") do %>
+<h1 class="mt-4">Recent Logs</h1>
+<%= render "partials/logs.html", logs: Enum.take(@logs, -14), conn: @conn %>
+<%= render "partials/inline-form.html", Map.put(assigns, :action, Routes.weight_path(@conn, :create)) %>
+<% end %>
+<%= tab("All Logs") do %>
+<h1 class="mt-4">All Logs</h1>
+<%= render "partials/logs.html", logs: @logs, conn: @conn %>
+<%= render "partials/inline-form.html", Map.put(assigns, :action, Routes.weight_path(@conn, :create)) %>
+<% end %>
+<% end %>

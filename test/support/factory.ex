@@ -8,9 +8,10 @@ defmodule Health.Factory do
   alias Health.Routine.Exercise
   alias Health.Weight.Log
 
-  @spec user_factory :: User.t()
+  @spec user_factory :: Health.Account.User.t()
   def user_factory do
     %User{
+      name: Faker.StarWars.character(),
       email: Faker.Internet.email(),
       password: "password",
       confirm_password: "password",
@@ -19,6 +20,7 @@ defmodule Health.Factory do
     }
   end
 
+  @spec user_factory :: %User{}
   def admin_factory do
     struct!(
       user_factory(),
@@ -29,7 +31,7 @@ defmodule Health.Factory do
     )
   end
 
-  @spec editable_user_factory :: EditableUser.t()
+  @spec editable_user_factory :: %EditableUser{}
   def editable_user_factory do
     %EditableUser{
       email: Faker.Internet.email(),
@@ -40,7 +42,7 @@ defmodule Health.Factory do
     }
   end
 
-  @spec log_factory :: Log.t()
+  @spec log_factory :: %Log{}
   def log_factory do
     %Log{
       date: Timex.today(),
@@ -50,7 +52,7 @@ defmodule Health.Factory do
     }
   end
 
-  @spec exercise_factory :: Exercise.t()
+  @spec exercise_factory :: %Exercise{}
   def exercise_factory do
     %Exercise{
       name: Faker.StarWars.character(),

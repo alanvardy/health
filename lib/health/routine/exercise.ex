@@ -6,6 +6,12 @@ defmodule Health.Routine.Exercise do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @type t :: %__MODULE__{
+          name: String.t(),
+          description: String.t(),
+          difficulty: integer
+        }
+
   schema "exercises" do
     field :name, :string
     field :description, :string

@@ -42,7 +42,7 @@ defmodule Health.Account.Role do
   @doc """
   Checks whether a user has a role
   """
-  @spec is?(Health.Account.User.t(), atom) :: boolean
+  @spec is?(%User{}, atom) :: boolean
   def is?(%User{roles: roles}, role) do
     (roles &&& get(role)) > 0
   end
@@ -62,7 +62,7 @@ defmodule Health.Account.Role do
   ```
 
   """
-  @spec user_roles(User.t() | EditableUser.t()) :: [String.t()]
+  @spec user_roles(%User{} | %EditableUser{}) :: [String.t()]
   def user_roles(%{roles: 0}), do: ["none"]
 
   def user_roles(%{roles: roles}) do

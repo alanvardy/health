@@ -3,12 +3,10 @@
     <img alt="Logo" src="<%= Routes.static_path(@conn, "/images/logo.png") %>" class="mb-2">
     HEALTH
   </a>
-
   <button class="navbar-toggler" data-aria-controls="navContent" data-aria-label="Toggle navigation"
     data-target="#navContent" data-toggle="collapse" type="button">
     <span class="navbar-toggler-icon"></span>
   </button>
-
   <div class="collapse navbar-collapse" id="navContent">
     <ul class="navbar-nav mr-auto">
       <%= if assigns[:current_user] do %>
@@ -24,9 +22,8 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbar-dropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          <span class="user-email"><%= @current_user.email %></span>
+          <span class="user-email"><%= @current_user.name %></span>
         </a>
-
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown">
           <%= link "Settings", to: Routes.pow_registration_path(@conn, :edit), class: "dropdown-item" %>
           <div class="dropdown-divider"></div>

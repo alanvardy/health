@@ -7,15 +7,19 @@ defmodule HealthWeb.Router do
   pipeline :protected do
     plug Pow.Plug.RequireAuthenticated,
       error_handler: Pow.Phoenix.PlugErrorHandler
-      plug Plugs.CurrentUser
-    end
 
-    pipeline :browser do
-      plug :accepts, ["html"]
-      plug :fetch_session
-      plug :fetch_flash
-      plug :protect_from_forgery
-      plug :put_secure_browser_headers
+    plug Plugs.CurrentUser
+  end
+
+  @csp "style-src 'self' 'unsafe-inline' 'unsafe-eval'"
+
+  pipeline :browser do
+    plug :accepts, ["html"]
+    plug :put_secure_browser_headers, %{"content-security-policy" => @csp}
+    plug :fetch_session
+    plug :fetch_flash
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
   end
 
   # pipeline :api do
@@ -36,7 +40,6 @@ defmodule HealthWeb.Router do
     resources "/exercises", ExerciseController
 
     resources "/weights", WeightController, except: [:new, :show]
-    get "/weights/long_term", WeightController, :long_term
 
     resources "/users", UserController, only: [:index, :edit, :update]
   end
