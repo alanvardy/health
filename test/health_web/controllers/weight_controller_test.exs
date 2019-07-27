@@ -18,7 +18,7 @@ defmodule HealthWeb.WeightControllerTest do
 
       conn = get(conn, Routes.weight_path(conn, :index))
 
-      assert html_response(conn, 200) =~ "Weight Log"
+      assert html_response(conn, 200) =~ "All Logs"
     end
 
     test "accesses page when no logs", %{conn: conn} do
@@ -30,41 +30,7 @@ defmodule HealthWeb.WeightControllerTest do
 
       conn = get(conn, Routes.weight_path(conn, :index))
 
-      assert html_response(conn, 200) =~ "Weight Log"
-    end
-  end
-
-  describe "long_term" do
-    test "doesn't list logs when not logged in", %{conn: conn} do
-      conn = get(conn, Routes.weight_path(conn, :long_term))
-
-      assert redirected_to(conn) ==
-               Routes.pow_session_path(conn, :new, request_path: "/weights/long_term")
-    end
-
-    test "lists logs when logged in", %{conn: conn} do
-      user = insert(:user)
-      insert(:log, user: user)
-
-      conn =
-        conn
-        |> log_in(user)
-
-      conn = get(conn, Routes.weight_path(conn, :long_term))
-
-      assert html_response(conn, 200) =~ "Long Term Trend"
-    end
-
-    test "accesses page when no logs", %{conn: conn} do
-      user = insert(:user)
-
-      conn =
-        conn
-        |> log_in(user)
-
-      conn = get(conn, Routes.weight_path(conn, :long_term))
-
-      assert html_response(conn, 200) =~ "Long Term Trend"
+      assert html_response(conn, 200) =~ "All Logs"
     end
   end
 

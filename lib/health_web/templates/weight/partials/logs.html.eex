@@ -1,4 +1,5 @@
-<div class="table-responsive">
+<%# Desktop view %>
+<div class="table-responsive d-none d-lg-inline-block">
   <table class="table">
     <thead class="thead-light">
       <tr>
@@ -9,17 +10,41 @@
       </tr>
     </thead>
     <tbody>
-      <%= for log <- @logs do %>
+        <%= for log <- @logs do %>
+        <tr>
+          <td scope="row"><%= log.weight %> lb</td>
+          <td><%= log.date %></td>
+          <td><%= log.comment %></td>
+          <td>
+            <%= link "Edit", to: Routes.weight_path(@conn, :edit, log) %> |
+            <%= link "Delete", to: Routes.weight_path(@conn, :delete, log), method: :delete, data: [confirm: "Are you sure?"] %>
+          </td>
+        </tr>
+        <% end %>
+    </tbody>
+  </table>
+</div>
+<%# Mobile view %>
+<div class="table-responsive d-inline-block d-lg-none">
+  <table class="table">
+    <thead class="thead-light">
       <tr>
-        <td scope="row"><%= log.weight %> lb</td>
-        <td><%= log.date %></td>
-        <td><%= log.comment %></td>
-        <td>
-          <%= link "Edit", to: Routes.weight_path(@conn, :edit, log) %> |
-          <%= link "Delete", to: Routes.weight_path(@conn, :delete, log), method: :delete, data: [confirm: "Are you sure?"] %>
-        </td>
+        <th scope="col">Weight / Date</th>
+        <th scope="col">Comment</th>
+        <th scope="col">Action</th>
       </tr>
-      <% end %>
+    </thead>
+    <tbody>
+        <%= for log <- @logs do %>
+        <tr>
+          <td scope="row"><%= log.weight %> lb <br> <%= log.date %></td>
+          <td><%= log.comment %></td>
+          <td>
+            <%= link "Edit", to: Routes.weight_path(@conn, :edit, log) %><br>
+            <%= link "Delete", to: Routes.weight_path(@conn, :delete, log), method: :delete, data: [confirm: "Are you sure?"] %>
+          </td>
+        </tr>
+        <% end %>
     </tbody>
   </table>
 </div>

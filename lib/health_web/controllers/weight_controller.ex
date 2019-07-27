@@ -98,18 +98,6 @@ defmodule HealthWeb.WeightController do
     end
   end
 
-  @spec long_term(%Conn{assigns: %{current_user: %User{}}}, any) ::
-          {:error, any} | %Conn{}
-  def long_term(conn, _params) do
-    user = get_current_user(conn)
-    logs = Weight.list_logs(user)
-    statistics = Weight.build_stats(logs)
-
-    with :ok <- Bodyguard.permit(Log, :long_term, user, Log) do
-      render(conn, "long_term.html", statistics: statistics)
-    end
-  end
-
   @spec get_current_user(%Conn{assigns: %{current_user: %User{}}}) :: %User{}
   def get_current_user(conn) do
     conn.assigns.current_user

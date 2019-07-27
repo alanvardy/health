@@ -1,0 +1,35 @@
+<!-- Launch modal -->
+<%= link "How is this calculated?", to: "#", class: "text-muted", "data-toggle": "modal", "data-target": "#exampleModalCenter"%>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">How the trend is calculated</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-left">
+        <ol>
+          <li>Daily weight is recorded</li>
+          <li>
+            The difference between that weight and the previous weight is taken,
+            and 10% of that is added/subtracted from the previous weight. This
+            is your estimated weight. (This is to account for the daily swings
+            in bodyweight)
+          </li>
+          <li>
+            The change in estimated bodyweight is then averaged over 14 days, and then
+            multiplied by 7 to give the estimated weekly change.
+          </li>
+        </ol>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

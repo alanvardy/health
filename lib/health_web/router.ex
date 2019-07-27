@@ -40,7 +40,6 @@ defmodule HealthWeb.Router do
     resources "/exercises", ExerciseController
 
     resources "/weights", WeightController, except: [:new, :show]
-    get "/weights/long_term", WeightController, :long_term
 
     resources "/users", UserController, only: [:index, :edit, :update]
   end
