@@ -12,7 +12,7 @@ defmodule HealthWeb.WeightController do
   def index(conn, _params) do
     user = get_current_user(conn)
     logs = Weight.list_logs(user)
-    log = %Log{}
+    log = %Log{date: Timex.today()}
     changeset = Weight.change_log(log)
     statistics = Weight.build_stats(logs)
 
