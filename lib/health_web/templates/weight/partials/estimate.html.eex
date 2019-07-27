@@ -5,4 +5,7 @@
   <p class="text-muted">
     <%= @statistics.trend.text %>
   </p>
+  <p>
+    <%= render "partials/explain_trend.html", conn: @conn %>
+  </p>
 </div>

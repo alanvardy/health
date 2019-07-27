@@ -1,3 +1,0 @@
-  <h1>Long Term Trend</h1>
-  <%= render "partials/graph.html", statistics: @statistics, length: 100 %>
-  <%= link "back", to: Routes.weight_path(@conn, :index) %>
