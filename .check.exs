@@ -15,6 +15,7 @@
     ## custom new tools may be added (mix tasks or arbitrary commands)
     # {:my_mix_check, command: "mix release", env: %{"MIX_ENV" => "prod"}},
     # {:my_arbitrary_check, command: "npm test", cd: "assets"},
+    {:compiler, command: "mix compile --warnings-as-errors"},
     {:ex_coveralls, command: "mix coveralls.html", require_files: ["test/test_helper.exs"]},
     {:sobelow, command: "mix sobelow --config"},
     {:credo, command: "mix credo --strict"},
