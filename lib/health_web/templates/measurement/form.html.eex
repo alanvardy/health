@@ -1,0 +1,65 @@
+<%= form_for @changeset, @action, fn f -> %>
+<%= if @changeset.action do %>
+<div class="alert alert-danger">
+  <p>Oops, something went wrong! Please check the errors below.</p>
+</div>
+<% end %>
+
+<div class="form-group">
+  <%= label f, :date %>
+  <%= date_select f, :date, class: "form-control" %>
+  <%= error_tag f, :date %>
+</div>
+
+<div class="form-group">
+  <%= label f, :right_bicep %>
+  <%= number_input f, :right_bicep, step: 0.1, class: "form-control" %>
+  <%= error_tag f, :right_bicep %>
+</div>
+
+<div class="form-group">
+  <%= label f, :left_bicep %>
+  <%= number_input f, :left_bicep, step: 0.1, class: "form-control" %>
+  <%= error_tag f, :left_bicep %>
+</div>
+
+<div class="form-group">
+  <%= label f, :right_thigh %>
+  <%= number_input f, :right_thigh, step: 0.1, class: "form-control" %>
+  <%= error_tag f, :right_thigh %>
+</div>
+
+<div class="form-group">
+  <%= label f, :left_thigh %>
+  <%= number_input f, :left_thigh, step: 0.1, class: "form-control" %>
+  <%= error_tag f, :left_thigh %>
+</div>
+
+<div class="form-group">
+  <%= label f, :buttocks %>
+  <%= number_input f, :buttocks, step: 0.1, class: "form-control" %>
+  <%= error_tag f, :buttocks %>
+</div>
+
+<div class="form-group">
+  <%= label f, :chest %>
+  <%= number_input f, :chest, step: 0.1, class: "form-control" %>
+  <%= error_tag f, :chest %>
+</div>
+
+<div class="form-group">
+  <%= label f, :waist %>
+  <%= number_input f, :waist, step: 0.1, class: "form-control" %>
+  <%= error_tag f, :waist %>
+</div>
+
+<div class="form-group">
+  <%= label f, :comment %>
+  <%= text_input f, :comment, class: "form-control" %>
+  <%= error_tag f, :comment %>
+</div>
+
+<div>
+  <%= submit "Save", class: "primary-button" %>
+</div>
+<% end %>
