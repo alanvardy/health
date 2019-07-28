@@ -6,8 +6,9 @@
           <th scope="col">Date</th>
           <th scope="col">Biceps</th>
           <th scope="col">Thighs</th>
+          <th scope="col">Chest</th>
+          <th scope="col">Waist</th>
           <th scope="col">Buttocks</th>
-          <th scope="col">Chest<br>Waist</th>
           <th scope="col">Comment</th>
 
           <th></th>
@@ -25,11 +26,9 @@
             <%= measurement.right_thigh %><br>
             <%= measurement.left_thigh %>
           </td>
+          <td><%= measurement.chest %></td>
+          <td><%= measurement.waist %></td>
           <td><%= measurement.buttocks %></td>
-          <td>
-            <%= measurement.chest %><br>
-            <%= measurement.waist %>
-          </td>
           <td><%= measurement.comment %></td>
 
           <td>
