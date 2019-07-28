@@ -1,0 +1,53 @@
+<h1>Show Measurement</h1>
+
+<ul>
+
+  <li>
+    <strong>Date:</strong>
+    <%= @measurement.date %>
+  </li>
+
+  <li>
+    <strong>Right bicep:</strong>
+    <%= @measurement.right_bicep %>
+  </li>
+
+  <li>
+    <strong>Left bicep:</strong>
+    <%= @measurement.left_bicep %>
+  </li>
+
+  <li>
+    <strong>Right thigh:</strong>
+    <%= @measurement.right_thigh %>
+  </li>
+
+  <li>
+    <strong>Left thigh:</strong>
+    <%= @measurement.left_thigh %>
+  </li>
+
+  <li>
+    <strong>Buttocks:</strong>
+    <%= @measurement.buttocks %>
+  </li>
+
+  <li>
+    <strong>Chest:</strong>
+    <%= @measurement.chest %>
+  </li>
+
+  <li>
+    <strong>Waist:</strong>
+    <%= @measurement.waist %>
+  </li>
+
+  <li>
+    <strong>Comment:</strong>
+    <%= @measurement.comment %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.measurement_path(@conn, :edit, @measurement) %></span>
+<span><%= link "Back", to: Routes.measurement_path(@conn, :index) %></span>

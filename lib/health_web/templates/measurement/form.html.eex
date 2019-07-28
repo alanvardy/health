@@ -1,0 +1,47 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= label f, :date %>
+  <%= date_select f, :date %>
+  <%= error_tag f, :date %>
+
+  <%= label f, :right_bicep %>
+  <%= number_input f, :right_bicep, step: "any" %>
+  <%= error_tag f, :right_bicep %>
+
+  <%= label f, :left_bicep %>
+  <%= number_input f, :left_bicep, step: "any" %>
+  <%= error_tag f, :left_bicep %>
+
+  <%= label f, :right_thigh %>
+  <%= number_input f, :right_thigh, step: "any" %>
+  <%= error_tag f, :right_thigh %>
+
+  <%= label f, :left_thigh %>
+  <%= number_input f, :left_thigh, step: "any" %>
+  <%= error_tag f, :left_thigh %>
+
+  <%= label f, :buttocks %>
+  <%= number_input f, :buttocks, step: "any" %>
+  <%= error_tag f, :buttocks %>
+
+  <%= label f, :chest %>
+  <%= number_input f, :chest, step: "any" %>
+  <%= error_tag f, :chest %>
+
+  <%= label f, :waist %>
+  <%= number_input f, :waist, step: "any" %>
+  <%= error_tag f, :waist %>
+
+  <%= label f, :comment %>
+  <%= text_input f, :comment %>
+  <%= error_tag f, :comment %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>
