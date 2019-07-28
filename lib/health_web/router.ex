@@ -41,7 +41,7 @@ defmodule HealthWeb.Router do
     resources "/exercises", ExerciseController
     resources "/users", UserController, only: [:index, :edit, :update]
     resources "/weights", WeightController, except: [:new, :show]
-    get "weights/export", WeightController, :export
+    get "/weights/export", WeightController, :export
   end
 
   # Other scopes may use custom stacks.
