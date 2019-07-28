@@ -43,7 +43,7 @@ defmodule Health.Account.Role do
   Checks whether a user has a role
 
   ## Example
-  
+
   ```html
   <%= if is?(@current_user, :admin) do %>
     Stuff that non admin shouldn't see
