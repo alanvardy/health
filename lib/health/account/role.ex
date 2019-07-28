@@ -41,6 +41,14 @@ defmodule Health.Account.Role do
 
   @doc """
   Checks whether a user has a role
+
+  ## Example
+  
+  ```html
+  <%= if is?(@current_user, :admin) do %>
+    Stuff that non admin shouldn't see
+  <% end %>
+  ```
   """
   @spec is?(%User{}, atom) :: boolean
   def is?(%User{roles: roles}, role) do
