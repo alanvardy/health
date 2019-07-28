@@ -12,7 +12,7 @@ use Mix.Config
 config :health, HealthWeb.Endpoint,
   http: [:inet6, port: System.get_env("PORT")],
   url: [host: System.get_env("WEB_HOST"), port: 5000],
-  force_ssl: [hsts: true, host: nil],
+  force_ssl: [hsts: false, host: nil],
   load_from_system_env: true,
   cache_static_manifest: "priv/static/cache_manifest.json"
 
