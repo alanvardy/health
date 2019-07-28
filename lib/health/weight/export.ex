@@ -10,7 +10,6 @@ defmodule Health.Weight.Export do
       |> Enum.map(&convert_log/1)
       |> List.insert_at(0, headers())
       |> CSV.encode()
-      # |> Enum.into(File.stream!("logs.csv"))
       |> Enum.join("")
 
     date = nice_date(Timex.today())
