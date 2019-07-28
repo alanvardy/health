@@ -2,7 +2,7 @@ defmodule HealthWeb.WeightController do
   use HealthWeb, :controller
   alias Health.Account.User
   alias Health.Weight
-  alias Health.Weight.Log
+  alias Health.Weight.{Export, Log}
   alias Plug.Conn
 
   action_fallback HealthWeb.FallbackController
@@ -95,6 +95,23 @@ defmodule HealthWeb.WeightController do
       conn
       |> put_flash(:info, "Log deleted successfully.")
       |> redirect(to: Routes.weight_path(conn, :index))
+    end
+  end
+
+  @spec export(Plug.Conn.t(), any) :: {:error, any} | Plug.Conn.t()
+  def export(conn, _params) do
+    user = get_current_user(conn)
+    logs = Weight.list_logs(user)
+
+    with :ok <- Bodyguard.permit(Log, :export, user, Log) do
+      {date, data} = Export.csv(logs)
+
+      send_download(
+        conn,
+        {:binary, data},
+        content_type: "application/csv",
+        filename: "#{date}_weight_logs.csv"
+      )
     end
   end
 

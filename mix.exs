@@ -66,6 +66,7 @@ defmodule Health.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:better_params, "~> 0.5.0"},
       {:timex, "~> 3.0"},
+      {:csv, "~> 2.3"},
       # Auth
       {:pow, "~> 1.0.11"},
       {:bodyguard, "~> 2.2"},

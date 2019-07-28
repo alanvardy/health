@@ -17,6 +17,9 @@ defmodule Health.LogPolicy do
   # Can see their index
   def authorize(:index, %User{}, Log), do: true
 
+  # Can export
+  def authorize(:export, %User{}, Log), do: true
+
   # Catch-all: deny everything else
   def authorize(_, _, _), do: false
 end
