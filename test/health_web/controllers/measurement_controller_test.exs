@@ -96,46 +96,144 @@ defmodule HealthWeb.MeasurementControllerTest do
     end
   end
 
-  # describe "edit measurement" do
-  #   setup [:create_measurement]
+  describe "edit measurement" do
+    test "doesn't render form for editing chosen measurement when not logged in", %{conn: conn} do
+      measurement = insert(:measurement)
+      conn = get(conn, Routes.measurement_path(conn, :edit, measurement))
 
-  #   test "renders form for editing chosen measurement", %{conn: conn, measurement: measurement} do
-  #     conn = get(conn, Routes.measurement_path(conn, :edit, measurement))
-  #     assert html_response(conn, 200) =~ "Edit Measurement"
-  #   end
-  # end
+      assert redirected_to(conn) ==
+               Routes.pow_session_path(conn, :new,
+                 request_path: "/measurements/#{measurement.id}/edit"
+               )
+    end
 
-  # describe "update measurement" do
-  #   setup [:create_measurement]
+    test "doesn't render form for editing chosen measurement when different user", %{conn: conn} do
+      user = insert(:user)
+      measurement = insert(:measurement, user: user)
+      user2 = insert(:user, email: "something@else.com")
 
-  #   test "redirects when data is valid", %{conn: conn, measurement: measurement} do
-  #     conn =
-  #       put(conn, Routes.measurement_path(conn, :update, measurement), measurement: @update_attrs)
+      conn =
+        conn
+        |> log_in(user2)
+        |> get(Routes.measurement_path(conn, :edit, measurement))
 
-  #     assert redirected_to(conn) == Routes.measurement_path(conn, :show, measurement)
+      assert response(conn, 403) =~ "Forbidden"
+    end
 
-  #     conn = get(conn, Routes.measurement_path(conn, :show, measurement))
-  #     assert html_response(conn, 200) =~ "some updated comment"
-  #   end
+    test "renders form for editing chosen measurement when same user", %{conn: conn} do
+      user = insert(:user)
+      measurement = insert(:measurement, user: user)
 
-  #   test "renders errors when data is invalid", %{conn: conn, measurement: measurement} do
-  #     conn =
-  #       put(conn, Routes.measurement_path(conn, :update, measurement), measurement: @invalid_attrs)
+      conn =
+        conn
+        |> log_in(user)
+        |> get(Routes.measurement_path(conn, :edit, measurement))
 
-  #     assert html_response(conn, 200) =~ "Edit Measurement"
-  #   end
-  # end
+      assert html_response(conn, 200) =~ "Edit Measurement"
+    end
+  end
 
-  # describe "delete measurement" do
-  #   setup [:create_measurement]
+  describe "update measurement" do
+    test "doesn't update when not logged in", %{conn: conn} do
+      measurement = insert(:measurement)
 
-  #   test "deletes chosen measurement", %{conn: conn, measurement: measurement} do
-  #     conn = delete(conn, Routes.measurement_path(conn, :delete, measurement))
-  #     assert redirected_to(conn) == Routes.measurement_path(conn, :index)
+      conn =
+        conn
+        |> put(Routes.measurement_path(conn, :update, measurement),
+          measurement: params_for(:measurement)
+        )
 
-  #     assert_error_sent 404, fn ->
-  #       get(conn, Routes.measurement_path(conn, :show, measurement))
-  #     end
-  #   end
-  # end
+      assert redirected_to(conn) ==
+               Routes.pow_session_path(conn, :new, request_path: "/measurements/#{measurement.id}")
+    end
+
+    test "doesn't update when different user", %{conn: conn} do
+      user = insert(:user)
+      user2 = insert(:user, email: "different@user.com")
+      measurement = insert(:measurement, user: user)
+
+      conn =
+        conn
+        |> log_in(user2)
+        |> put(Routes.measurement_path(conn, :update, measurement),
+          measurement: params_for(:measurement)
+        )
+
+      assert response(conn, 403) =~ "Forbidden"
+    end
+
+    test "redirects when data is valid and user is logged in", %{conn: conn} do
+      user = insert(:user)
+      measurement = insert(:measurement, user: user)
+
+      conn =
+        conn
+        |> log_in(user)
+        |> put(Routes.measurement_path(conn, :update, measurement),
+          measurement: params_for(:measurement, right_bicep: 150)
+        )
+
+      assert redirected_to(conn) == Routes.measurement_path(conn, :show, measurement)
+    end
+
+    test "renders errors when data is invalid", %{conn: conn} do
+      user = insert(:user)
+      measurement = insert(:measurement, user: user)
+
+      conn =
+        conn
+        |> log_in(user)
+        |> put(Routes.measurement_path(conn, :update, measurement),
+          measurement: params_for(:measurement, right_bicep: -1)
+        )
+
+      assert html_response(conn, 200) =~ "Edit Measurement"
+    end
+  end
+
+  describe "delete measurement" do
+    test "cannot delete measurement when not logged in", %{conn: conn} do
+      measurement = insert(:measurement)
+
+      conn =
+        conn
+        |> delete(Routes.measurement_path(conn, :delete, measurement))
+
+      assert redirected_to(conn) ==
+               Routes.pow_session_path(conn, :new, request_path: "/measurements/#{measurement.id}")
+    end
+
+    test "cannot delete measurement when logged in as a different user", %{conn: conn} do
+      user = insert(:user)
+      user2 = insert(:user, email: "different@user.com")
+      measurement = insert(:measurement, user: user)
+
+      conn =
+        conn
+        |> log_in(user2)
+        |> delete(Routes.measurement_path(conn, :delete, measurement))
+
+      assert response(conn, 403) =~ "Forbidden"
+    end
+
+    test "deletes chosen measurement when logged in as measurement's user", %{conn: conn} do
+      user = insert(:user)
+      measurement = insert(:measurement, user: user)
+
+      conn2 =
+        conn
+        |> log_in(user)
+        |> delete(Routes.measurement_path(conn, :delete, measurement))
+
+      assert redirected_to(conn2) == Routes.measurement_path(conn2, :index)
+
+      conn3 =
+        conn
+        |> log_in(user)
+
+      assert_error_sent 404, fn ->
+        get(conn3, Routes.measurement_path(conn3, :show, measurement))
+      end
+    end
+  end
 end

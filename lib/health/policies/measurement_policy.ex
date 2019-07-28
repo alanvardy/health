@@ -17,5 +17,5 @@ defmodule Health.MeasurementPolicy do
       do: true
 
   # Catch-all: deny everything else
-  # def authorize(_, _, _), do: false
+  def authorize(_, _, _), do: false
 end

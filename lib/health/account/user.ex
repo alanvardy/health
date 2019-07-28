@@ -2,7 +2,6 @@ defmodule Health.Account.User do
   @moduledoc """
     Use this Account for all cases except when admin needs to edit attributes
   """
-  alias Health.UserPolicy
   use Ecto.Schema
   use Pow.Ecto.Schema
 
@@ -21,7 +20,8 @@ defmodule Health.Account.User do
     timestamps()
   end
 
-  defdelegate authorize(action, user, params), to: UserPolicy
+  # (Not currently used)
+  # defdelegate authorize(action, user, params), to: UserPolicy
 
   def changeset(user_or_changeset, attrs) do
     user_or_changeset
