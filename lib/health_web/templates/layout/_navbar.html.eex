@@ -11,6 +11,7 @@
     <ul class="navbar-nav mr-auto">
       <%= if assigns[:current_user] do %>
       <%= nav_link(@conn, "Weight", to: Routes.weight_path(@conn, :index)) %>
+      <%= nav_link(@conn, "Measurements", to: Routes.measurement_path(@conn, :index)) %>
       <%= if is?(@current_user, :admin) do %>
       <%= nav_link(@conn, "Exercises", to: Routes.exercise_path(@conn, :index)) %>
       <%= nav_link(@conn, "Users", to: Routes.user_path(@conn, :index)) %>

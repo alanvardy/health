@@ -1,42 +1,46 @@
-<h1>Listing Measurements</h1>
+  <h1>Listing Measurements</h1>
+  <div class="table-responsive">
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Biceps</th>
+          <th scope="col">Thighs</th>
+          <th scope="col">Buttocks</th>
+          <th scope="col">Chest<br>Waist</th>
+          <th scope="col">Comment</th>
 
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Right bicep</th>
-      <th>Left bicep</th>
-      <th>Right thigh</th>
-      <th>Left thigh</th>
-      <th>Buttocks</th>
-      <th>Chest</th>
-      <th>Waist</th>
-      <th>Comment</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for measurement <- @measurements do %>
+        <tr>
+          <td scope="row"><%= measurement.date %></td>
+          <td>
+            <%= measurement.right_bicep %><br>
+            <%= measurement.left_bicep %>
+          </td>
+          <td>
+            <%= measurement.right_thigh %><br>
+            <%= measurement.left_thigh %>
+          </td>
+          <td><%= measurement.buttocks %></td>
+          <td>
+            <%= measurement.chest %><br>
+            <%= measurement.waist %>
+          </td>
+          <td><%= measurement.comment %></td>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for measurement <- @measurements do %>
-    <tr>
-      <td><%= measurement.date %></td>
-      <td><%= measurement.right_bicep %></td>
-      <td><%= measurement.left_bicep %></td>
-      <td><%= measurement.right_thigh %></td>
-      <td><%= measurement.left_thigh %></td>
-      <td><%= measurement.buttocks %></td>
-      <td><%= measurement.chest %></td>
-      <td><%= measurement.waist %></td>
-      <td><%= measurement.comment %></td>
+          <td>
+            <%= link "Show", to: Routes.measurement_path(@conn, :show, measurement) %>
+            <%= link "Edit", to: Routes.measurement_path(@conn, :edit, measurement) %>
+            <%= link "Delete", to: Routes.measurement_path(@conn, :delete, measurement), method: :delete, data: [confirm: "Are you sure?"] %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-      <td>
-        <%= link "Show", to: Routes.measurement_path(@conn, :show, measurement) %>
-        <%= link "Edit", to: Routes.measurement_path(@conn, :edit, measurement) %>
-        <%= link "Delete", to: Routes.measurement_path(@conn, :delete, measurement), method: :delete, data: [confirm: "Are you sure?"] %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
-<span><%= link "New Measurement", to: Routes.measurement_path(@conn, :new) %></span>
+  </div>
+  <span><%= link "New Measurement", to: Routes.measurement_path(@conn, :new) %></span>
