@@ -34,6 +34,40 @@ defmodule HealthWeb.WeightControllerTest do
     end
   end
 
+  describe "export logs" do
+    test "doesn't export logs when not logged in", %{conn: conn} do
+      conn = get(conn, Routes.weight_path(conn, :export))
+
+      assert redirected_to(conn) ==
+               Routes.pow_session_path(conn, :new, request_path: "/weights/export")
+    end
+
+    test "exports logs when logged in", %{conn: conn} do
+      user = insert(:user)
+      insert(:log, user: user)
+
+      conn =
+        conn
+        |> log_in(user)
+
+      conn = get(conn, Routes.weight_path(conn, :export))
+
+      assert response_content_type(conn, :csv)
+    end
+
+    test "exports when no logs", %{conn: conn} do
+      user = insert(:user)
+
+      conn =
+        conn
+        |> log_in(user)
+
+      conn = get(conn, Routes.weight_path(conn, :export))
+
+      assert response_content_type(conn, :csv)
+    end
+  end
+
   describe "create log" do
     test "doesn't create when not logged in", %{conn: conn} do
       conn = post(conn, Routes.weight_path(conn, :create), log: params_for(:log))

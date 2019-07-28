@@ -46,7 +46,7 @@ defmodule Health.Factory do
   def log_factory do
     %Log{
       date: Timex.today(),
-      weight: Faker.random_between(100, 400),
+      weight: Faker.random_between(100, 240) * (Faker.random_uniform() + 1),
       comment: Faker.StarWars.character(),
       user: build(:user)
     }

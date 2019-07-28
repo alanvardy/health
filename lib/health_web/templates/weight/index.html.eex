@@ -21,4 +21,8 @@
 <%= render "partials/logs.html", logs: @logs, conn: @conn %>
 <%= render "partials/inline-form.html", Map.put(assigns, :action, Routes.weight_path(@conn, :create)) %>
 <% end %>
+<%= tab("Export") do %>
+<h1 class="mt-4">Export Logs</h1>
+<%= link "Download CSV", to: Routes.weight_path(@conn, :export) %>
+<% end %>
 <% end %>
