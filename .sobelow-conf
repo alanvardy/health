@@ -7,6 +7,6 @@
   format: "txt",
   out: "",
   threshold: "low",
-  ignore: ["RCE.EEx"],
+  ignore: ["RCE.EEx", "Config.HTTPS"],
   ignore_files: [""]
 ]
