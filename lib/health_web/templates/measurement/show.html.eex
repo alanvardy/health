@@ -42,8 +42,8 @@
   </li>
 </ul>
 
-<span><%= link "Edit", to: Routes.measurement_path(@conn, :edit, @measurement) %></span>
+<span><%= link "Back", to: Routes.measurement_path(@conn, :index), class: "secondary-button" %></span>
+<span><%= link "Edit", to: Routes.measurement_path(@conn, :edit, @measurement), class: "primary-button" %></span>
 <span>
-  <%= link "Delete", to: Routes.measurement_path(@conn, :delete, @measurement), method: :delete, data: [confirm: "Are you sure?"] %>
+  <%= link "Delete", to: Routes.measurement_path(@conn, :delete, @measurement), method: :delete, data: [confirm: "Are you sure?"], class: "primary-button" %>
 </span>
-<span><%= link "Back", to: Routes.measurement_path(@conn, :index) %></span>
