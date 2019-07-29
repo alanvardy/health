@@ -7,9 +7,20 @@ defmodule Health.DimensionTest do
 
   describe "measurements" do
     test "list_measurements/0 returns all measurements" do
-      measurement = [insert(:measurement)]
-      measurement2 = Dimension.list_measurements()
+      user = insert(:user)
+      measurement = [insert(:measurement, user: user)]
+      measurement2 = Dimension.list_measurements(user)
       assert remove_user(measurement) == remove_user(measurement2)
+    end
+
+    test "list_measurements/0 returns only a the logged in users measurements" do
+      user = insert(:user)
+      user2 = insert(:user, email: "another@email.com")
+      measurement = [insert(:measurement, user: user)]
+      measurement2 = [insert(:measurement, user: user2)]
+
+      assert remove_user(measurement) == remove_user(Dimension.list_measurements(user))
+      assert remove_user(measurement2) == remove_user(Dimension.list_measurements(user2))
     end
 
     test "get_measurement!/1 returns the measurement with given id" do
