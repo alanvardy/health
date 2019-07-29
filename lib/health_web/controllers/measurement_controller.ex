@@ -11,7 +11,7 @@ defmodule HealthWeb.MeasurementController do
   @spec index(Plug.Conn.t(), any) :: {:error, any} | Plug.Conn.t()
   def index(conn, _params) do
     user = get_current_user(conn)
-    measurements = Dimension.list_measurements()
+    measurements = Dimension.list_measurements(user)
 
     with :ok <- Bodyguard.permit(Measurement, :index, user, %Measurement{}) do
       render(conn, "index.html", measurements: measurements)
