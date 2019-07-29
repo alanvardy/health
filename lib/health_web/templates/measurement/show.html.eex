@@ -1,53 +1,49 @@
-<h1>Show Measurement</h1>
+<h1>Measurement for <%= @measurement.date %></h1>
 
 <ul>
-
-  <li>
-    <strong>Date:</strong>
-    <%= @measurement.date %>
-  </li>
-
   <li>
     <strong>Right bicep:</strong>
-    <%= @measurement.right_bicep %>
+    <%= @measurement.right_bicep %> cm
   </li>
 
   <li>
     <strong>Left bicep:</strong>
-    <%= @measurement.left_bicep %>
+    <%= @measurement.left_bicep %> cm
   </li>
 
   <li>
     <strong>Right thigh:</strong>
-    <%= @measurement.right_thigh %>
+    <%= @measurement.right_thigh %> cm
   </li>
 
   <li>
     <strong>Left thigh:</strong>
-    <%= @measurement.left_thigh %>
+    <%= @measurement.left_thigh %> cm
   </li>
 
   <li>
     <strong>Buttocks:</strong>
-    <%= @measurement.buttocks %>
+    <%= @measurement.buttocks %> cm
   </li>
 
   <li>
     <strong>Chest:</strong>
-    <%= @measurement.chest %>
+    <%= @measurement.chest %> cm
   </li>
 
   <li>
     <strong>Waist:</strong>
-    <%= @measurement.waist %>
+    <%= @measurement.waist %> cm
   </li>
 
   <li>
     <strong>Comment:</strong>
     <%= @measurement.comment %>
   </li>
-
 </ul>
 
 <span><%= link "Edit", to: Routes.measurement_path(@conn, :edit, @measurement) %></span>
+<span>
+  <%= link "Delete", to: Routes.measurement_path(@conn, :delete, @measurement), method: :delete, data: [confirm: "Are you sure?"] %>
+</span>
 <span><%= link "Back", to: Routes.measurement_path(@conn, :index) %></span>
