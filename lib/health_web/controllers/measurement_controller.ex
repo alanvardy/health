@@ -21,7 +21,7 @@ defmodule HealthWeb.MeasurementController do
   @spec new(Plug.Conn.t(), any) :: Plug.Conn.t()
   def new(conn, _params) do
     user = get_current_user(conn)
-    changeset = Dimension.change_measurement(%Measurement{})
+    changeset = Dimension.change_measurement(%Measurement{date: Timex.today()})
 
     with :ok <- Bodyguard.permit(Measurement, :new, user, %Measurement{}) do
       render(conn, "new.html", changeset: changeset)

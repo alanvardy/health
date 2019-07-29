@@ -1,4 +1,6 @@
-  <h1>Listing Measurements</h1>
+<h1>Listing Measurements</h1>
+<%# Desktop view %>
+<div class="d-none d-lg-inline-flex">
   <div class="table-responsive">
     <table class="table">
       <thead class="thead-light">
@@ -19,17 +21,15 @@
         <tr>
           <td scope="row"><%= measurement.date %></td>
           <td>
-            <%= measurement.right_bicep %><br>
-            <%= measurement.left_bicep %>
+            <%= average([measurement.right_bicep, measurement.left_bicep]) %> cm
           </td>
           <td>
-            <%= measurement.right_thigh %><br>
-            <%= measurement.left_thigh %>
+            <%= average([measurement.right_thigh, measurement.left_thigh]) %> cm
           </td>
-          <td><%= measurement.chest %></td>
-          <td><%= measurement.waist %></td>
-          <td><%= measurement.buttocks %></td>
-          <td><%= measurement.comment %></td>
+          <td><%= measurement.chest %> cm</td>
+          <td><%= measurement.waist %> cm</td>
+          <td><%= measurement.buttocks %> cm</td>
+          <td><%= measurement.comment %> cm</td>
 
           <td>
             <%= link "Show", to: Routes.measurement_path(@conn, :show, measurement) %>
@@ -42,4 +42,38 @@
     </table>
 
   </div>
-  <span><%= link "New Measurement", to: Routes.measurement_path(@conn, :new) %></span>
+</div>
+<%# Mobile View %>
+<div class="d-lg-none">
+  <div class="table-responsive">
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Biceps</th>
+          <th scope="col">Thighs</th>
+          <th scope="col">Body</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for measurement <- @measurements do %>
+        <tr>
+          <td scope="row">
+            <%= link measurement.date, to: Routes.measurement_path(@conn, :show, measurement), class: "btn btn-outline-primary btn-sm" %>
+          </td>
+          <td>
+            <%= average([measurement.right_bicep, measurement.left_bicep]) %> cm
+          </td>
+          <td>
+            <%= average([measurement.right_thigh, measurement.left_thigh]) %> cm
+          </td>
+          <td><%= average([measurement.chest, measurement.waist, measurement.buttocks]) %> cm</td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div>
+<span><%= link "New", to: Routes.measurement_path(@conn, :new), class: "primary-button" %></span>
+</div>
