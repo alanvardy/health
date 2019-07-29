@@ -19,6 +19,7 @@ defmodule Health.Account.EditableUser do
 
   schema "users" do
     has_many :logs, Health.Weight.Log, foreign_key: :user_id
+    has_many :measurements, Health.Dimension.Measurement, foreign_key: :user_id
     field :roles, :integer
     field :name, :string
 

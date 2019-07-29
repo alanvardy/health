@@ -5,6 +5,7 @@ defmodule Health.Factory do
   """
   use ExMachina.Ecto, repo: Health.Repo
   alias Health.Account.{EditableUser, User}
+  alias Health.Dimension.Measurement
   alias Health.Routine.Exercise
   alias Health.Weight.Log
 
@@ -46,8 +47,24 @@ defmodule Health.Factory do
   def log_factory do
     %Log{
       date: Timex.today(),
-      weight: Faker.random_between(100, 240) * (Faker.random_uniform() + 1),
+      weight: random_float(100, 500),
       comment: Faker.StarWars.character(),
+      user: build(:user)
+    }
+  end
+
+  @spec measurement_factory :: %Measurement{}
+  def measurement_factory do
+    %Measurement{
+      date: Timex.today(),
+      comment: Faker.StarWars.character(),
+      buttocks: 120.5,
+      chest: 120.5,
+      left_bicep: 120.5,
+      left_thigh: 120.5,
+      right_bicep: 120.5,
+      right_thigh: 120.5,
+      waist: 120.5,
       user: build(:user)
     }
   end
@@ -59,5 +76,9 @@ defmodule Health.Factory do
       difficulty: Faker.random_between(1, 10),
       description: Faker.StarWars.character()
     }
+  end
+
+  defp random_float(min, max) do
+    Faker.random_between(min, trunc(max / 2)) * (Faker.random_uniform() + 1)
   end
 end

@@ -1,0 +1,45 @@
+  <h1>Listing Measurements</h1>
+  <div class="table-responsive">
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Biceps</th>
+          <th scope="col">Thighs</th>
+          <th scope="col">Chest</th>
+          <th scope="col">Waist</th>
+          <th scope="col">Buttocks</th>
+          <th scope="col">Comment</th>
+
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for measurement <- @measurements do %>
+        <tr>
+          <td scope="row"><%= measurement.date %></td>
+          <td>
+            <%= measurement.right_bicep %><br>
+            <%= measurement.left_bicep %>
+          </td>
+          <td>
+            <%= measurement.right_thigh %><br>
+            <%= measurement.left_thigh %>
+          </td>
+          <td><%= measurement.chest %></td>
+          <td><%= measurement.waist %></td>
+          <td><%= measurement.buttocks %></td>
+          <td><%= measurement.comment %></td>
+
+          <td>
+            <%= link "Show", to: Routes.measurement_path(@conn, :show, measurement) %>
+            <%= link "Edit", to: Routes.measurement_path(@conn, :edit, measurement) %>
+            <%= link "Delete", to: Routes.measurement_path(@conn, :delete, measurement), method: :delete, data: [confirm: "Are you sure?"] %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+  <span><%= link "New Measurement", to: Routes.measurement_path(@conn, :new) %></span>
