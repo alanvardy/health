@@ -29,7 +29,7 @@
           <td><%= measurement.chest %> cm</td>
           <td><%= measurement.waist %> cm</td>
           <td><%= measurement.buttocks %> cm</td>
-          <td><%= measurement.comment %> cm</td>
+          <td><%= measurement.comment %></td>
 
           <td>
             <%= link "Show", to: Routes.measurement_path(@conn, :show, measurement) %>
