@@ -5,58 +5,71 @@
 </div>
 <% end %>
 
-<div class="form-group">
-  <%= label f, :date %>
-  <%= date_select f, :date, class: "form-control" %>
-  <%= error_tag f, :date %>
-</div>
+<div class="row">
+  <div class="col-lg-6">
+    <div class="form-group row">
+      <%= label f, :right_bicep, class: "col-4 col-form-label" %>
+      <%= number_input f, :right_bicep, step: 0.1, class: "form-control col-8" %>
+      <%= error_tag f, :right_bicep %>
+    </div>
+  </div>
 
-<div class="form-group">
-  <%= label f, :right_bicep %>
-  <%= number_input f, :right_bicep, step: 0.1, class: "form-control" %>
-  <%= error_tag f, :right_bicep %>
-</div>
+  <div class="col-lg-6">
+    <div class="form-group row">
+      <%= label f, :left_bicep, class: "col-4 col-form-label" %>
+      <%= number_input f, :left_bicep, step: 0.1, class: "form-control col-8" %>
+      <%= error_tag f, :left_bicep %>
+    </div>
+  </div>
 
-<div class="form-group">
-  <%= label f, :left_bicep %>
-  <%= number_input f, :left_bicep, step: 0.1, class: "form-control" %>
-  <%= error_tag f, :left_bicep %>
-</div>
+  <div class="col-lg-6">
+    <div class="form-group row">
+      <%= label f, :right_thigh, class: "col-4 col-form-label" %>
+      <%= number_input f, :right_thigh, step: 0.1, class: "form-control col-8" %>
+      <%= error_tag f, :right_thigh %>
+    </div>
+  </div>
 
-<div class="form-group">
-  <%= label f, :right_thigh %>
-  <%= number_input f, :right_thigh, step: 0.1, class: "form-control" %>
-  <%= error_tag f, :right_thigh %>
-</div>
+  <div class="col-lg-6">
+    <div class="form-group row">
+      <%= label f, :left_thigh, class: "col-4 col-form-label" %>
+      <%= number_input f, :left_thigh, step: 0.1, class: "form-control col-8" %>
+      <%= error_tag f, :left_thigh %>
+    </div>
+  </div>
 
-<div class="form-group">
-  <%= label f, :left_thigh %>
-  <%= number_input f, :left_thigh, step: 0.1, class: "form-control" %>
-  <%= error_tag f, :left_thigh %>
-</div>
+  <div class="col-lg-6">
+    <div class="form-group row">
+      <%= label f, :chest, class: "col-4 col-form-label" %>
+      <%= number_input f, :chest, step: 0.1, class: "form-control col-8" %>
+      <%= error_tag f, :chest %>
+    </div>
+    <div class="form-group row">
+      <%= label f, :waist, class: "col-4 col-form-label" %>
+      <%= number_input f, :waist, step: 0.1, class: "form-control col-8" %>
+      <%= error_tag f, :waist %>
+    </div>
+    <div class="form-group row">
+      <%= label f, :buttocks, class: "col-4 col-form-label" %>
+      <%= number_input f, :buttocks, step: 0.1, class: "form-control col-8" %>
+      <%= error_tag f, :buttocks %>
+    </div>
 
-<div class="form-group">
-  <%= label f, :buttocks %>
-  <%= number_input f, :buttocks, step: 0.1, class: "form-control" %>
-  <%= error_tag f, :buttocks %>
-</div>
+  </div>
 
-<div class="form-group">
-  <%= label f, :chest %>
-  <%= number_input f, :chest, step: 0.1, class: "form-control" %>
-  <%= error_tag f, :chest %>
-</div>
 
-<div class="form-group">
-  <%= label f, :waist %>
-  <%= number_input f, :waist, step: 0.1, class: "form-control" %>
-  <%= error_tag f, :waist %>
-</div>
-
-<div class="form-group">
-  <%= label f, :comment %>
-  <%= text_input f, :comment, class: "form-control" %>
-  <%= error_tag f, :comment %>
+  <div class="col-lg-6">
+    <div class="form-group row">
+      <%= label f, :date, class: "col-4 col-form-label"%>
+      <%= date_input f, :date, class: "form-control col-8" %>
+      <%= error_tag f, :date %>
+    </div>
+    <div class="form-group row">
+      <%= label f, :comment, class: "col-4 col-form-label" %>
+      <%= textarea f, :comment, class: "form-control col-8", rows: 3 %>
+      <%= error_tag f, :comment %>
+    </div>
+  </div>
 </div>
 
 <div>

@@ -2,6 +2,10 @@
   @extend %button;
   @extend .btn-outline-primary;
 }
+.secondary-button {
+  @extend %button;
+  @extend .btn-outline-secondary;
+}
 
 .sm-primary-button {
   @extend %button;
