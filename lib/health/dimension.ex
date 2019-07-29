@@ -17,8 +17,18 @@ defmodule Health.Dimension do
       [%Measurement{}, ...]
 
   """
-  def list_measurements do
-    Repo.all(Measurement)
+
+  def list_measurements(user, opts \\ [])
+
+  def list_measurements(user, opts) do
+    limit = Keyword.get(opts, :limit, 100)
+
+    Measurement
+    |> where([l], l.user_id == ^user.id)
+    |> order_by([l], desc: l.date)
+    |> limit(^limit)
+    |> Repo.all()
+    |> Enum.reverse()
   end
 
   @doc """
