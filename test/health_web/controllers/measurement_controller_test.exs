@@ -79,7 +79,7 @@ defmodule HealthWeb.MeasurementControllerTest do
         |> log_in(user)
         |> get(Routes.measurement_path(conn, :show, id))
 
-      assert html_response(conn3, 200) =~ "Show Measurement"
+      assert html_response(conn3, 200) =~ "Measurement"
     end
 
     test "renders errors when logged in and data is invalid", %{conn: conn} do
