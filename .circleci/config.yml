@@ -12,6 +12,11 @@ jobs:  # basic units of work in a run
           POSTGRES_USER: postgres
           POSTGRES_DB: health_test
           POSTGRES_PASSWORD:
+      - image: circleci/postgres:10.1-alpine  # database image
+        environment:  # environment variables for database
+          POSTGRES_USER: postgres
+          POSTGRES_DB: health_dev
+          POSTGRES_PASSWORD:
 
     working_directory: ~/app  # directory where steps will run
 
