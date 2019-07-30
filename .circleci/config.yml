@@ -51,7 +51,7 @@ jobs:  # basic units of work in a run
       - run:  # special utility that stalls main process until DB is ready
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
-
+      - run: mix dialyzer --plt
       - run: mix check --no-parallel
 
       # - store_test_results:  # upload junit test results for display in Test Summary
