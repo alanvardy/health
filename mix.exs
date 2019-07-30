@@ -75,11 +75,11 @@ defmodule Health.MixProject do
       {:faker, "~> 0.12", only: :test},
       {:excoveralls, "~> 0.10", only: :test, runtime: false},
       # Tooling
-      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
       {:sshex, "~> 2.2.1"},
+      {:credo, "~> 1.1.0", only: :dev, runtime: false},
       {:ex_doc, "~> 0.21", only: :dev, runtime: false},
-      {:sobelow, "~> 0.8", only: :dev},
-      {:ex_check, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:sobelow, "~> 0.8", only: :dev, runtime: false},
+      {:ex_check, ">= 0.0.0", only: :dev, runtime: false},
       {:dialyxir, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
