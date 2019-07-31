@@ -59,7 +59,7 @@ jobs:  # basic units of work in a run
       - run: mix coveralls
       - run: mix credo --strict
       - run: mix sobelow --config
-      - run: mix dialyzer
+      - run: mix dialyzer --plt
       - run: MIX_ENV=prod mix compile --warnings-as-errors --force
 
       # - store_test_results:  # upload junit test results for display in Test Summary
