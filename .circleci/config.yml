@@ -51,7 +51,16 @@ jobs:  # basic units of work in a run
       - run:  # special utility that stalls main process until DB is ready
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: MIX_ENV=dev mix check --no-parallel
+
+      # TEST ALL THE THINGS!
+      - run: mix compile --warnings-as-errors --force
+      - run: mix format --check-formatted
+      - run: mix test
+      - run: mix coveralls
+      - run: mix credo --strict
+      - run: mix sobelow --config
+      - run: mix dialyzer --halt-exit-status
+      - run: MIX_ENV=prod mix compile -- warnings-as-errors --force
 
       # - store_test_results:  # upload junit test results for display in Test Summary
       #     # Read more: https://circleci.com/docs/2.0/collect-test-data/
