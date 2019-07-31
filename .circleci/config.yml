@@ -60,7 +60,7 @@ jobs:  # basic units of work in a run
       - run: mix credo --strict
       - run: mix sobelow --config
       - run: mix dialyzer --plt
-      - run: MIX_ENV=prod mix compile --warnings-as-errors --force
+      # - run: MIX_ENV=prod mix compile --warnings-as-errors --force
 
       # - store_test_results:  # upload junit test results for display in Test Summary
       #     # Read more: https://circleci.com/docs/2.0/collect-test-data/
