@@ -16,6 +16,7 @@
       <%= nav_link(@conn, "Exercises", to: Routes.exercise_path(@conn, :index)) %>
       <%= nav_link(@conn, "Users", to: Routes.user_path(@conn, :index)) %>
       <% end %>
+      <%= nav_link(@conn, "Contact", to: Routes.page_path(@conn, :contact)) %>
       <% end %>
     </ul>
     <ul class="navbar-nav">

@@ -31,6 +31,7 @@ defmodule HealthWeb.Router do
     pipe_through :browser
 
     get "/", HealthWeb.PageController, :index
+    resources "/contact", HealthWeb.ContactController, only: [:new, :create]
     pow_routes()
   end
 

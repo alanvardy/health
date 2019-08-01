@@ -6,4 +6,5 @@ defmodule HealthWeb.PageController do
     conn
     |> render("index.html")
   end
+
 end

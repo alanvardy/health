@@ -1,6 +1,10 @@
 defmodule Health.Email.Contact do
+  @moduledoc """
+  Contact form email to be sent to admin
+  """
   import Bamboo.Email
   alias Health.Email.Content
+  import Ecto.Changeset
 
   @spec compose(Health.Email.Content.t()) :: Bamboo.Email.t()
   def compose(%Content{from_email: from_email, name: name} = content) do
@@ -13,10 +17,18 @@ defmodule Health.Email.Contact do
     )
   end
 
+  @spec changeset(struct(), map()) :: %Ecto.Changeset{}
+  def changeset(content, attrs) do
+    {content, Content.types()}
+    |> cast(attrs, [:from_email, :name, :message])
+    |> validate_required([:from_email, :name, :message])
+    |> validate_length(:message, min: 10, max: 1000)
+  end
+
   @spec contact_html_body(Health.Email.Content.t()) :: String.t()
   defp contact_html_body(%Content{from_email: from_email, name: name, message: message}) do
     """
-      You have received a new message from health.vardy codes
+      You have received a new message from health.vardy.codes
 
       <strong>Email:</strong> #{from_email}
       <strong>Name:</strong> #{name}
@@ -28,7 +40,7 @@ defmodule Health.Email.Contact do
   @spec contact_text_body(Health.Email.Content.t()) :: String.t()
   defp contact_text_body(%Content{from_email: from_email, name: name, message: message}) do
     """
-      You have received a new message from health.vardy codes
+      You have received a new message from health.vardy.codes
 
       Email: #{from_email}
       Name: #{name}
