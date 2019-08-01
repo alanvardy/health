@@ -53,13 +53,14 @@ jobs:  # basic units of work in a run
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       # TEST ALL THE THINGS!
-      - run: mix compile --warnings-as-errors --force
-      - run: mix format --check-formatted
-      - run: mix test
-      - run: mix coveralls
-      - run: mix credo --strict
-      - run: mix sobelow --config
-      - run: mix dialyzer --plt
+      - run: mix check
+      # - run: mix compile --warnings-as-errors --force
+      # - run: mix format --check-formatted
+      # - run: mix test
+      # - run: mix coveralls
+      # - run: mix credo --strict
+      # - run: mix sobelow --config
+      # - run: mix dialyzer --plt
       # - run: MIX_ENV=prod mix compile --warnings-as-errors --force
 
       # - store_test_results:  # upload junit test results for display in Test Summary
