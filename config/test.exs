@@ -16,3 +16,7 @@ config :health, HealthWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :health, Health.Mailer,
+  adapter: Bamboo.LocalAdapter
+
