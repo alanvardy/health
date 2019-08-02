@@ -30,23 +30,22 @@ defmodule Health.WeightTest do
                }
     end
 
-    # test "only trends the last 14 log entries" do
-    #   first =
-    #     17..15
-    #     |> Enum.map(fn d ->
-    #       build(:log, weight: 100, date: Timex.shift(Timex.today(), days: d))
-    #     end)
+    test "does not trend logs over 14 days old" do
+      a = build(:log, weight: 50, date: Timex.shift(Timex.today(), days: -150))
+      b = build(:log, weight: 100, date: Timex.shift(Timex.today(), days: -100))
+      c = build(:log, weight: 150, date: Timex.shift(Timex.today(), days: -15))
+      old_logs = [a, b, c]
 
-    #   second =
-    #     14..1
-    #     |> Enum.map(fn d ->
-    #       build(:log, weight: 200, date: Timex.shift(Timex.today(), days: d))
-    #     end)
-    #   logs = first ++ second
-    #   stats = Weight.build_stats(logs)
-    #   assert Enum.count(stats.adjusted_weights) == Enum.count(logs)
-    #   assert stats.trend.change == 0
-    # end
+      d = build(:log, weight: 64.5, date: Timex.shift(Timex.today(), days: -12))
+      e = build(:log, weight: 64.5, date: Timex.shift(Timex.today(), days: -5))
+      f = build(:log, weight: 64.5, date: Timex.today())
+      recent_logs = [d, e, f]
+
+      logs = old_logs ++ recent_logs
+      stats = Weight.build_stats(logs)
+      assert Enum.count(stats.adjusted_weights) == Enum.count(logs)
+      assert stats.trend.change == 0.0
+    end
   end
 
   describe "log" do
