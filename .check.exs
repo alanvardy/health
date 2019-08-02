@@ -8,7 +8,7 @@
   tools: [
     ## curated tools may be disabled (e.g. the check for compilation warnings)
     # {:compiler, false},
-r
+
     ## ...or adjusted (e.g. use one-line formatter for more compact credo output)
     # {:credo, command: "mix credo --format oneline"},
 
