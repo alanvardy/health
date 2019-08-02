@@ -42,10 +42,14 @@ defmodule Health.Weight.Calculations do
   defp trend([]), do: %{change: 0, text: @insufficient}
 
   defp trend(adjusted_weights) do
-    adjusted_weights
-    |> Enum.take(-14)
+    trends =
+      adjusted_weights
+      |> Enum.take(-14)
+      |> Enum.filter(fn t -> Timex.diff(Timex.today(), t.date, :days) < 14 end)
+
+    trends
     |> Enum.reduce(0, fn w, acc -> w.change + acc end)
-    |> divide(adjusted_weights)
+    |> divide(trends)
     |> Kernel.*(7)
     |> interpret_trend()
   end
