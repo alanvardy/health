@@ -19,7 +19,7 @@ defmodule HealthWeb.MeasurementControllerTest do
         |> log_in(user)
         |> get(Routes.measurement_path(conn, :index))
 
-      assert html_response(conn, 200) =~ "Listing Measurements"
+      assert html_response(conn, 200) =~ "Recent Measurements"
     end
 
     test "lists all measurements when logged in but no measurements", %{conn: conn} do
@@ -30,7 +30,7 @@ defmodule HealthWeb.MeasurementControllerTest do
         |> log_in(user)
         |> get(Routes.measurement_path(conn, :index))
 
-      assert html_response(conn, 200) =~ "Listing Measurements"
+      assert html_response(conn, 200) =~ "Recent Measurements"
     end
   end
 
