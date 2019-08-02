@@ -15,7 +15,7 @@
 
 <%= tab("Export") do %>
 <h1>Export Measurements</h1>
-<p>Coming soon!</p>
+<%= link "Download CSV", to: Routes.measurement_path(@conn, :export), class: "primary-button" %>
 <% end %>
 
 <% end %>

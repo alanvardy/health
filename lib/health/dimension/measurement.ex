@@ -6,16 +6,29 @@ defmodule Health.Dimension.Measurement do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @type t :: %__MODULE__{
+          date: Date.t(),
+          left_bicep: float,
+          right_bicep: float,
+          left_thigh: float,
+          right_thigh: float,
+          chest: float,
+          waist: float,
+          buttocks: float,
+          user_id: integer,
+          comment: String.t()
+        }
+
   schema "measurements" do
-    field :buttocks, :float
-    field :chest, :float
-    field :comment, :string
     field :date, :date
     field :left_bicep, :float
-    field :left_thigh, :float
     field :right_bicep, :float
+    field :left_thigh, :float
     field :right_thigh, :float
+    field :chest, :float
     field :waist, :float
+    field :buttocks, :float
+    field :comment, :string
     belongs_to :user, Health.Account.User
 
     timestamps()
