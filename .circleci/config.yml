@@ -54,14 +54,6 @@ jobs:  # basic units of work in a run
 
       # TEST ALL THE THINGS!
       - run: MIX_ENV=dev mix check --no-parallel
-      # - run: mix compile --warnings-as-errors --force
-      # - run: mix format --check-formatted
-      # - run: mix test
-      # - run: mix coveralls
-      # - run: mix credo --strict
-      # - run: mix sobelow --config
-      # - run: mix dialyzer --plt
-      # - run: MIX_ENV=prod mix compile --warnings-as-errors --force
 
       # - store_test_results:  # upload junit test results for display in Test Summary
       #     # Read more: https://circleci.com/docs/2.0/collect-test-data/

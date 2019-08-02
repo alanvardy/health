@@ -41,7 +41,12 @@ defmodule Health.MixProject do
   def application do
     [
       mod: {Health.Application, []},
-      extra_applications: [:timex, :logger, :runtime_tools]
+      extra_applications: [
+        :bamboo,
+        :timex,
+        :logger,
+        :runtime_tools
+      ]
     ]
   end
 
@@ -67,6 +72,7 @@ defmodule Health.MixProject do
       {:better_params, "~> 0.5.0"},
       {:timex, "~> 3.0"},
       {:csv, "~> 2.3"},
+      {:bamboo, "~> 1.2"},
       # Auth
       {:pow, "~> 1.0.11"},
       {:bodyguard, "~> 2.2"},

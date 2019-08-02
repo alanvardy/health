@@ -1,0 +1,27 @@
+  <h1>Contact</h1>
+  <p>
+    Questions? Comments? Feature requests? Use the form below or visit the <%= link "Github Repo", to: "https://github.com/alanvardy/health" %>
+  </p>
+  <%= form_for @changeset, Routes.contact_path(@conn, :create), [as: :message], fn f -> %>
+  <%= if @changeset.action do %>
+  <div class="alert alert-danger">
+  <p>Oops, something went wrong! Please check the errors below</p>
+  </div>
+  <% end %>
+  <div class="row">
+  <div class="form-group col-lg-6">
+  <%= text_input f, :name, class: "form-control", placeholder: "Name" %>
+  <%= error_tag f, :name %>
+  </div>
+<div class="form-group col-lg-6">
+  <%= email_input f, :from_email, class: "form-control", placeholder: "Email Address" %>
+  <%= error_tag f, :from_email %>
+</div>
+  </div>
+<div class="form-group">
+  <%= textarea f, :message, class: "form-control", placeholder: "Message", rows: 5 %>
+  <%= error_tag f, :message %>
+</div>
+
+  <%= submit "Send", class: "primary-button" %>
+  <% end %>

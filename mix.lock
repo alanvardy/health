@@ -1,4 +1,5 @@
 %{
+  "bamboo": {:hex, :bamboo, "1.2.0", "8aebd24f7c606c32d0163c398004a11608ca1028182a169b2e527793bfab7561", [:mix], [{:hackney, ">= 1.13.0", [hex: :hackney, repo: "hexpm", optional: false]}, {:plug, "~> 1.0", [hex: :plug, repo: "hexpm", optional: false]}, {:poison, ">= 1.5.0", [hex: :poison, repo: "hexpm", optional: true]}], "hexpm"},
   "better_params": {:hex, :better_params, "0.5.0", "fc20b88a809cf34548392a2436b5974814b0f0abdd52ed4598db8ba21767d94f", [:mix], [{:plug, ">= 1.0.0", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
   "bodyguard": {:hex, :bodyguard, "2.3.0", "873cedd7c97fee2adfb4e4d68319c7bc508d1428730e1519567776d4fb8279e0", [:mix], [{:plug, "~> 1.0", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
   "bunt": {:hex, :bunt, "0.2.0", "951c6e801e8b1d2cbe58ebbd3e616a869061ddadcc4863d0a2182541acae9a38", [:mix], [], "hexpm"},

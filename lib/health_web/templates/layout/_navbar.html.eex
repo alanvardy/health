@@ -17,6 +17,7 @@
       <%= nav_link(@conn, "Users", to: Routes.user_path(@conn, :index)) %>
       <% end %>
       <% end %>
+      <%= nav_link(@conn, "Contact", to: Routes.contact_path(@conn, :new)) %>
     </ul>
     <ul class="navbar-nav">
       <%= if assigns[:current_user] do %>
