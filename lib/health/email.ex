@@ -3,14 +3,26 @@ defmodule Health.Email do
   alias Health.Email.{Contact, Content}
   use Bamboo.Mailer, otp_app: :health
 
-  @spec contact(Health.Email.Content.t()) :: Bamboo.Email.t()
-  def contact(%Content{} = content), do: Contact.compose(content)
+  @spec contact_message(map) :: {:error, Ecto.Changeset.t()} | {:ok, Bamboo.Email.t()}
+  def contact_message(attrs) do
+    changeset = Contact.changeset(%Content{}, attrs)
 
-  @spec send_contact_message(map) :: none
-  def send_contact_message(attrs) do
-    %Content{}
-    |> Contact.changeset(attrs)
-    |> Contact.compose()
-    |> deliver_now
+    case changeset do
+      %{valid?: true, changes: changes} ->
+        message =
+          %Content{}
+          |> Map.merge(changes)
+          |> Contact.compose()
+
+        {:ok, message}
+
+      _ ->
+        {:error, changeset}
+    end
+  end
+
+  @spec send(Bamboo.Email.t()) :: Bamboo.Email.t()
+  def send(message) do
+    deliver_later(message)
   end
 end
