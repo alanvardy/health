@@ -12,7 +12,9 @@
 
     <div class="col text-center">
       <ul>
-        <li><a href='mailto:alan@alanvardy.com'>Contact</a></li>
+        <li>
+          <%= link "Contact", to: Routes.contact_path(@conn, :new) %>
+        </li>
       </ul>
     </div>
   </div>
