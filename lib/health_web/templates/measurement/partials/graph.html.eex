@@ -1,14 +1,14 @@
 <%= if @statistics.logs == [] do %>
 Nothing to display
 <% else %>
-<%=
-{dates, weights} = dates_and_weights(@statistics.logs, @length)
+<%# <%=
+{dates, weights} = dates_and_measurements(@statistics.logs, @length)
 {trend_dates, trend_weights} = dates_and_weights(@statistics.adjusted_weights, @length)
 
 HealthWeb.GraphHelper.render(
   [%{type: "scatter", name: "Actual", x: dates, y: weights},
   %{type: "scatter", name: "Trend", x: trend_dates, y: trend_weights}]
   ) |> raw()
-%>
+%> %>
 
 <% end %>

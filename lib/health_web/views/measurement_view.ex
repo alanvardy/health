@@ -8,4 +8,18 @@ defmodule HealthWeb.MeasurementView do
     |> Kernel./(length(list))
     |> Float.round(1)
   end
+
+  def dates_and_measurements(list, measurement, length) do
+    dates =
+      list
+      |> Enum.take(0 - length)
+      |> Enum.map(fn x -> x.date end)
+
+    measurements =
+      list
+      |> Enum.take(0 - length)
+      |> Enum.map(fn x -> Map.get(x, measurement) end)
+
+    {dates, measurements}
+  end
 end
