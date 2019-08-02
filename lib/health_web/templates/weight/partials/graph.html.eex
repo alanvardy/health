@@ -5,7 +5,7 @@ Nothing to display
 {dates, weights} = dates_and_weights(@statistics.logs, @length)
 {trend_dates, trend_weights} = dates_and_weights(@statistics.adjusted_weights, @length)
 
-Health.Weight.render_graph(
+HealthWeb.GraphHelper.render(
   [%{type: "scatter", name: "Actual", x: dates, y: weights},
   %{type: "scatter", name: "Trend", x: trend_dates, y: trend_weights}]
   ) |> raw()

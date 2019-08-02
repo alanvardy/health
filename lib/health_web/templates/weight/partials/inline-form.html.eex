@@ -15,7 +15,7 @@
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <%= number_input f, :weight, step: 0.1, class: "form-control", placeholder: "Weight" %>
+          <%= number_input f, :weight, step: 0.1, class: "form-control", placeholder: "Weight (lb)" %>
           <%= error_tag f, :weight %>
         </div>
       </div>
@@ -29,8 +29,6 @@
         <%= submit "Create", class: "btn btn-outline-primary" %>
       </div>
     </div>
-
-
     <% end %>
   </div>
 </div>

@@ -22,6 +22,7 @@ config :health, :pow,
   messages_backend: HealthWeb.Pow.Messages,
   user: Health.Account.User,
   repo: Health.Repo,
+  extensions: [PowPersistentSession],
   web_module: HealthWeb,
   messages_backend: HealthWeb.Pow.Messages
 

@@ -1,79 +1,21 @@
-<h1>Listing Measurements</h1>
-<%# Desktop view %>
-<div class="d-none d-lg-inline-flex">
-  <div class="table-responsive">
-    <table class="table">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Biceps</th>
-          <th scope="col">Thighs</th>
-          <th scope="col">Chest</th>
-          <th scope="col">Waist</th>
-          <th scope="col">Buttocks</th>
-          <th scope="col">Comment</th>
+<%= tabs do %>
 
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= for measurement <- @measurements do %>
-        <tr>
-          <td scope="row"><%= measurement.date %></td>
-          <td>
-            <%= average([measurement.right_bicep, measurement.left_bicep]) %> cm
-          </td>
-          <td>
-            <%= average([measurement.right_thigh, measurement.left_thigh]) %> cm
-          </td>
-          <td><%= measurement.chest %> cm</td>
-          <td><%= measurement.waist %> cm</td>
-          <td><%= measurement.buttocks %> cm</td>
-          <td><%= measurement.comment %></td>
-
-          <td>
-            <%= link "Show", to: Routes.measurement_path(@conn, :show, measurement) %>
-            <%= link "Edit", to: Routes.measurement_path(@conn, :edit, measurement) %>
-            <%= link "Delete", to: Routes.measurement_path(@conn, :delete, measurement), method: :delete, data: [confirm: "Are you sure?"] %>
-          </td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-
-  </div>
-</div>
-<%# Mobile View %>
-<div class="d-lg-none">
-  <div class="table-responsive">
-    <table class="table">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Biceps</th>
-          <th scope="col">Thighs</th>
-          <th scope="col">Body</th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= for measurement <- @measurements do %>
-        <tr>
-          <td scope="row">
-            <%= link measurement.date, to: Routes.measurement_path(@conn, :show, measurement), class: "btn btn-outline-primary btn-sm" %>
-          </td>
-          <td>
-            <%= average([measurement.right_bicep, measurement.left_bicep]) %> cm
-          </td>
-          <td>
-            <%= average([measurement.right_thigh, measurement.left_thigh]) %> cm
-          </td>
-          <td><%= average([measurement.chest, measurement.waist, measurement.buttocks]) %> cm</td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
-<div>
+<%= tab("Recent") do %>
+<h1>Recent Measurements</h1>
+<%= render "partials/graph.html", measurements: Enum.take(@measurements, -12) %>
+<%= render "partials/measurements.html", conn: @conn, measurements: Enum.take(@measurements, -12) %>
 <span><%= link "New", to: Routes.measurement_path(@conn, :new), class: "primary-button" %></span>
-</div>
+<% end %>
+
+<%= tab("All") do %>
+<h1>All Measurements</h1>
+<%= render "partials/measurements.html", conn: @conn, measurements: @measurements %>
+<span><%= link "New", to: Routes.measurement_path(@conn, :new), class: "primary-button" %></span>
+<% end %>
+
+<%= tab("Export") do %>
+<h1>Export Measurements</h1>
+<p>Coming soon!</p>
+<% end %>
+
+<% end %>

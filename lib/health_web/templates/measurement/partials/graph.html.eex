@@ -1,0 +1,27 @@
+<%= if @measurements == [] do %>
+Nothing to display
+<% else %>
+<%=
+dates = Enum.map(@measurements, fn x -> Map.get(x, :date) end)
+left_bicep = Enum.map(@measurements, fn x -> Map.get(x, :left_bicep) end)
+right_bicep = Enum.map(@measurements, fn x -> Map.get(x, :right_bicep) end)
+left_thigh = Enum.map(@measurements, fn x -> Map.get(x, :left_thigh) end)
+right_thigh = Enum.map(@measurements, fn x -> Map.get(x, :right_thigh) end)
+chest = Enum.map(@measurements, fn x -> Map.get(x, :chest) end)
+waist = Enum.map(@measurements, fn x -> Map.get(x, :waist) end)
+buttocks = Enum.map(@measurements, fn x -> Map.get(x, :buttocks) end)
+
+HealthWeb.GraphHelper.render(
+  [
+    %{type: "scatter", name: "Left bicep", x: dates, y: left_bicep},
+    %{type: "scatter", name: "Right bicep", x: dates, y: right_bicep},
+    %{type: "scatter", name: "Left thigh", x: dates, y: left_thigh},
+    %{type: "scatter", name: "Right Thigh", x: dates, y: right_thigh},
+    %{type: "scatter", name: "Chest", x: dates, y: chest},
+    %{type: "scatter", name: "Waist", x: dates, y: waist},
+    %{type: "scatter", name: "Buttocks", x: dates, y: buttocks}
+  ]
+  ) |> raw()
+%>
+
+<% end %>

@@ -7,7 +7,7 @@
 
 <div class="form-group">
   <%= label f, :weight %>
-  <%= number_input f, :weight, step: 0.1, class: "form-control" %>
+  <%= number_input f, :weight, step: 0.1, class: "form-control", placeholder: "lb" %>
   <%= error_tag f, :weight %>
 </div>
 

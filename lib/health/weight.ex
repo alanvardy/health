@@ -6,11 +6,8 @@ defmodule Health.Weight do
   alias Ecto.Changeset
   alias Health.Account.User
   alias Health.Repo
-  alias Health.Weight.{Calculations, Graph, Log, Stats}
+  alias Health.Weight.{Calculations, Log, Stats}
   import Ecto.Query, warn: false
-
-  @spec render_graph([map], map) :: any
-  def render_graph(data, layout \\ %{}), do: Graph.render(data, layout)
 
   @spec build_stats([%Log{}]) :: %Health.Weight.Stats{}
   def build_stats(logs) do
