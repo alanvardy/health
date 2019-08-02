@@ -13,7 +13,7 @@ defmodule HealthWeb.ExerciseController do
 
     exercises = Routine.list_exercises()
 
-    with :ok <- Bodyguard.permit(Exercise, :index, user, Exercise) do
+    with :ok <- Bodyguard.permit(Exercise, :index, user, %Exercise{}) do
       render(conn, "index.html", exercises: exercises)
     end
   end

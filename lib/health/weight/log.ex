@@ -13,6 +13,13 @@ defmodule Health.Weight.Log do
     timestamps()
   end
 
+  @type t :: %__MODULE__{
+          date: Date.t(),
+          weight: float,
+          user_id: integer,
+          comment: String.t()
+        }
+
   defdelegate authorize(action, user, params), to: LogPolicy
 
   @doc false

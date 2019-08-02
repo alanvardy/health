@@ -13,7 +13,7 @@ defmodule Health.MeasurementPolicy do
 
   # Can view their measurements and create new ones
   def authorize(action, %User{}, %Measurement{})
-      when action in [:index, :new, :create],
+      when action in [:index, :new, :create, :export],
       do: true
 
   # Catch-all: deny everything else

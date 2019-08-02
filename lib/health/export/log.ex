@@ -1,10 +1,10 @@
-defmodule Health.Weight.Export do
-  @moduledoc "Exports Weight data"
+defmodule Health.Export.Log do
+  @moduledoc "Export logs as CSV"
   alias Health.Weight.Log
 
   @doc "Sends a CSV binary"
-  @spec csv([%Log{}]) :: {binary, String.t()}
-  def csv(logs) do
+  @spec export([%Log{}]) :: {binary, String.t()}
+  def export(logs) do
     data =
       logs
       |> Enum.map(&convert_log/1)
