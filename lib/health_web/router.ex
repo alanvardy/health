@@ -33,6 +33,12 @@ defmodule HealthWeb.Router do
     get "/", HealthWeb.PageController, :index
     resources "/contact", HealthWeb.ContactController, only: [:new, :create]
     pow_routes()
+
+    # View sent emails at http://localhost:4000/sent_emails
+    if Mix.env() == :dev do
+      # If using Phoenix
+      forward "/sent_emails", Bamboo.SentEmailViewerPlug
+    end
   end
 
   # Protected routes

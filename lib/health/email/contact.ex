@@ -28,12 +28,13 @@ defmodule Health.Email.Contact do
   @spec contact_html_body(Health.Email.Content.t()) :: String.t()
   defp contact_html_body(%Content{from_email: from_email, name: name, message: message}) do
     """
-      You have received a new message from health.vardy.codes
-
-      <strong>Email:</strong> #{from_email}
-      <strong>Name:</strong> #{name}
-      <strong>Message:</strong>
+      <p>You have received a new message from health.vardy.codes</p>
+      <p>
+      <strong>Email:</strong> #{from_email} <br>
+      <strong>Name:</strong> #{name} <br>
+      <strong>Message:</strong> <br>
       #{message}
+      </p>
     """
   end
 
