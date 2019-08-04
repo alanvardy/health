@@ -1,10 +1,12 @@
 <%= tabs do %>
 
 <%= tab("Recent") do %>
+<div id="recent">
 <h1>Recent Measurements</h1>
 <%= render "partials/graph.html", measurements: Enum.take(@measurements, -12) %>
 <%= render "partials/measurements.html", conn: @conn, measurements: Enum.take(@measurements, -12) %>
 <span><%= link "New", to: Routes.measurement_path(@conn, :new), class: "primary-button" %></span>
+</div>
 <% end %>
 
 <%= tab("All") do %>
