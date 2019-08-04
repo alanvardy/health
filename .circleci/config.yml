@@ -20,7 +20,6 @@ jobs:  # basic units of work in a run
 
       - run: mix local.hex --force  # install Hex locally (without prompt)
       - run: mix local.rebar --force  # fetch a copy of rebar (without prompt)
-      - run: cd assets && npm install && npm install cypress --save-dev && cd ..
 
       - restore_cache:  # restores saved mix cache
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
@@ -55,6 +54,7 @@ jobs:  # basic units of work in a run
 
       # TEST ALL THE THINGS!
       - run: MIX_ENV=dev mix check --except dialyzer --except ex_unit
+      - run: cd assets && npm install && npm install cypress --save-dev && cd ..
       - run: mix cypress.run
 
       # - store_test_results:  # upload junit test results for display in Test Summary
