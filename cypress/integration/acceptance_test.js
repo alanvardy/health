@@ -12,14 +12,15 @@ describe('Acceptance Test', function () {
     // the name of your cookies will likely be different
     // this is just a simple example
     Cypress.Cookies.debug(true)
-    Cypress.Cookies.preserveOnce('_health_key')
   })
 
   it('Visits the main page', function () {
+    Cypress.Cookies.preserveOnce('_health_key')
     cy.visit('http://localhost:5000')
   })
 
   it('Uses the contact form', function () {
+    Cypress.Cookies.preserveOnce('_health_key')
     cy.contains('Contact').click()
     cy.get('input#message_name').type(name)
     cy.get('input#message_from_email').type(email)
@@ -29,6 +30,7 @@ describe('Acceptance Test', function () {
   })
 
   it('Registers an account', function () {
+    Cypress.Cookies.preserveOnce('_health_key')
     cy.contains('Register').click()
     cy.get('input#user_email').type(email)
     cy.get('input#user_name').type(name)
@@ -39,6 +41,7 @@ describe('Acceptance Test', function () {
   })
 
   it('Enters a weight record', function () {
+    Cypress.Cookies.preserveOnce('_health_key')
     cy.contains('Weight').click()
     cy.get('#trend').find('input#log_weight').type('234')
     cy.get('#trend').find('[type=submit]').click()
@@ -47,6 +50,7 @@ describe('Acceptance Test', function () {
   })
 
   it('Enters measurements', function () {
+    Cypress.Cookies.preserveOnce('_health_key')
     cy.contains('Measurements').click()
     cy.contains('New').click()
     cy.get('input#measurement_left_bicep').type('234')
@@ -61,6 +65,7 @@ describe('Acceptance Test', function () {
   })
 
   it('Changes name', function () {
+    Cypress.Cookies.preserveOnce('_health_key')
     cy.contains(name).click()
     cy.contains('Settings').click()
     cy.get('input#user_name').clear()
