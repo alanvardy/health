@@ -18,7 +18,7 @@ jobs:  # basic units of work in a run
     steps:  # commands that comprise the `build` job
       - checkout  # check out source code to working directory
 
-      - run: apt-get -y install xvfb libgtk-3-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2
+      - run: sudo apt-get -y install xvfb libgtk-3-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2
       - run: mix local.hex --force  # install Hex locally (without prompt)
       - run: mix local.rebar --force  # fetch a copy of rebar (without prompt)
 
