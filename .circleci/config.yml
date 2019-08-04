@@ -53,7 +53,9 @@ jobs:  # basic units of work in a run
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       # TEST ALL THE THINGS!
-      - run: MIX_ENV=dev mix check --except dialyzer --except ex_unit
+      - run: MIX_ENV=dev mix check --except dialyzer --except ex_unit --except cypress
+      - run: cd assets && npm install && npm install cypress --save-dev && cd ..
+      - run: mix cypress.run
 
       # - store_test_results:  # upload junit test results for display in Test Summary
       #     # Read more: https://circleci.com/docs/2.0/collect-test-data/
