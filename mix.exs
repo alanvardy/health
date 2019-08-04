@@ -102,6 +102,7 @@ defmodule Health.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"],
       "cypress.open": ["cmd ./cypress-open.sh"],
+      "cypress.ci": ["cmd ./cypress-ci.sh"],
       "cypress.run": ["cmd ./cypress-run.sh"]
     ]
   end
