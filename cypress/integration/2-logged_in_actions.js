@@ -1,4 +1,4 @@
-describe('Acceptance Test', function () {
+describe('Logged in actions', function () {
   const password = 'securepassword'
   const name = 'Dufus McDumbface'
   const new_name = 'Smarty McSmartface'
@@ -12,36 +12,19 @@ describe('Acceptance Test', function () {
     // the name of your cookies will likely be different
     // this is just a simple example
     Cypress.Cookies.debug(true)
+    Cypress.Cookies.preserveOnce('_health_key')
   })
 
-  it('Visits the main page', function () {
-    Cypress.Cookies.preserveOnce('_health_key')
+  it('Signs in', function () {
     cy.visit('http://localhost:5000')
-  })
-
-  it('Uses the contact form', function () {
-    Cypress.Cookies.preserveOnce('_health_key')
-    cy.contains('Contact').click()
-    cy.get('input#message_name').type(name)
-    cy.get('input#message_from_email').type(email)
-    cy.get('textarea#message_message').type('What a great website Alan!')
-    cy.get('[type=submit]').click()
-    cy.contains('Your message has been sent!')
-  })
-
-  it('Registers an account', function () {
-    Cypress.Cookies.preserveOnce('_health_key')
-    cy.contains('Register').click()
+    cy.contains('Sign in').click()
     cy.get('input#user_email').type(email)
-    cy.get('input#user_name').type(name)
     cy.get('input#user_password').type(password)
-    cy.get('input#user_confirm_password').type(password)
     cy.get('[type=submit]').click()
-    cy.contains('Welcome back Dufus McDumbface')
+    cy.contains('Welcome back')
   })
 
   it('Enters a weight record', function () {
-    Cypress.Cookies.preserveOnce('_health_key')
     cy.contains('Weight').click()
     cy.get('#trend').find('input#log_weight').type('234')
     cy.get('#trend').find('[type=submit]').click()
@@ -50,7 +33,6 @@ describe('Acceptance Test', function () {
   })
 
   it('Enters measurements', function () {
-    Cypress.Cookies.preserveOnce('_health_key')
     cy.contains('Measurements').click()
     cy.contains('New').click()
     cy.get('input#measurement_left_bicep').type('234')
@@ -65,7 +47,6 @@ describe('Acceptance Test', function () {
   })
 
   it('Changes name', function () {
-    Cypress.Cookies.preserveOnce('_health_key')
     cy.contains(name).click()
     cy.contains('Settings').click()
     cy.get('input#user_name').clear()
@@ -80,14 +61,5 @@ describe('Acceptance Test', function () {
     cy.contains(new_name).click()
     cy.contains('Sign Out').click()
     // cy.contains('Goodbye!')
-  })
-
-  it('Signs back in', function () {
-    cy.visit('http://localhost:5000')
-    cy.contains('Sign in').click()
-    cy.get('input#user_email').type(email)
-    cy.get('input#user_password').type(password)
-    cy.get('[type=submit]').click()
-    cy.contains('Welcome back')
   })
 })
