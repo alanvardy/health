@@ -28,6 +28,6 @@ describe('Acceptance Test', function () {
     cy.get('#trend').find('input#log_weight').type('234')
     cy.get('#trend').find('[type=submit]').click()
     cy.contains('Recent Logs').click()
-    cy.contains('235.0')
+    cy.contains('234.0')
   })
 })
