@@ -6,10 +6,8 @@ defmodule Health.ExercisePolicy do
   @behaviour Bodyguard.Policy
 
   # Signed in users can access all exercises
-  @spec authorize(any, any, any) :: boolean
-  def authorize(_, %User{}, Exercise), do: true
-
   # Signed in users can edit/create/destroy any exercise
+  @spec authorize(any, any, any) :: boolean
   def authorize(_, %User{}, %Exercise{}), do: true
 
   # Catch-all: deny everything else

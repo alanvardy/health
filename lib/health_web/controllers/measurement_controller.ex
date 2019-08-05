@@ -2,8 +2,8 @@ defmodule HealthWeb.MeasurementController do
   use HealthWeb, :controller
 
   alias Health.Account.User
-  alias Health.Dimension
   alias Health.Dimension.Measurement
+  alias Health.{Dimension, Export}
   alias Plug.Conn
 
   action_fallback HealthWeb.FallbackController
@@ -86,6 +86,23 @@ defmodule HealthWeb.MeasurementController do
             render(conn, "edit.html", measurement: measurement, changeset: changeset)
           end
       end
+    end
+  end
+
+  @spec export(Plug.Conn.t(), any) :: {:error, any} | Plug.Conn.t()
+  def export(conn, _params) do
+    user = get_current_user(conn)
+    measurements = Dimension.list_measurements(user)
+
+    with :ok <- Bodyguard.permit(Measurement, :export, user, %Measurement{}) do
+      {date, data} = Export.measurements(measurements)
+
+      send_download(
+        conn,
+        {:binary, data},
+        content_type: "application/csv",
+        filename: "#{date}_measurements.csv"
+      )
     end
   end
 

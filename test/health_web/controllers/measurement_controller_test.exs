@@ -191,6 +191,40 @@ defmodule HealthWeb.MeasurementControllerTest do
     end
   end
 
+  describe "export measurements" do
+    test "doesn't export logs when not logged in", %{conn: conn} do
+      conn = get(conn, Routes.measurement_path(conn, :export))
+
+      assert redirected_to(conn) ==
+               Routes.pow_session_path(conn, :new, request_path: "/measurements/export")
+    end
+
+    test "exports measurements when logged in", %{conn: conn} do
+      user = insert(:user)
+      insert(:measurement, user: user)
+
+      conn =
+        conn
+        |> log_in(user)
+
+      conn = get(conn, Routes.measurement_path(conn, :export))
+
+      assert response_content_type(conn, :csv)
+    end
+
+    test "exports when no measurements", %{conn: conn} do
+      user = insert(:user)
+
+      conn =
+        conn
+        |> log_in(user)
+
+      conn = get(conn, Routes.measurement_path(conn, :export))
+
+      assert response_content_type(conn, :csv)
+    end
+  end
+
   describe "delete measurement" do
     test "cannot delete measurement when not logged in", %{conn: conn} do
       measurement = insert(:measurement)

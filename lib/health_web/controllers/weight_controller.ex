@@ -1,8 +1,8 @@
 defmodule HealthWeb.WeightController do
   use HealthWeb, :controller
   alias Health.Account.User
-  alias Health.Weight
-  alias Health.Weight.{Export, Log}
+  alias Health.{Export, Weight}
+  alias Health.Weight.Log
   alias Plug.Conn
 
   action_fallback HealthWeb.FallbackController
@@ -16,7 +16,7 @@ defmodule HealthWeb.WeightController do
     changeset = Weight.change_log(log)
     statistics = Weight.build_stats(logs)
 
-    with :ok <- Bodyguard.permit(Log, :index, user, Log) do
+    with :ok <- Bodyguard.permit(Log, :index, user, %Log{}) do
       render(conn, "index.html", logs: logs, statistics: statistics, changeset: changeset)
     end
   end
@@ -36,7 +36,7 @@ defmodule HealthWeb.WeightController do
           |> redirect(to: Routes.weight_path(conn, :index))
 
         {:error, %Ecto.Changeset{} = changeset} ->
-          with :ok <- Bodyguard.permit(Log, :index, user, Log) do
+          with :ok <- Bodyguard.permit(Log, :index, user, %Log{}) do
             user = get_current_user(conn)
             logs = Weight.list_logs(user)
             statistics = Weight.build_stats(logs)
@@ -103,8 +103,8 @@ defmodule HealthWeb.WeightController do
     user = get_current_user(conn)
     logs = Weight.list_logs(user)
 
-    with :ok <- Bodyguard.permit(Log, :export, user, Log) do
-      {date, data} = Export.csv(logs)
+    with :ok <- Bodyguard.permit(Log, :export, user, %Log{}) do
+      {date, data} = Export.logs(logs)
 
       send_download(
         conn,

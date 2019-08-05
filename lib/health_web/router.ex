@@ -47,6 +47,8 @@ defmodule HealthWeb.Router do
 
     resources "/exercises", ExerciseController
     resources "/users", UserController, only: [:index, :edit, :update]
+    # must be before resources "/measurements"
+    get "/measurements/export", MeasurementController, :export
     resources "/measurements", MeasurementController
     resources "/weights", WeightController, except: [:new, :show]
     get "/weights/export", WeightController, :export

@@ -42,3 +42,7 @@ MnesiaCore*
 
 # Downloaded database
 latest.dump
+
+# Cypress
+node_modules
+cypress/videos/
