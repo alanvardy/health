@@ -1,6 +1,6 @@
 version: 2  # use CircleCI 2.0 instead of CircleCI Classic
 jobs:  # basic units of work in a run
-  build:  # runs not using Workflows must have a `build` job as entry point
+  ex_check:  # runs not using Workflows must have a `build` job as entry point
     parallelism: 1  # run only one instance of this job in parallel
     docker:  # run the steps with Docker
     # Find your dockerfile here https://github.com/CircleCI-Public/circleci-dockerfiles/tree/master/elixir/images
@@ -53,12 +53,12 @@ jobs:  # basic units of work in a run
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       # TEST ALL THE THINGS!
-      - run: MIX_ENV=dev mix check --except dialyzer --except ex_unit --except cypress
+      - run: MIX_ENV=dev mix check --except ex_unit --except cypress
 
       # - store_test_results:  # upload junit test results for display in Test Summary
       #     # Read more: https://circleci.com/docs/2.0/collect-test-data/
       #     path: _build/test/lib/REPLACE_WITH_YOUR_APP_NAME # Replace with the name of your :app
-  build2:  # runs not using Workflows must have a `build` job as entry point
+  system_test:
     parallelism: 1  # run only one instance of this job in parallel
     docker:  # run the steps with Docker
     # Find your dockerfile here https://github.com/CircleCI-Public/circleci-dockerfiles/tree/master/elixir/images
@@ -132,12 +132,12 @@ workflows:
   version: 2
   build-deploy:
     jobs:
-      - build
-      - build2
+      - ex_check
+      - system_test
       - deploy:
           requires:
-            - build
-            - build2
+            - ex_check
+            - system_test
           filters:
             branches:
               only: master
