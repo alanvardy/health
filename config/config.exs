@@ -23,6 +23,7 @@ config :health, :pow,
   user: Health.Account.User,
   repo: Health.Repo,
   extensions: [PowPersistentSession],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
   web_module: HealthWeb,
   messages_backend: HealthWeb.Pow.Messages
 

@@ -45,7 +45,8 @@ defmodule Health.MixProject do
         :bamboo,
         :timex,
         :logger,
-        :runtime_tools
+        :runtime_tools,
+        :mnesia
       ]
     ]
   end
