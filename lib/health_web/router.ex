@@ -2,13 +2,9 @@ defmodule HealthWeb.Router do
   use HealthWeb, :router
   use Pow.Phoenix.Router
 
-  alias HealthWeb.Plugs
-
   pipeline :protected do
     plug Pow.Plug.RequireAuthenticated,
       error_handler: Pow.Phoenix.PlugErrorHandler
-
-    plug Plugs.CurrentUser
   end
 
   @csp "style-src 'self' 'unsafe-inline' 'unsafe-eval'"
