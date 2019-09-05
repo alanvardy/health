@@ -1,5 +1,0 @@
-<div class="exercise">
-  <h2><%= link @exercise.name, to: Routes.exercise_path(@conn, :show, @exercise) %></h2>
-  <p><span class="badge badge-info">Difficulty: <%= @exercise.difficulty %></span></p>
-  <p><%= @exercise.description %></p>
-</div>
