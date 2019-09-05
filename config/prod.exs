@@ -14,7 +14,8 @@ config :health, HealthWeb.Endpoint,
   url: [host: System.get_env("WEB_HOST"), port: 5000],
   # force_ssl: [hsts: true],
   load_from_system_env: true,
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  cache_store_backend: Pow.Store.Backend.MnesiaCache
 
 # Do not print debug messages in production
 config :logger, level: :info
