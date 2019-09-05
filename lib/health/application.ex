@@ -15,7 +15,7 @@ defmodule Health.Application do
       HealthWeb.Endpoint,
       # Starts a worker by calling: Health.Worker.start_link(arg)
       # {Health.Worker, arg},
-      {Pow.Store.Backend.MnesiaCache, nodes: [node()]}
+      Pow.Store.Backend.MnesiaCache
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
