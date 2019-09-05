@@ -6,7 +6,6 @@ defmodule Health.Factory do
   use ExMachina.Ecto, repo: Health.Repo
   alias Health.Account.{EditableUser, User}
   alias Health.Dimension.Measurement
-  alias Health.Routine.Exercise
   alias Health.Weight.Log
 
   @spec user_factory :: Health.Account.User.t()
@@ -66,15 +65,6 @@ defmodule Health.Factory do
       right_thigh: 120.5,
       waist: 120.5,
       user: build(:user)
-    }
-  end
-
-  @spec exercise_factory :: %Exercise{}
-  def exercise_factory do
-    %Exercise{
-      name: Faker.StarWars.character(),
-      difficulty: Faker.random_between(1, 10),
-      description: Faker.StarWars.character()
     }
   end
 

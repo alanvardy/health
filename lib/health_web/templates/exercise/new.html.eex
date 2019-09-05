@@ -1,2 +1,0 @@
-<h1>New Exercise</h1>
-<%= render("_form.html", conn: @conn, changeset: @changeset, action: Routes.exercise_path(@conn, :create)) %>
