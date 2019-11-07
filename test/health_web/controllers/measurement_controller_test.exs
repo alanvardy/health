@@ -60,7 +60,7 @@ defmodule HealthWeb.MeasurementControllerTest do
         post(conn, Routes.measurement_path(conn, :create), measurement: params_for(:measurement))
 
       assert redirected_to(conn) ==
-               Routes.pow_session_path(conn, :new, request_path: "/measurements")
+               Routes.pow_session_path(conn, :new)
     end
 
     test "redirects to show when data is valid and logged in", %{conn: conn} do
@@ -144,7 +144,7 @@ defmodule HealthWeb.MeasurementControllerTest do
         )
 
       assert redirected_to(conn) ==
-               Routes.pow_session_path(conn, :new, request_path: "/measurements/#{measurement.id}")
+               Routes.pow_session_path(conn, :new)
     end
 
     test "doesn't update when different user", %{conn: conn} do
@@ -234,7 +234,7 @@ defmodule HealthWeb.MeasurementControllerTest do
         |> delete(Routes.measurement_path(conn, :delete, measurement))
 
       assert redirected_to(conn) ==
-               Routes.pow_session_path(conn, :new, request_path: "/measurements/#{measurement.id}")
+               Routes.pow_session_path(conn, :new)
     end
 
     test "cannot delete measurement when logged in as a different user", %{conn: conn} do

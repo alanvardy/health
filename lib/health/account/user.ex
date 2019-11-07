@@ -22,7 +22,6 @@ defmodule Health.Account.User do
 
   # (Not currently used)
   # defdelegate authorize(action, user, params), to: UserPolicy
-
   def changeset(user_or_changeset, attrs) do
     user_or_changeset
     |> pow_changeset(attrs)
