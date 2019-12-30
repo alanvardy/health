@@ -68,7 +68,7 @@ defmodule HealthWeb.UserControllerTest do
       conn = put(conn, Routes.user_path(conn, :update, user), user: params_for(:user, roles: 2))
 
       assert redirected_to(conn) ==
-               Routes.pow_session_path(conn, :new, request_path: "/users/#{user.id}")
+               Routes.pow_session_path(conn, :new)
     end
 
     test "redirects when data is valid and admin is logged in", %{conn: conn} do

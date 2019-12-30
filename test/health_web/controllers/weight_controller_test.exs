@@ -72,7 +72,7 @@ defmodule HealthWeb.WeightControllerTest do
     test "doesn't create when not logged in", %{conn: conn} do
       conn = post(conn, Routes.weight_path(conn, :create), log: params_for(:log))
 
-      assert redirected_to(conn) == Routes.pow_session_path(conn, :new, request_path: "/weights")
+      assert redirected_to(conn) == Routes.pow_session_path(conn, :new)
     end
 
     test "redirects to index when data is valid and logged in", %{conn: conn} do
@@ -139,7 +139,7 @@ defmodule HealthWeb.WeightControllerTest do
       conn = put(conn, Routes.weight_path(conn, :update, log), log: params_for(:log, weight: 235))
 
       assert redirected_to(conn) ==
-               Routes.pow_session_path(conn, :new, request_path: "/weights/#{log.id}")
+               Routes.pow_session_path(conn, :new)
     end
 
     test "redirects when data is valid and user is logged in", %{conn: conn} do
@@ -186,7 +186,7 @@ defmodule HealthWeb.WeightControllerTest do
       conn = delete(conn, Routes.weight_path(conn, :delete, log))
 
       assert redirected_to(conn) ==
-               Routes.pow_session_path(conn, :new, request_path: "/weights/#{log.id}")
+               Routes.pow_session_path(conn, :new)
     end
 
     test "deletes chosen log when user is logged in", %{conn: conn} do
