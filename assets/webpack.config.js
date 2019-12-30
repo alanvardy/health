@@ -1,17 +1,10 @@
 const path = require('path');
 const glob = require('glob');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MinifyPlugin = require('babel-minify-webpack-plugin');
 
 module.exports = (env, options) => ({
-  optimization: {
-    minimizer: [
-      new UglifyJsPlugin({ cache: true, parallel: true, sourceMap: false }),
-      new OptimizeCSSAssetsPlugin({})
-    ]
-  },
   entry: {
     './js/app.js': glob.sync('./vendor/**/*.js').concat(['./js/app.js'])
   },
@@ -21,6 +14,13 @@ module.exports = (env, options) => ({
   },
   module: {
     rules: [
+      {
+        test: require.resolve('jquery'),
+        use: [
+          { loader: 'expose-loader', options: '$' },
+          { loader: 'expose-loader', options: 'jQuery' }
+        ]
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -36,6 +36,7 @@ module.exports = (env, options) => ({
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: '../css/app.css' }),
+    new MinifyPlugin(),
     new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
   ]
 });
