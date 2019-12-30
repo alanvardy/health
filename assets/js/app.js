@@ -8,5 +8,3 @@ window.$ = $;
 
 import "bootstrap"
 import "phoenix_html"
-
-import { Socket } from "phoenix"
