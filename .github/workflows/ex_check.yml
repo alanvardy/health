@@ -1,4 +1,4 @@
-name: Elixir ex_check
+name: Phoenix ex_check
 
 on: push
 
@@ -15,7 +15,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
     steps:
       - uses: actions/checkout@v1.0.0
       - uses: actions/cache@v1
@@ -30,6 +29,7 @@ jobs:
           key: ${{ runner.os }}-build-ex_check-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
             ${{ runner.os }}-build-ex_check-
+      # - run: cp config/dev.secret.exs.example config/dev.secret.exs
       - uses: actions/setup-elixir@v1.0.0
         with:
           otp-version: 22.x

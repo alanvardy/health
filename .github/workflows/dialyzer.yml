@@ -1,4 +1,4 @@
-name: Elixir Dialyxir
+name: Phoenix Dialyzer
 
 on: push
 
@@ -15,7 +15,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
     steps:
       - uses: actions/checkout@v1.0.0
       - uses: actions/cache@v1
@@ -30,9 +29,10 @@ jobs:
           key: ${{ runner.os }}-build-dialyzer-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
             ${{ runner.os }}-build-dialyzer-
+      # - run: cp config/dev.secret.exs.example config/dev.secret.exs
       - uses: actions/setup-elixir@v1.0.0
         with:
-          otp-version: 22.x
-          elixir-version: 1.9.x
+          otp-version: 22.1
+          elixir-version: 1.9.1
       - run: mix deps.get
       - run: MIX_ENV=dev mix check --only dialyzer
