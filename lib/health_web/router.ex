@@ -40,8 +40,6 @@ defmodule HealthWeb.Router do
   # Protected routes
   scope "/", HealthWeb do
     pipe_through [:browser, :protected]
-
-    resources "/exercises", ExerciseController
     resources "/users", UserController, only: [:index, :edit, :update]
     # must be before resources "/measurements"
     get "/measurements/export", MeasurementController, :export
