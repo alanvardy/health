@@ -1,5 +1,9 @@
 # Health
 
+## Video
+
+[![Watch the video](https://img.youtube.com/vi/hpD-4UeHYW4/0.jpg)](https://www.youtube.com/watch?v=hpD-4UeHYW4)
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
