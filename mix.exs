@@ -83,7 +83,7 @@ defmodule Health.MixProject do
       # Tooling
       {:sshex, "~> 2.2.1"},
       {:ex_check, ">= 0.0.0", only: :dev, runtime: false},
-      {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.2.2", only: [:dev, :test], runtime: false},
       {:dialyxir, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:sobelow, "~> 0.8", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.10", only: :test, runtime: false},
