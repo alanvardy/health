@@ -45,11 +45,11 @@ config :health, Health.Repo,
 config :health, env: :prod
 
 config :health, Health.Email,
-api_key: sendgrid_api_key,
-adapter: Bamboo.SendGridAdapter,
-hackney_opts: [
-  recv_timeout: :timer.minutes(1)
-]
+  api_key: sendgrid_api_key,
+  adapter: Bamboo.SendGridAdapter,
+  hackney_opts: [
+    recv_timeout: :timer.minutes(1)
+  ]
 
 config :health, HealthWeb.Endpoint,
   secret_key_base: secret_key_base,
