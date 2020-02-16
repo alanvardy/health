@@ -23,12 +23,12 @@ secret_key_base =
     You can generate one by calling: mix phx.gen.secret
     """
 
-sendgrid_api_key =
-  System.get_env("SENDGRID_API_KEY") ||
-    raise """
-    environment variable SENDGRID_API_KEY is missing.
-    For example: SENDGRID_API_KEY=xxxxxxxxxxxxxxxxxxxx
-    """
+# sendgrid_api_key =
+#   System.get_env("SENDGRID_API_KEY") ||
+#     raise """
+#     environment variable SENDGRID_API_KEY is missing.
+#     For example: SENDGRID_API_KEY=xxxxxxxxxxxxxxxxxxxx
+#     """
 
 web_host =
   System.get_env("WEB_HOST") ||
@@ -44,12 +44,12 @@ config :health, Health.Repo,
 
 config :health, env: :prod
 
-config :health, Health.Email,
-api_key: sendgrid_api_key,
-adapter: Bamboo.SendGridAdapter,
-hackney_opts: [
-  recv_timeout: :timer.minutes(1)
-]
+# config :health, Health.Email,
+# api_key: sendgrid_api_key,
+# adapter: Bamboo.SendGridAdapter,
+# hackney_opts: [
+#   recv_timeout: :timer.minutes(1)
+# ]
 
 config :health, HealthWeb.Endpoint,
 secret_key_base: secret_key_base
