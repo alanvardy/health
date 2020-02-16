@@ -69,6 +69,12 @@ config :health, HealthWeb.Endpoint,
 
 config :health, Health.Email, adapter: Bamboo.LocalAdapter
 
+config :ex_dokku,
+  app: :health,
+  repo: Health.Repo,
+  postgres_username: "postgres",
+  backup_directory: "/home/vardy/download/"
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 

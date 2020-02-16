@@ -10,7 +10,12 @@ defmodule Health.Weight.Calculations do
   @doc "Takes daily weigh ins and returns adjusted weights with 10% smoothing"
   @spec build_adjusted_weights(%Stats{}) :: %Stats{}
   def build_adjusted_weights(%Stats{logs: logs} = stats) do
-    %Stats{stats | adjusted_weights: adjusted_weights(logs)}
+    adjusted_logs =
+      logs
+      |> fill_in_blanks()
+      |> adjusted_weights()
+
+    %Stats{stats | adjusted_weights: adjusted_logs}
   end
 
   defp adjusted_weights(logs, previous_weight \\ nil, agg \\ [])
@@ -31,6 +36,10 @@ defmodule Health.Weight.Calculations do
     change = new_weight - previous_weight
 
     adjusted_weights(tail, new_weight, [%{weight: new_weight, date: date, change: change} | agg])
+  end
+
+  defp fill_in_blanks(logs) do
+    logs
   end
 
   @spec build_trend(Health.Weight.Stats.t()) :: Health.Weight.Stats.t()
