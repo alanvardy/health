@@ -52,7 +52,7 @@ config :health, env: :prod
 # ]
 
 config :health, HealthWeb.Endpoint,
-secret_key_base: secret_key_base
+  secret_key_base: secret_key_base,
   http: [:inet6, port: System.get_env("PORT")],
   url: [host: web_host, port: 5000],
   # force_ssl: [hsts: true],
