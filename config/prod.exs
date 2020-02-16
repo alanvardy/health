@@ -44,10 +44,6 @@ config :health, Health.Repo,
 
 config :health, env: :prod
 
-config :health, HealthWeb.Endpoint,
-  http: [:inet6, port: String.to_integer(System.get_env("PORT") || "4000")],
-  secret_key_base: secret_key_base
-
 config :health, Health.Email,
   api_key: sendgrid_api_key,
   adapter: Bamboo.SendGridAdapter,
@@ -56,6 +52,7 @@ config :health, Health.Email,
   ]
 
 config :health, HealthWeb.Endpoint,
+  secret_key_base: secret_key_base,
   http: [:inet6, port: System.get_env("PORT")],
   url: [host: web_host, port: 5000],
   # force_ssl: [hsts: true],

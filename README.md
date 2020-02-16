@@ -4,6 +4,10 @@
 
 [![Watch the video](https://img.youtube.com/vi/hpD-4UeHYW4/0.jpg)](https://www.youtube.com/watch?v=hpD-4UeHYW4)
 
+An app for weight and other body measurements such as waist and thigh circumference. Stop guessing and start measuring!
+
+Estimates trends and plots your results on a graph.
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
@@ -22,7 +26,3 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
-
-## Mix tasks
-
-  * Download the latest Dokku database with `mix pull_dokku_database` (dokku git remote needs to be set)
