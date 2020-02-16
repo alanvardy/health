@@ -14,7 +14,7 @@ defmodule Health.Account.EditableUser do
           password_hash: String.t(),
           current_password: String.t(),
           password: String.t(),
-          confirm_password: String.t()
+          password_confirmation: String.t()
         }
 
   schema "users" do
@@ -28,7 +28,7 @@ defmodule Health.Account.EditableUser do
     field :password_hash, :string
     field :current_password, :string, virtual: true
     field :password, :string, virtual: true
-    field :confirm_password, :string, virtual: true
+    field :password_confirmation, :string, virtual: true
 
     timestamps()
   end

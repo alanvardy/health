@@ -14,7 +14,6 @@ defmodule Health.Factory do
       name: Faker.StarWars.character(),
       email: Faker.Internet.email(),
       password: "password",
-      confirm_password: "password",
       # Member
       roles: 1
     }
@@ -36,7 +35,6 @@ defmodule Health.Factory do
     %EditableUser{
       email: Faker.Internet.email(),
       password: "password",
-      confirm_password: "password",
       # Member
       roles: 1
     }

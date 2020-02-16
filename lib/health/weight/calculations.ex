@@ -39,7 +39,7 @@ defmodule Health.Weight.Calculations do
   end
 
   defp fill_in_blanks(logs) do
-    logs |> IO.inspect(limit: :infinity)
+    logs
   end
 
   @spec build_trend(Health.Weight.Stats.t()) :: Health.Weight.Stats.t()

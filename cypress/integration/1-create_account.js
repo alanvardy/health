@@ -33,7 +33,7 @@ describe('Create account', function () {
     cy.get('input#user_email').type(email)
     cy.get('input#user_name').type(name)
     cy.get('input#user_password').type(password)
-    cy.get('input#user_confirm_password').type(password)
+    cy.get('input#user_password_confirmation').type(password)
     cy.get('[type=submit]').click()
     cy.contains('Welcome back Dufus McDumbface')
   })
